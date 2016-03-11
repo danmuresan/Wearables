@@ -26,6 +26,18 @@ class HttpMbRequestsHelper {
 			System.println( "Something went wrong when sedning the request: " + ex );
 		}
 	}
+	
+	function onReceivedResponse(responseCode, data) {
+		if (responseCode == 200)
+		{
+			var response = data["args"];
+			System.println("Response data: " + response);
+		}
+		else
+		{
+			System.println("Failed to load\nError: " + responseCode.toString());
+		}
+	}
 
 	function postHrData(hrDataBuffer) {
 	
