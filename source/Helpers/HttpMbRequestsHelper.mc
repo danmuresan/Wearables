@@ -8,8 +8,8 @@ class HttpMbRequestsHelper {
 	{
 		var parameter = 
 		{
-			"Accel" => "Some accel",
-			"Hr" => "adsa"
+			"Monkeys" => "Awesome",
+			"ConnectIQ" => "1337"
 		};
 		
 		var options = 
@@ -23,7 +23,7 @@ class HttpMbRequestsHelper {
 		}
 		catch (ex)
 		{
-			System.println( "Something went wrong when sedning the request: " + ex );
+			System.println( "Something went wrong when sending the request: " + ex );
 		}
 	}
 	
@@ -35,7 +35,7 @@ class HttpMbRequestsHelper {
 		}
 		else
 		{
-			System.println("Failed to load\nError: " + responseCode.toString());
+			System.println("Fail occurred => Response code: " + responseCode.toString());
 		}
 	}
 
