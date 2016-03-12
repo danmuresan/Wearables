@@ -9,6 +9,7 @@ namespace GarminSensorApi.Db
         public DbSet<Acceleration> Accelerations { get; set; }
         public DbSet<AccelerationBatch> AccelerationBatches { get; set; }
         public DbSet<HeartRate> HeartRates { get; set; }
+        public DbSet<HeartRateBatch> HeartRateBatches { get; set; }
 
         public SensorDataContext() : base(Constants.DbConnectionName)
         {
