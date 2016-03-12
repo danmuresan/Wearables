@@ -62,7 +62,7 @@ namespace GarminSensorApi.Utilities
             try
             {
                 m_unitOfWork.Context.Set<TEntity>().Add(entity);
-                m_unitOfWork.Save();
+                m_unitOfWork.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -78,7 +78,7 @@ namespace GarminSensorApi.Utilities
             {
                 m_unitOfWork.Context.Set<TEntity>().Attach(entity);
                 m_unitOfWork.Context.Entry(entity).State = EntityState.Modified;
-                m_unitOfWork.Save();
+                m_unitOfWork.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -94,7 +94,7 @@ namespace GarminSensorApi.Utilities
             {
                 var entityToRemove = Get(entity);
                 m_unitOfWork.Context.Set<TEntity>().Remove(entityToRemove);
-                m_unitOfWork.Save();
+                m_unitOfWork.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -110,7 +110,7 @@ namespace GarminSensorApi.Utilities
             {
                 var entityToRemove = GetById(id);
                 m_unitOfWork.Context.Set<TEntity>().Remove(entityToRemove);
-                m_unitOfWork.Save();
+                m_unitOfWork.SaveChanges();
                 return true;
             }
             catch (Exception ex)

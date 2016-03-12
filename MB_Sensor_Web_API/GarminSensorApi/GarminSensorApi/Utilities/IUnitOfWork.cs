@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Data.Linq;
+using System.Data.Entity;
 
 namespace GarminSensorApi.Utilities
 {
     public interface IUnitOfWork : IDisposable
     {
-        DataContext Context { get; }
+        DbContext Context { get; }
 
         void SaveChanges();
     }
