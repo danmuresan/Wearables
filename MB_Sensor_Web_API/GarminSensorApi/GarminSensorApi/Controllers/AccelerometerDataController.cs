@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -8,7 +9,7 @@ using GarminSensorApi.Utilities;
 
 namespace GarminSensorApi.Controllers
 {
-    public class AccelerometerDataController : ApiController
+    public class AccelerometerDataController : DataController<AccelerationBatch>
     {
         private readonly IRepository<AccelerationBatch> m_accelerationDataRepository; 
 
@@ -18,21 +19,22 @@ namespace GarminSensorApi.Controllers
         }
 
         // GET api/values
-        public IEnumerable<string> Get()
+        [ResponseType(typeof(AccelerationBatch))]
+        public override IEnumerable<AccelerationBatch> Get()
         {
-            return new string[] { "value1", "value2" };
+            throw new NotImplementedException();
         }
 
         // GET api/values/5
-        public string Get(int id)
+        public override AccelerationBatch Get(int id)
         {
-            return "value";
+            throw new NotImplementedException();
         }
 
         // POST api/values
         [HttpPost]
         [ResponseType(typeof(AccelerationBatch))]
-        public IHttpActionResult Post([FromBody]AccelerationBatch accelerationBatch)
+        public override IHttpActionResult Post([FromBody]AccelerationBatch accelerationBatch)
         {
             if (accelerationBatch == null)
             {
@@ -48,13 +50,15 @@ namespace GarminSensorApi.Controllers
         }
 
         // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
+        public override IHttpActionResult Put(int id, [FromBody]AccelerationBatch value)
         {
+            throw new NotImplementedException();
         }
 
         // DELETE api/values/5
-        public void Delete(int id)
+        public override IHttpActionResult Delete(int id)
         {
+            throw new NotImplementedException();
         }
     }
 }

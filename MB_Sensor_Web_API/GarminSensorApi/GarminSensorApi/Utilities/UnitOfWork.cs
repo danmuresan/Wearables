@@ -11,10 +11,13 @@ namespace GarminSensorApi.Utilities
         public UnitOfWork()
         {
             Context = new SensorDataContext();
+            Context.Database.CreateIfNotExists();
+            Context.Database.Connection.Open();
         }
 
         public void Dispose()
         {
+            Context.Database.Connection.Close();
             Context.Dispose();
         }
 

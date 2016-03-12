@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GarminSensorApi.Models.SensorModels
 {
-    public class Acceleration
+    public class Acceleration : IDataTableModel
     {
         [Key]
         public long? Id { get; set; }
@@ -13,7 +13,7 @@ namespace GarminSensorApi.Models.SensorModels
         public double? ZAxisAcceleration { get; set; }
     }
 
-    public class AccelerationBatch
+    public class AccelerationBatch : IDataTableModel
     {
         [Key]
         public long? Id { get; set; }
