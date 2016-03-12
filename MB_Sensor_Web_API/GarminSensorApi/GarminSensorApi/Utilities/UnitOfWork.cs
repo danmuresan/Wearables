@@ -1,24 +1,26 @@
-﻿using System.Data.Linq;
+﻿using System;
+using System.Data.Entity;
+using GarminSensorApi.Db;
 
 namespace GarminSensorApi.Utilities
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public DataContext Context { get; }
+        public DbContext Context { get; private set; }
 
         public UnitOfWork()
         {
-            // TODO: ...
+            Context = new SensorDataContext();
         }
 
         public void Dispose()
         {
-            throw new System.NotImplementedException();
+            Context.Dispose();
         }
 
         public void SaveChanges()
         {
-            throw new System.NotImplementedException();
+            Context.SaveChanges();
         }
     }
 }

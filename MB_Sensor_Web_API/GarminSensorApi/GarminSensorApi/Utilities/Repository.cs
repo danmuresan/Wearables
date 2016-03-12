@@ -7,22 +7,14 @@ namespace GarminSensorApi.Utilities
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        private readonly IUnitOfWork m_unitOfWork;
-
-        public Repository() : this(new UnitOfWork())
-        {
-        }
-
-        public Repository(IUnitOfWork unitOfWork)
-        {
-            m_unitOfWork = unitOfWork ?? new UnitOfWork();
-        }
-
         public IEnumerable<TEntity> GetAll()
         {
             try
             {
-                return m_unitOfWork.Context.Set<TEntity>().ToList();
+                using (var unitOfWork = new UnitOfWork())
+                {
+                    return unitOfWork.Context.Set<TEntity>().ToList();                    
+                }
             }
             catch (Exception ex)
             {
@@ -35,7 +27,10 @@ namespace GarminSensorApi.Utilities
         {
             try
             {
-                return m_unitOfWork.Context.Set<TEntity>().Find(id);
+                using (var unitOfWork = new UnitOfWork())
+                {
+                    return unitOfWork.Context.Set<TEntity>().Find(id);
+                }
             }
             catch (Exception ex)
             {
@@ -48,7 +43,10 @@ namespace GarminSensorApi.Utilities
         {
             try
             {
-                return m_unitOfWork.Context.Set<TEntity>().Find(entity);
+                using (var unitOfWork = new UnitOfWork())
+                {
+                    return unitOfWork.Context.Set<TEntity>().Find(entity);
+                }
             }
             catch (Exception ex)
             {
@@ -61,9 +59,12 @@ namespace GarminSensorApi.Utilities
         {
             try
             {
-                m_unitOfWork.Context.Set<TEntity>().Add(entity);
-                m_unitOfWork.SaveChanges();
-                return true;
+                using (var unitOfWork = new UnitOfWork())
+                {
+                    unitOfWork.Context.Set<TEntity>().Add(entity);
+                    unitOfWork.SaveChanges();
+                    return true;
+                }
             }
             catch (Exception ex)
             {
@@ -76,10 +77,13 @@ namespace GarminSensorApi.Utilities
         {
             try
             {
-                m_unitOfWork.Context.Set<TEntity>().Attach(entity);
-                m_unitOfWork.Context.Entry(entity).State = EntityState.Modified;
-                m_unitOfWork.SaveChanges();
-                return true;
+                using (var unitOfWork = new UnitOfWork())
+                {
+                    unitOfWork.Context.Set<TEntity>().Attach(entity);
+                    unitOfWork.Context.Entry(entity).State = EntityState.Modified;
+                    unitOfWork.SaveChanges();
+                    return true;
+                }
             }
             catch (Exception ex)
             {
@@ -92,10 +96,13 @@ namespace GarminSensorApi.Utilities
         {
             try
             {
-                var entityToRemove = Get(entity);
-                m_unitOfWork.Context.Set<TEntity>().Remove(entityToRemove);
-                m_unitOfWork.SaveChanges();
-                return true;
+                using (var unitOfWork = new UnitOfWork())
+                {
+                    var entityToRemove = Get(entity);
+                    unitOfWork.Context.Set<TEntity>().Remove(entityToRemove);
+                    unitOfWork.SaveChanges();
+                    return true;
+                }
             }
             catch (Exception ex)
             {
@@ -108,10 +115,13 @@ namespace GarminSensorApi.Utilities
         {
             try
             {
-                var entityToRemove = GetById(id);
-                m_unitOfWork.Context.Set<TEntity>().Remove(entityToRemove);
-                m_unitOfWork.SaveChanges();
-                return true;
+                using (var unitOfWork = new UnitOfWork())
+                {
+                    var entityToRemove = GetById(id);
+                    unitOfWork.Context.Set<TEntity>().Remove(entityToRemove);
+                    unitOfWork.SaveChanges();
+                    return true;
+                }
             }
             catch (Exception ex)
             {
