@@ -5,12 +5,14 @@ class HttpMbRequestsHelper {
 	const POST_ACCEL_URL = "http://localhost:52001/api/AccelerometerData";
 	const POST_HR_URL = "http://localhost:52001/api/HrData";
 
+	// apparently, this makes a GET request now (same url as the post one, but different content)
+	// TODO: check how to make post requests with the data
 	hidden function makePostRequest ( rawData, url )
 	{
 		var parameter = 
 		{
-			"Monkeys" => "Awesome",
-			"ConnectIQ" => "1337"
+			"HeartRateValueList" => "[]",
+			"TimeStamp" => "2016-03-13T15:20:13.7036306+02:00"
 		};
 		
 		var options = 
