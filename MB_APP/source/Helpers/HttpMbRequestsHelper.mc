@@ -2,9 +2,10 @@ using Toybox.Communications as Comm;
 
 class HttpMbRequestsHelper {
 
-	const URL = "https://httpbin.org/get";
+	const POST_ACCEL_URL = "http://localhost:52001/api/AccelerometerData";
+	const POST_HR_URL = "http://localhost:52001/api/HrData";
 
-	hidden function makePostRequest ( rawData )
+	hidden function makePostRequest ( rawData, url )
 	{
 		var parameter = 
 		{
@@ -19,7 +20,7 @@ class HttpMbRequestsHelper {
 		
 		try
 		{
-			Comm.makeJsonRequest(URL, parameter, options, method(:onReceivedResponse));
+			Comm.makeJsonRequest(url, parameter, options, method(:onReceivedResponse));
 		}
 		catch (ex)
 		{
@@ -41,13 +42,14 @@ class HttpMbRequestsHelper {
 
 	function postHrData(hrDataBuffer) {
 	
-		makePostRequest(hrDataBuffer);
+		makePostRequest(hrDataBuffer, POST_HR_URL);
 		System.println( "Trying to send post request with HR data..." );
 	
 	}
 
 	function postAccData(accDataBuffer) {
 		
+		makePostRequest(accelDataBuffer, POST_ACCEL_URL);
 		System.println( "Trying to send post request with acc data..." );
 	
 	}
