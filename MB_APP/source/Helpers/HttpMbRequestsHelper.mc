@@ -25,26 +25,27 @@ class HttpMbRequestsHelper {
 	hidden function makePostRequest ( rawData, url )
 	{
 		var x = {
-			"HeartRateValueList" => [],
+			 "HeartRateValueList" => [ //[],
+			 {
+			      "Id" => 1,
+			      "HeartRateValue" => 1,
+			      "TimeStamp" => "2016-03-21T11:30:56.2579502+02:00"
+			    },
+			    {
+			      "Id" => 1,
+			      "HeartRateValue" => 1,
+			      "TimeStamp" => "2016-03-21T11:30:56.2579502+02:00"
+			    }
+		  	],
 		  "Id" => 1,
-		  
-		   /* {
-		      "Id"=> 1,
-		      "HeartRateValue"=> 1,
-		      "TimeStamp"=> "2016-03-21T11:30:56.2579502+02:00"
-		    },
-		    {
-		      "Id"=> 1,
-		      "HeartRateValue"=> 1,
-		      "TimeStamp"=> "2016-03-21T11:30:56.2579502+02:00"
-		    }
-		  ],*/
 		  "TimeStamp" => "2016-03-21T11:30:56.2584506+02:00"
 		}; 
 	
+	
 		var parameter = 
 		{
-			"S" => "1"
+			"Id" => 1,
+			"S" => 1
 		};
 		
 		var options = 
