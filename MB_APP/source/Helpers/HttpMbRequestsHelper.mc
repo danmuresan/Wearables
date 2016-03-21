@@ -1,23 +1,56 @@
 using Toybox.Communications as Comm;
 
+class HeartRateBatch {
+
+	hidden var id;
+	hidden var heartRateList;
+	
+	function initialize(_id, _hrList)
+	{
+		id = _id;
+		heartRateList = _hrList;
+	}
+}
+
+
 class HttpMbRequestsHelper {
 
 	const POST_ACCEL_URL = "http://localhost:52001/api/AccelerometerData";
-	const POST_HR_URL = "http://localhost:52001/api/HrData";
+	const POST_HR_URL = "http://localhost:52001/api/Ceva";
+
+	var list = new HeartRateBatch(5, new [5]);
 
 	// apparently, this makes a GET request now (same url as the post one, but different content)
 	// TODO: check how to make post requests with the data
 	hidden function makePostRequest ( rawData, url )
 	{
+		var x = {
+			"HeartRateValueList" => [],
+		  "Id" => 1,
+		  
+		   /* {
+		      "Id"=> 1,
+		      "HeartRateValue"=> 1,
+		      "TimeStamp"=> "2016-03-21T11:30:56.2579502+02:00"
+		    },
+		    {
+		      "Id"=> 1,
+		      "HeartRateValue"=> 1,
+		      "TimeStamp"=> "2016-03-21T11:30:56.2579502+02:00"
+		    }
+		  ],*/
+		  "TimeStamp" => "2016-03-21T11:30:56.2584506+02:00"
+		}; 
+	
 		var parameter = 
 		{
-			"HeartRateValueList" => "[]",
-			"TimeStamp" => "2016-03-13T15:20:13.7036306+02:00"
+			"S" => "1"
 		};
 		
 		var options = 
 		{
-			"Content-Type" => Comm.REQUEST_CONTENT_TYPE_JSON
+			:method => Comm.HTTP_REQUEST_METHOD_POST
+//			"Content-Type" => Comm.REQUEST_CONTENT_TYPE_JSON
 		};
 		
 		try
@@ -38,7 +71,7 @@ class HttpMbRequestsHelper {
 		}
 		else
 		{
-			System.println("Fail occurred => Response code: " + responseCode.toString());
+			System.println("Fail occurred => Response code: " + responseCode.toString() + " (" + data + ")");
 		}
 	}
 

@@ -1,6 +1,6 @@
 class HrBuffer extends SensorDataBuffer {
 
-	const HR_BUFFER_SIZE = 20;
+	const HR_BUFFER_SIZE = 10;
 	
 	hidden var hrBuffer;
 	hidden var hrBufferIndex;

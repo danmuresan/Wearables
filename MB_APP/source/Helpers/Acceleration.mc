@@ -6,7 +6,7 @@ class Acceleration {
 	
 	function initialize(x, y, z)
 	{
-	   System.println( "X: " + X + "Y: " + Y + "Z: " + Z );
+	   //System.println( "X: " + X + "Y: " + Y + "Z: " + Z );
 	   X = x;
 	   Y = y;
 	   Z = z;
@@ -14,19 +14,19 @@ class Acceleration {
 
 	function getXAxisAcceleration()
 	{
-		System.println( "X: " + X );
+		//System.println( "X: " + X );
 		return X;
 	}
 	
 	function getYAxisAcceleration()
 	{
-		System.println( "Y: " + Y );
+		//System.println( "Y: " + Y );
 		return Y;
 	}
 	
 	function getZAxisAcceleration()
 	{
-		System.println( "Z: " + Z );
+		//System.println( "Z: " + Z );
 		return Z;
 	}
 
