@@ -7,8 +7,8 @@ namespace GarminSensorApi.Controllers
     public abstract class DataController<TEntity> : ApiController where TEntity : IDataTableModel
     {
         // GET api/values
-        [HttpGet]
-        public abstract IEnumerable<TEntity> Get();
+        //[HttpGet]
+        //public abstract IEnumerable<TEntity> Get();
 
         // GET api/values/5
         [HttpGet]

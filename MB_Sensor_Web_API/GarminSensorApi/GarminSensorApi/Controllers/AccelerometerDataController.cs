@@ -19,11 +19,11 @@ namespace GarminSensorApi.Controllers
         }
 
         // GET api/values
-        [ResponseType(typeof(AccelerationBatch))]
-        public override IEnumerable<AccelerationBatch> Get()
-        {
-            throw new NotImplementedException();
-        }
+        //[ResponseType(typeof(AccelerationBatch))]
+        //public override IEnumerable<AccelerationBatch> Get()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         // GET api/values/5
         public override AccelerationBatch Get(int id)
