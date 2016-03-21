@@ -24,6 +24,7 @@ class HttpMbRequestsHelper {
 	// TODO: check how to make post requests with the data
 	hidden function makePostRequest ( rawData, url )
 	{
+	
 		var x = {
 			 "HeartRateValueList" => [ //[],
 			 {
