@@ -8,4 +8,10 @@ class SensorDataBuffer {
 	
 	function hasReachedBufferLimit() {
 	}
+	
+	function getElementAt(index){
+	}
+	
+	function resetBuffer(){
+	}
 }

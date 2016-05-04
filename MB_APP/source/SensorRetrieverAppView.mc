@@ -13,14 +13,17 @@ class SensorRetrieverAppView extends Ui.WatchFace {
 	hidden var hrDataBuffer;
 	hidden var accDataBuffer;
 	hidden var mbHttpRequestsHelper;
+	hidden var bleTransmitHelper;
 
     function initialize() {
         WatchFace.initialize();
         
+        //JsonSerializationTests.testAccel();
+        
         // initialize accelerometer on a timer
         acceleration = new Acceleration(0, 0, 0);
         sensorTimer = new Timer.Timer();
-        sensorTimer.start( method(:onTimerTick), 1, true );
+        sensorTimer.start( method(:onTimerTick), 50, true );
         
         // initialize heart rate sensor
         Sensor.setEnabledSensors( [Sensor.SENSOR_HEARTRATE] );
@@ -28,6 +31,7 @@ class SensorRetrieverAppView extends Ui.WatchFace {
         
         // initialize others
 		mbHttpRequestsHelper = new HttpMbRequestsHelper();
+		bleTransmitHelper = new BluetoothTransmitHelper();
 		accDataBuffer = new AccelerationBuffer();
 		hrDataBuffer = new HrBuffer();
     }
@@ -41,12 +45,31 @@ class SensorRetrieverAppView extends Ui.WatchFace {
 		{
 			if (accDataBuffer.hasReachedBufferLimit())
 			{
-				mbHttpRequestsHelper.postAccData(accDataBuffer);
+				//mbHttpRequestsHelper.postAccData(accDataBuffer);
+				bleTransmitHelper.transmitDataBatch(HttpMbRequestsHelper.bufferToJson(accDataBuffer));
 				dataSentMessage = "Acc data batch sent!";
+				accDataBuffer.resetBuffer();
 			}
-			
-			acceleration = getAccelerationData(sensorInfo.accel);
-			accDataBuffer.addSample(acceleration);
+			else
+			{
+				acceleration = getAccelerationData(sensorInfo.accel);
+				accDataBuffer.addSample(acceleration);
+			}
+		}
+		else if (sensorInfo.accel == null)
+		{
+			System.println("Code got here");
+			if (accDataBuffer.hasReachedBufferLimit())
+			{
+				bleTransmitHelper.transmitDataBatch(HttpMbRequestsHelper.bufferToJson(accDataBuffer));
+				dataSentMessage = "Acc data batch sent!";
+				accelDataBuffer.resetBuffer();
+			}
+			else
+			{
+				acceleration = getDummyAccelerationData();
+				accDataBuffer.addSample(acceleration);
+			}
 		}
     
     	Ui.requestUpdate();
@@ -56,18 +79,28 @@ class SensorRetrieverAppView extends Ui.WatchFace {
     	
     	// get heart rate data
 		var hr = sensorInfo.heartRate;
+		if (hr == null)
+		{
+			hr = 0;
+		}
+		
 		dataSentMessage = null;
 
 		if (hrDataBuffer.hasReachedBufferLimit())
     	{
-    		mbHttpRequestsHelper.postHrData(hrDataBuffer);
+    		//mbHttpRequestsHelper.postHrData(hrDataBuffer);
+    		//bleTransmitHelper.transmitDataBatch(HttpMbRequestsHelper.bufferToJson(hrDataBuffer));
+    		bleTransmitHelper.transmitDataBatch("{[\"Val\":\"0\",\"Val\":\"0\",\"Val\":\"0\",\"Val\":\"0\"]}");
+    		
     		dataSentMessage = "Hr data batch sent!";
+    		hrDataBuffer.resetBuffer();
     	}
-    	
-    	hrDataBuffer.addSample(hr);
-    	hrData = "Hr(" + hr  +")";
-    	System.println( hrData );
-    	
+    	else
+    	{
+	    	hrDataBuffer.addSample(hr);
+	    	hrData = "Hr(" + hr  +")";
+	    	System.println( hrData );
+    	}
     	
     	// get acceleration data
 		//var info = Sensor.getInfo();
@@ -86,6 +119,15 @@ class SensorRetrieverAppView extends Ui.WatchFace {
     	var accX = accel[0];
     	var accY = accel[1] * -1; // cardinal y direction is opposite to the screen coordinates
 		var accZ = accel[2];
+    	return new Acceleration(accX, accY, accZ);
+    }
+    
+    function getDummyAccelerationData()
+    {
+    	// MIZERIE pentru testare
+    	var accX = 10.5;
+    	var accY = 24.654;
+		var accZ = 113.2;
     	return new Acceleration(accX, accY, accZ);
     }
 
@@ -115,7 +157,15 @@ class SensorRetrieverAppView extends Ui.WatchFace {
 	        var accY = acceleration.getYAxisAcceleration();
 	        var accZ = acceleration.getZAxisAcceleration();
 	        
-	        timeString = timeString + " " + hrData + "\nX: " + accX + " Y: " + accY + " Z: " + accZ;
+	        if (hrData != null)
+	        {
+	        	timeString = timeString + " " + hrData + "\nX: " + accX + " Y: " + accY + " Z: " + accZ;	
+	        }
+	        else
+	        {
+	        	timeString = timeString + " " + "\nX: " + accX + " Y: " + accY + " Z: " + accZ;
+	        }
+	        
 	        
 	        view.setText(timeString);
         }

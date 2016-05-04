@@ -1,17 +1,28 @@
 class HrBuffer extends SensorDataBuffer {
 
-	const HR_BUFFER_SIZE = 10;
+	const HR_BUFFER_SIZE = 5;
 	
 	hidden var hrBuffer;
 	hidden var hrBufferIndex;
+	hidden var hrBufferSize;
 	
-	function initialize() {
-		hrBuffer = new [HR_BUFFER_SIZE];
+	function initialize(size) {
+		
+		if (size == null)
+		{
+			hrBufferSize = HR_BUFFER_SIZE;
+		}
+		else
+		{
+			hrBufferSize = size;
+		}
+		
+		hrBuffer = new [hrBufferSize];
 		hrBufferIndex = 0;
 	}
 	
  	function addSample( hr ) {
- 		if (hrBufferIndex < HR_BUFFER_SIZE)
+ 		if (hrBufferIndex < hrBufferSize)
  		{
  			hrBuffer[hrBufferIndex] = hr;
  			hrBufferIndex++;
@@ -26,11 +37,19 @@ class HrBuffer extends SensorDataBuffer {
  	}
 
 	function getBufferLength() {
-		return hrBufferIndex;
+		return hrBufferSize;
 	}
 	
 	function hasReachedBufferLimit() {
-		return hrBufferIndex == HR_BUFFER_SIZE - 1;
+		return hrBufferIndex == hrBufferSize - 1;
 	}
-
+	
+	function getElementAt(index){
+		return hrBuffer[index];
+	}
+	
+	function resetBuffer() {
+		hrBufferIndex = 0;
+	}
+	
 }
