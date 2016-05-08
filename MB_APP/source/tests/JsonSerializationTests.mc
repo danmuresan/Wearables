@@ -11,7 +11,20 @@ class JsonSerializationTests {
 			accelBuffer.addSample(x);
 		}
 
-		HttpMbRequestsHelper.bufferToJson(accelBuffer);
+		Toybox.System.println(HttpMbRequestsHelper.bufferToJson(accelBuffer));
 	}
 
+	static function testHr()
+	{
+		var size = 5;
+		var buffer = new HrBuffer(size);
+		
+		for (var i = 0; i < size; i++)
+		{
+			var x = buffer.getElementAt(i);
+			buffer.addSample(x);
+		}
+
+		Toybox.System.println(HttpMbRequestsHelper.bufferToJson(buffer));
+	}
 }

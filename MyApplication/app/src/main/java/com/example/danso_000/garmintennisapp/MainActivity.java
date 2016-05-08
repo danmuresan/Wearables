@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.danso_000_garmintennisapp_helpers.IQDeviceAdapter;
 import com.example.services.DeviceDataRetrieverService;
@@ -131,8 +132,16 @@ public class MainActivity extends ListActivity {
         intent.putExtra(DeviceActivity.IQDEVICE, device);
 
         // TODO: see if necessary to start the other activity as well here...
-        //startActivity(intent);
-        startService(intent);
+
+        if (device.getStatus() == IQDeviceStatus.CONNECTED)
+        {
+            //startActivity(intent);
+            startService(intent);
+        }
+        else
+        {
+            Toast.makeText(this, "The service cannot be started if the device is not properly connected!", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void loadDevices() {

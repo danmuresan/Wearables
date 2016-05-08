@@ -30,7 +30,8 @@ import com.garmin.android.connectiq.exception.ServiceUnavailableException;
 public class DeviceActivity extends ListActivity {
 
     public static final String IQDEVICE = "IQDevice";
-    public static final String MY_APP = "a3421feed289106a538cb9547ab12095";
+    //public static final String MY_APP = "a3421feed289106a538cb9547ab12095";
+    public static final String MY_APP = "3692F06AABB240CE8F487363F7D6A74B";
 
     private static final String TAG = DeviceActivity.class.getSimpleName();
 

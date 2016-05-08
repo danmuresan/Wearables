@@ -1,6 +1,6 @@
 class AccelerationBuffer extends SensorDataBuffer {
 	
-	const ACCEL_BUFFER_SIZE = 100;
+	const ACCEL_BUFFER_SIZE = 30;
 	
 	hidden var accelBufferIndex;
 	hidden var accelBuffer;

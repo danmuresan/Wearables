@@ -6,26 +6,44 @@ using Toybox.System as Sys;
 
 class BluetoothTransmitHelper {
 
+	hidden var commListener;
+
 	function transmitDataBatch(serializedData)
 	{
 		//var listener = new CommListener();
-		var x = new CommListener();
+		commListener = new CommListener();
 		
-		Sys.println("" + serializedData);
+		var dataAsString = serializedData + "";
+		Sys.println(dataAsString);
 		
-		Comm.transmit(serializedData, null, x);
-	}	
+		Comm.transmit(dataAsString, null, commListener);
+	}
+	
+	/*
+	function getMessage()
+	{
+		return commListener.getMessage();
+	}*/
 }
 
 class CommListener extends Comm.ConnectionListener
 {
+    hidden var message = "";
+
+	function getMessage()
+	{
+		return message;
+	}
+
     function onComplete()
     {
         Sys.println( "Transmit Complete" );
+        message = "complete";
     }
 
     function onError()
     {
         Sys.println( "Transmit Failed" );
+        message = "failed";
     }
 }

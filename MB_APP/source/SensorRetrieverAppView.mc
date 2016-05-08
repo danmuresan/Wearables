@@ -19,6 +19,7 @@ class SensorRetrieverAppView extends Ui.WatchFace {
         WatchFace.initialize();
         
         //JsonSerializationTests.testAccel();
+        //JsonSerializationTests.testHr();
         
         // initialize accelerometer on a timer
         acceleration = new Acceleration(0, 0, 0);
@@ -47,7 +48,7 @@ class SensorRetrieverAppView extends Ui.WatchFace {
 			{
 				//mbHttpRequestsHelper.postAccData(accDataBuffer);
 				bleTransmitHelper.transmitDataBatch(HttpMbRequestsHelper.bufferToJson(accDataBuffer));
-				dataSentMessage = "Acc data batch sent!";
+				dataSentMessage = "Acc transmit ";
 				accDataBuffer.resetBuffer();
 			}
 			else
@@ -62,7 +63,7 @@ class SensorRetrieverAppView extends Ui.WatchFace {
 			if (accDataBuffer.hasReachedBufferLimit())
 			{
 				bleTransmitHelper.transmitDataBatch(HttpMbRequestsHelper.bufferToJson(accDataBuffer));
-				dataSentMessage = "Acc data batch sent!";
+				dataSentMessage = "Acc transmit ";
 				accelDataBuffer.resetBuffer();
 			}
 			else
@@ -82,6 +83,8 @@ class SensorRetrieverAppView extends Ui.WatchFace {
 		if (hr == null)
 		{
 			hr = 0;
+			
+			return; // uncomment this for testing purpose only
 		}
 		
 		dataSentMessage = null;
@@ -89,10 +92,10 @@ class SensorRetrieverAppView extends Ui.WatchFace {
 		if (hrDataBuffer.hasReachedBufferLimit())
     	{
     		//mbHttpRequestsHelper.postHrData(hrDataBuffer);
-    		//bleTransmitHelper.transmitDataBatch(HttpMbRequestsHelper.bufferToJson(hrDataBuffer));
-    		bleTransmitHelper.transmitDataBatch("{[\"Val\":\"0\",\"Val\":\"0\",\"Val\":\"0\",\"Val\":\"0\"]}");
+    		bleTransmitHelper.transmitDataBatch(HttpMbRequestsHelper.bufferToJson(hrDataBuffer));
+    		//bleTransmitHelper.transmitDataBatch("{[\"Val\":\"0\",\"Val\":\"0\",\"Val\":\"0\",\"Val\":\"null\"]}");
     		
-    		dataSentMessage = "Hr data batch sent!";
+    		dataSentMessage = "Hr transmit ";
     		hrDataBuffer.resetBuffer();
     	}
     	else
@@ -171,6 +174,7 @@ class SensorRetrieverAppView extends Ui.WatchFace {
         }
         else
         {
+        	//dataSentMessage += bleTransmitHelper.getMessage();
         	view.setText(dataSentMessage);
         }
 

@@ -100,14 +100,14 @@ class HttpMbRequestsHelper {
 		
 		if (accel instanceof Acceleration)
 		{
-			Toybox.System.println("ACC TYPE");
+			//Toybox.System.println("ACC TYPE");
 			
 			var x = accel.getXAxisAcceleration();
 			var y = accel.getYAxisAcceleration();
 			var z = accel.getZAxisAcceleration();
 			
 			var serializedVal = "{\"x\":\"" + x + "\", " + "\"y\":\"" + y + "\", " + "\"z\":\"" + z + "\"}";
-			Toybox.System.println(serializedVal);
+			//Toybox.System.println(serializedVal);
 			
 			json += serializedVal;
 		}
@@ -117,7 +117,7 @@ class HttpMbRequestsHelper {
 	
 	static function bufferToJson(value)
 	{
-		var json = "{";
+		var json = "";
 		
 		if (value instanceof SensorDataBuffer) {
 			Toybox.System.println("Value is a sensor type indeed...");
@@ -127,6 +127,8 @@ class HttpMbRequestsHelper {
 			for (var i = 0; i < value.getBufferLength(); i++)
 			{
 				var elemVal = value.getElementAt(i);
+				//Toybox.System.println("" + elemVal);
+				
 				if (i < value.getBufferLength() - 1)
 				{
 					if (elemVal instanceof Acceleration)
@@ -153,10 +155,12 @@ class HttpMbRequestsHelper {
 				}
 			}
 			
-			json += "]}";
+			json += "]";
 			
-			Toybox.System.println("" + json);
+			//Toybox.System.println("" + json);
 		}
+		
+		return json;
 	}
 	
 	static function toJson(dictionary) {
