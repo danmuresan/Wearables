@@ -35,6 +35,9 @@ class SensorRetrieverAppView extends Ui.WatchFace {
 		bleTransmitHelper = new BluetoothTransmitHelper();
 		accDataBuffer = new AccelerationBuffer();
 		hrDataBuffer = new HrBuffer();
+		
+		//TESTE TESTE 
+		//mbHttpRequestsHelper.postAccData(JsonSerializationTests.testAccel());
     }
     
     function onTimerTick() {
@@ -47,7 +50,8 @@ class SensorRetrieverAppView extends Ui.WatchFace {
 			if (accDataBuffer.hasReachedBufferLimit())
 			{
 				//mbHttpRequestsHelper.postAccData(accDataBuffer);
-				bleTransmitHelper.transmitDataBatch(HttpMbRequestsHelper.bufferToJson(accDataBuffer));
+				mbHttpRequestsHelper.postAccData(HttpMbRequestsHelper.bufferToJson(accDataBuffer));
+				//bleTransmitHelper.transmitDataBatch(HttpMbRequestsHelper.bufferToJson(accDataBuffer));
 				dataSentMessage = "Acc transmit ";
 				accDataBuffer.resetBuffer();
 			}
@@ -62,7 +66,8 @@ class SensorRetrieverAppView extends Ui.WatchFace {
 			System.println("Code got here");
 			if (accDataBuffer.hasReachedBufferLimit())
 			{
-				bleTransmitHelper.transmitDataBatch(HttpMbRequestsHelper.bufferToJson(accDataBuffer));
+				mbHttpRequestsHelper.postAccData(HttpMbRequestsHelper.bufferToJson(accDataBuffer));
+				//bleTransmitHelper.transmitDataBatch(HttpMbRequestsHelper.bufferToJson(accDataBuffer));
 				dataSentMessage = "Acc transmit ";
 				accelDataBuffer.resetBuffer();
 			}

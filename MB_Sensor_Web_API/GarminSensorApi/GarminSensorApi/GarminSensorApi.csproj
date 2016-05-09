@@ -90,6 +90,10 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http.SelfHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.SelfHost.5.2.3\lib\net45\System.Web.Http.SelfHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -251,6 +255,7 @@
     <Compile Include="Models\IDataTableModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\SensorModels\Acceleration.cs" />
+    <Compile Include="Models\SensorModels\AccelerationDataBatch.cs" />
     <Compile Include="Models\SensorModels\HeartRate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />

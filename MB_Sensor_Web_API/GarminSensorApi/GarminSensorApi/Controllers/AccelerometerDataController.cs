@@ -6,10 +6,12 @@ using System.Web.Http.Description;
 using System.Web.Http.Results;
 using GarminSensorApi.Models.SensorModels;
 using GarminSensorApi.Utilities;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace GarminSensorApi.Controllers
 {
-    public class AccelerometerDataController : DataController<AccelerationBatch>
+    public class AccelerometerDataController : ApiController
     {
         private readonly IRepository<AccelerationBatch> m_accelerationDataRepository; 
 
@@ -26,7 +28,7 @@ namespace GarminSensorApi.Controllers
         //}
 
         // GET api/values/5
-        public override AccelerationBatch Get(int id)
+        public AccelerationBatch Get(int id)
         {
             throw new NotImplementedException();
         }
@@ -34,29 +36,40 @@ namespace GarminSensorApi.Controllers
         // POST api/values
         [HttpPost]
         [ResponseType(typeof(AccelerationBatch))]
-        public override IHttpActionResult Post([FromBody]AccelerationBatch accelerationBatch)
+        public async Task<IHttpActionResult> Post(HttpRequestMessage request)
         {
-            if (accelerationBatch == null)
+            if (request == null)
             {
-                return BadRequest("Invalid passed data.");
+                return BadRequest("Invalid request.");
             }
 
-            if (m_accelerationDataRepository.Add(accelerationBatch))
+            var data = await request.Content.ReadAsStringAsync();
+            data = data.Replace("\"[", "[");
+            data = data.Replace("]\"}", "]}");
+
+            try
             {
-                return Ok();
+                List<Acceleration> accelerations = JsonConvert.DeserializeObject<AccelerationDataBatch>(data).Accelerations;
+                m_accelerationDataRepository.Add(new AccelerationBatch { AccelerationList = accelerations, TimeStamp = DateTime.Now });
+            }
+            catch (Exception ex)
+            {
+                // TODO
+
+                return new InternalServerErrorResult(new HttpRequestMessage());
             }
 
-            return new InternalServerErrorResult(new HttpRequestMessage());
+            return Ok();
         }
 
         // PUT api/values/5
-        public override IHttpActionResult Put(int id, [FromBody]AccelerationBatch value)
+        public IHttpActionResult Put(int id, [FromBody]AccelerationBatch value)
         {
             throw new NotImplementedException();
         }
 
         // DELETE api/values/5
-        public override IHttpActionResult Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
             throw new NotImplementedException();
         }

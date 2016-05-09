@@ -25,7 +25,7 @@ class HttpMbRequestsHelper {
 	// TODO: check how to make post requests with the data
 	hidden function makePostRequest ( rawData, url )
 	{
-		var x = {
+		/*var x = {
 			 "HeartRateValueList" => [ //[],
 			 {
 			      "Id" => 1,
@@ -50,7 +50,11 @@ class HttpMbRequestsHelper {
 			"S" => "sssas"
 		};
 
-		System.println(toJson(parameter));
+		System.println(toJson(parameter));*/
+		
+		var param = { "batch" => rawData };
+		
+		System.println("" + param["jsonData"]);
 		
 		var options = 
 		{
@@ -60,7 +64,7 @@ class HttpMbRequestsHelper {
 		
 		try
 		{
-			Comm.makeJsonRequest(url, xx, options, method(:onReceivedResponse));
+			Comm.makeJsonRequest(url, param, options, method(:onReceivedResponse));
 		}
 		catch (ex)
 		{
@@ -89,7 +93,7 @@ class HttpMbRequestsHelper {
 
 	function postAccData(accDataBuffer) {
 		
-		makePostRequest(accelDataBuffer, POST_ACCEL_URL);
+		makePostRequest(accDataBuffer, POST_ACCEL_URL);
 		System.println( "Trying to send post request with acc data..." );
 	
 	}

@@ -12,6 +12,7 @@ class JsonSerializationTests {
 		}
 
 		Toybox.System.println(HttpMbRequestsHelper.bufferToJson(accelBuffer));
+		return HttpMbRequestsHelper.bufferToJson(accelBuffer);
 	}
 
 	static function testHr()
