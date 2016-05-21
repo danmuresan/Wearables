@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="Hello">Hello World, Click Me!</string>
+  <string name="ApplicationName">SensorClientApp</string>
+  <string name="StartService">To start the service which listens for your wear application, press the button below</string>
+  <string name="StartSession">Begin Listening</string>
+  <string name="StopSession">Stop Listening</string>
+</resources>

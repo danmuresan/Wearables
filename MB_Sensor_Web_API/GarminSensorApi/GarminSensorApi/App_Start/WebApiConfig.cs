@@ -27,6 +27,7 @@ namespace GarminSensorApi
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            /*
             var selfHostConfig = new HttpSelfHostConfiguration("localhost:52001");
 
             selfHostConfig.SuppressDefaultHostAuthentication();
@@ -45,7 +46,7 @@ namespace GarminSensorApi
             using (HttpSelfHostServer server = new HttpSelfHostServer(selfHostConfig)
             {
                 //server.OpenAsync().Wait()
-            }
+            } */
         }
     }
 }

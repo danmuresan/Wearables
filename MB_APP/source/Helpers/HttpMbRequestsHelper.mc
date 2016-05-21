@@ -16,8 +16,8 @@ class HeartRateBatch {
 
 class HttpMbRequestsHelper {
 
-	const POST_ACCEL_URL = "http://localhost:52001/api/AccelerometerData";
-	const POST_HR_URL = "http://localhost:52001/api/Ceva";
+	const POST_ACCEL_URL = "http://192.168.0.103/api/AccelerometerData";
+	const POST_HR_URL = "http://192.168.0.101/api/Ceva";
 
 	var list = new HeartRateBatch(5, new [5]);
 
@@ -75,8 +75,8 @@ class HttpMbRequestsHelper {
 	function onReceivedResponse(responseCode, data) {
 		if (responseCode == 200)
 		{
-			var response = data["args"];
-			System.println("Response data: " + response);
+			//var response = data;
+			System.println("Response data: " + responseCode);
 		}
 		else
 		{

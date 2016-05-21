@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">SensorRetrieverApp</string>
+	<string name="hello_round">I\'m Round. Tap Me!</string>
+	<string name="hello_rect">Start session</string>
+  <string name="x_axis">X: </string>
+  <string name="y_axis">Y: </string>
+  <string name="z_axis">Z: </string>
+  <string name="no_data">--</string>
+  <string name="elapsed_time">Elapsed: </string>
+  <string name="stop_session">Stop session </string>
+
+</resources>

@@ -1,0 +1,23 @@
+using Newtonsoft.Json;
+
+namespace Commons.Models
+{
+    public class Acceleration : IDataModel
+    {
+        [JsonProperty("X")]
+        public double X { get; set; }
+
+        [JsonProperty("Y")]
+        public double Y { get; set; }
+
+        [JsonProperty("Z")]
+        public double Z { get; set; }
+
+        public Acceleration(double x, double y, double z)
+        {
+            X = x;
+            Y = y;
+            Z = z;
+        }
+    }
+}

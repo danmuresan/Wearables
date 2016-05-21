@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Mime;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Web.Http.ModelBinding;
-using System.Web.Http.Results;
-using GarminSensorApi.Models;
 using GarminSensorApi.Models.SensorModels;
 using GarminSensorApi.Utilities;
-using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace GarminSensorApi.Controllers
 {
@@ -40,78 +35,27 @@ namespace GarminSensorApi.Controllers
 
         [HttpPost]
         [ResponseType(typeof(HeartRateBatch))]
-        public override IHttpActionResult Post(HeartRateBatch data)
+        public async override Task<IHttpActionResult> Post(HttpRequestMessage request)
         {
-            if (data == null)
+            if (request == null)
             {
-                return BadRequest("Invalid passed data.");
+                return BadRequest("Invalid request.");
             }
 
-            if (m_accelerationDataRepository.Add(data))
-            {
-                return Ok();
-            }
-
-            return new InternalServerErrorResult(new HttpRequestMessage());
+            // TODO:
+            return Ok();
         }
 
-       
 
-
-        public override IHttpActionResult Put(int id, HeartRateBatch data)
+        public IHttpActionResult Put(int id, HeartRateBatch data)
         {
             throw new System.NotImplementedException();
         }
 
-        public override IHttpActionResult Delete(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-    }
-
-    public class CevaController : ApiController
-    {
         public IHttpActionResult Delete(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Ceva Get(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        //public override IHttpActionResult Post(Ceva data)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        [HttpPost]
-        //[ContentType(Boundary )]
-        public IHttpActionResult Post([ModelBinder]Ceva ceva)
-        {
-            //var jsonObject = JsonConvert.DeserializeObject<Ceva>(data.ToString());
-            return null;
-        }
-
-        public IHttpActionResult Put(int id, [FromBody] Ceva data)
-        {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
     }
-
-    public class Ceva : IDataTableModel
-    {
-        public Ceva()
-        {
-            
-        }
-
-        [JsonProperty("Id")]
-        public long? Id { get; set; }
-
-        [JsonProperty("S")]
-        public string S { get; set; }
-    }
-
+    
 }

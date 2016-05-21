@@ -14,6 +14,14 @@ namespace GarminSensorApi.Db
         public SensorDataContext() : base(Constants.DbConnectionName)
         {
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<SensorDataContext>());
+            Configuration.ProxyCreationEnabled = false;
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Acceleration>().HasRequired(a => a.Batch)
+                .WithMany(x => x.Accelerations)
+                .HasForeignKey(a => a.Batch);
         }
     }
 }

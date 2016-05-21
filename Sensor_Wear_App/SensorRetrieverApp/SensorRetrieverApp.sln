@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorClientApp", "SensorClientApp\SensorClientApp.csproj", "{A70A2CC2-E30A-4C3E-BD8D-9E841DAADC4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commons", "Commons\Commons.csproj", "{ADA377CA-8D2D-4915-8115-3384E6DF3A5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorRetrieverWearApp", "SensorRetrieverWearApp\SensorRetrieverWearApp.csproj", "{B73836D5-651A-4482-9F3D-F88D0606E014}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A70A2CC2-E30A-4C3E-BD8D-9E841DAADC4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A70A2CC2-E30A-4C3E-BD8D-9E841DAADC4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A70A2CC2-E30A-4C3E-BD8D-9E841DAADC4B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A70A2CC2-E30A-4C3E-BD8D-9E841DAADC4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A70A2CC2-E30A-4C3E-BD8D-9E841DAADC4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A70A2CC2-E30A-4C3E-BD8D-9E841DAADC4B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{ADA377CA-8D2D-4915-8115-3384E6DF3A5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADA377CA-8D2D-4915-8115-3384E6DF3A5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADA377CA-8D2D-4915-8115-3384E6DF3A5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADA377CA-8D2D-4915-8115-3384E6DF3A5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B73836D5-651A-4482-9F3D-F88D0606E014}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B73836D5-651A-4482-9F3D-F88D0606E014}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B73836D5-651A-4482-9F3D-F88D0606E014}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B73836D5-651A-4482-9F3D-F88D0606E014}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B73836D5-651A-4482-9F3D-F88D0606E014}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B73836D5-651A-4482-9F3D-F88D0606E014}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

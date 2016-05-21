@@ -69,6 +69,7 @@ namespace GarminSensorApi.Utilities
             catch (Exception ex)
             {
                 Console.WriteLine(ex.StackTrace);
+                throw;
                 return false;
             }
         }

@@ -37,7 +37,7 @@ class SensorRetrieverAppView extends Ui.WatchFace {
 		hrDataBuffer = new HrBuffer();
 		
 		//TESTE TESTE 
-		//mbHttpRequestsHelper.postAccData(JsonSerializationTests.testAccel());
+		mbHttpRequestsHelper.postAccData(JsonSerializationTests.testAccel());
     }
     
     function onTimerTick() {

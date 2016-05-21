@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace GarminSensorApi.Controllers
 {
-    public class AccelerometerDataController : ApiController
+    public class AccelerometerDataController : DataController<AccelerationBatch>
     {
         private readonly IRepository<AccelerationBatch> m_accelerationDataRepository; 
 
@@ -20,23 +20,23 @@ namespace GarminSensorApi.Controllers
             m_accelerationDataRepository = new Repository<AccelerationBatch>();
         }
 
-        // GET api/values
-        //[ResponseType(typeof(AccelerationBatch))]
-        //public override IEnumerable<AccelerationBatch> Get()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
         // GET api/values/5
-        public AccelerationBatch Get(int id)
+        [HttpGet]
+        public override AccelerationBatch Get(int id)
         {
-            throw new NotImplementedException();
+            return m_accelerationDataRepository.GetById(id);
+            //return new AccelerationBatch()
+            //{
+            //    Accelerations = new List<Acceleration>(proxy.Accelerations),
+            //    TimeStamp = proxy.TimeStamp,
+            //    Id = proxy.Id
+            //};
         }
 
         // POST api/values
         [HttpPost]
         [ResponseType(typeof(AccelerationBatch))]
-        public async Task<IHttpActionResult> Post(HttpRequestMessage request)
+        public override async Task<IHttpActionResult> Post(HttpRequestMessage request)
         {
             if (request == null)
             {
@@ -46,20 +46,27 @@ namespace GarminSensorApi.Controllers
             var data = await request.Content.ReadAsStringAsync();
             data = data.Replace("\"[", "[");
             data = data.Replace("]\"}", "]}");
+            bool added = false;
 
             try
             {
-                List<Acceleration> accelerations = JsonConvert.DeserializeObject<AccelerationDataBatch>(data).Accelerations;
-                m_accelerationDataRepository.Add(new AccelerationBatch { AccelerationList = accelerations, TimeStamp = DateTime.Now });
+                var accelerations = JsonConvert.DeserializeObject<AccelerationBatch>(data).Accelerations;
+                added = m_accelerationDataRepository.Add(new AccelerationBatch { Accelerations = accelerations, TimeStamp = DateTime.Now });
             }
             catch (Exception ex)
             {
                 // TODO
 
-                return new InternalServerErrorResult(new HttpRequestMessage());
+                //return new InternalServerErrorResult();
+                throw;
             }
 
-            return Ok();
+            if (added)
+            {
+                return Ok();
+            }
+
+            return new InternalServerErrorResult(new HttpRequestMessage());
         }
 
         // PUT api/values/5
