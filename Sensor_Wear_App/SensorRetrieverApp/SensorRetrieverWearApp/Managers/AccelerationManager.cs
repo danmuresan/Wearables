@@ -1,5 +1,8 @@
 using Android.Content;
+using Android.Widget;
+using Commons.Helpers;
 using Commons.Models;
+using System.Threading.Tasks;
 
 namespace SensorRetrieverWearApp.Managers
 {
