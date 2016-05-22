@@ -5,11 +5,39 @@ using Commons.Constants;
 using Commons.Models;
 using Commons.Helpers;
 using Android.Widget;
+using Android.Content;
+using Android.Gms.Common.Apis;
+using Android.Gms.Common;
+using System;
+using Android.OS;
 
 namespace SensorClientApp.Services
 {
-    public class WearListenerService : WearableListenerService
+    public class WearListenerService : WearableListenerService, GoogleApiClient.IConnectionCallbacks, GoogleApiClient.IOnConnectionFailedListener
     {
+        private GoogleApiClient m_googleApiClient;
+
+        public override void OnStart(Intent intent, int startId)
+        {
+            base.OnStart(intent, startId);
+            m_googleApiClient = new GoogleApiClient.Builder(this)
+                .AddApi(WearableClass.API)
+                .AddConnectionCallbacks(this)
+                .AddOnConnectionFailedListener(this)
+                .Build();
+
+            if (!m_googleApiClient.IsConnected)
+            {
+                m_googleApiClient.Connect();
+            }
+        }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            m_googleApiClient.Disconnect();
+        }
+
         public override void OnDataChanged(DataEventBuffer dataEvents)
         {
             base.OnDataChanged(dataEvents);
@@ -28,6 +56,18 @@ namespace SensorClientApp.Services
                     Toast.MakeText(Application.Context, $"Retrieved {data.Accelerations.Count} more objects...", ToastLength.Short);
                 }
             }
+        }
+
+        public void OnConnectionFailed(ConnectionResult result)
+        {
+        }
+
+        public void OnConnected(Bundle connectionHint)
+        {
+        }
+
+        public void OnConnectionSuspended(int cause)
+        {
         }
     }
 

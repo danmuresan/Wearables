@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorClientApp", "SensorCl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commons", "Commons\Commons.csproj", "{ADA377CA-8D2D-4915-8115-3384E6DF3A5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorRetrieverWearApp", "SensorRetrieverWearApp\SensorRetrieverWearApp.csproj", "{B73836D5-651A-4482-9F3D-F88D0606E014}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorRetrieverApp", "SensorRetrieverApp\SensorRetrieverApp.csproj", "{C5146DC0-884E-4E15-865D-3CBE29EE99CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,12 +25,12 @@ Global
 		{ADA377CA-8D2D-4915-8115-3384E6DF3A5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADA377CA-8D2D-4915-8115-3384E6DF3A5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADA377CA-8D2D-4915-8115-3384E6DF3A5C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B73836D5-651A-4482-9F3D-F88D0606E014}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B73836D5-651A-4482-9F3D-F88D0606E014}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B73836D5-651A-4482-9F3D-F88D0606E014}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{B73836D5-651A-4482-9F3D-F88D0606E014}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B73836D5-651A-4482-9F3D-F88D0606E014}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B73836D5-651A-4482-9F3D-F88D0606E014}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C5146DC0-884E-4E15-865D-3CBE29EE99CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5146DC0-884E-4E15-865D-3CBE29EE99CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5146DC0-884E-4E15-865D-3CBE29EE99CB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C5146DC0-884E-4E15-865D-3CBE29EE99CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5146DC0-884E-4E15-865D-3CBE29EE99CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5146DC0-884E-4E15-865D-3CBE29EE99CB}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

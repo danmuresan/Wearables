@@ -45,7 +45,7 @@ namespace SensorRetrieverApp
                         .SetContentText("Registering sensor data...")
                         .SetSmallIcon(Android.Resource.Drawable.AlertLightFrame)
                         .SetContentIntent(viewPendingIntent)
-                        .AddAction(Resource.Drawable.generic_confirmation_00163, "", viewPendingIntent);
+                        .AddAction(Resource.Drawable.generic_confirmation, "", viewPendingIntent);
 
                     var manager = NotificationManagerCompat.From(this);
                     manager.Notify(1, notification.Build());

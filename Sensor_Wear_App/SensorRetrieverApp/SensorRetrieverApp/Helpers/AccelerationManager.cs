@@ -3,6 +3,7 @@ using Android.Content;
 using System.Threading.Tasks;
 using Commons.Models;
 using Commons.Helpers;
+using System.Threading;
 
 namespace SensorRetrieverApp.Helpers
 {
@@ -43,9 +44,10 @@ namespace SensorRetrieverApp.Helpers
         {
             Toast.MakeText(m_ctx, "Sending data batch...", ToastLength.Long).Show();
 
-            await Task.Factory.StartNew(
-                () => m_commManager.SendDataRequest(accBatch.GetJsonFromObject())
-                );
+            //m_commManager.SendDataRequest(accBatch.GetJsonFromObject());
+
+            new Thread(
+                () => m_commManager.SendDataRequest(accBatch.GetJsonFromObject())).Start();
         }
     }
 }

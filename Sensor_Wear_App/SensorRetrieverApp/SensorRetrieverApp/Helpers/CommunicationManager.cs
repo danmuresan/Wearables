@@ -8,14 +8,14 @@ using Commons.Constants;
 
 namespace SensorRetrieverApp.Helpers
 {
-    public class CommunicationManager : Java.Lang.Object, IGoogleApiClientConnectionCallbacks, IGoogleApiClientOnConnectionFailedListener
+    public class CommunicationManager : Java.Lang.Object, GoogleApiClient.IConnectionCallbacks, GoogleApiClient.IOnConnectionFailedListener
     {
-        private IGoogleApiClient m_googleApiClient;
+        private GoogleApiClient m_googleApiClient;
 
         public CommunicationManager(Context ctx)
         {
-            m_googleApiClient = new GoogleApiClientBuilder(ctx)
-                .AddApi(WearableClass.Api)
+            m_googleApiClient = new GoogleApiClient.Builder(ctx)
+                .AddApi(WearableClass.API)
                 .AddConnectionCallbacks(this)
                 .AddOnConnectionFailedListener(this)
                 .Build();
