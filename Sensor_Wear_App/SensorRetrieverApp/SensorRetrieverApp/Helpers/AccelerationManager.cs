@@ -4,13 +4,12 @@ using System.Threading.Tasks;
 using Commons.Models;
 using Commons.Helpers;
 using System.Threading;
+using Commons.Constants;
 
 namespace SensorRetrieverApp.Helpers
 {
     public class AccelerationManager
     {
-        public const short BufferOverflowLength = 1000;
-
         private readonly Context m_ctx;
         private int m_currentIndex = 0;
         private AccelerationBatch m_accBatch;
@@ -29,7 +28,7 @@ namespace SensorRetrieverApp.Helpers
                 m_accBatch = new AccelerationBatch();
             }
 
-            if (m_currentIndex >= BufferOverflowLength)
+            if (m_currentIndex >= Constants.BufferOverflowLength)
             {
                 await TrySendBatchAsync(m_accBatch);
                 m_accBatch = new AccelerationBatch();
