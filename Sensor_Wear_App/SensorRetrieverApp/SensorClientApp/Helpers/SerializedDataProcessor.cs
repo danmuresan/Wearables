@@ -9,7 +9,7 @@ namespace SensorClientApp.Helpers
     {
         private const int TimeoutInSeconds = 30;
 
-        private string m_incomingDataBatches;
+        private string m_incomingDataBatches = "[";
         private int m_index = 0;
         private int m_dataCycle = 0;
         private readonly StorageManager m_storageManager;
@@ -29,6 +29,7 @@ namespace SensorClientApp.Helpers
             if (m_index < ConcatBufferConst)
             {
                 m_incomingDataBatches += e.DataAsJson;
+                m_incomingDataBatches += ",";
                 m_index++;
             }
             else
@@ -40,10 +41,18 @@ namespace SensorClientApp.Helpers
 
         private void SaveGatheredDataToStorage()
         {
-            m_storageManager.SaveSerializedData(m_incomingDataBatches, m_dataCycle);
+            m_incomingDataBatches = m_incomingDataBatches.Substring(0, m_incomingDataBatches.Length - 1);
+            m_incomingDataBatches += "]";
+            
+            if (m_incomingDataBatches.Length >= 2)
+            {
+                m_storageManager.SaveSerializedData(m_incomingDataBatches, m_dataCycle);
+            }
+
             m_index = 0;
-            m_incomingDataBatches = string.Empty;
+            m_incomingDataBatches = "[";
             m_dataCycle++;
+            m_storageManager.SaveNumber(m_dataCycle);
         }
 
         private void OnTimeout(object state)

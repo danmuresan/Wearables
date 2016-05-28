@@ -15,6 +15,7 @@ namespace SensorClientApp
     {
         private bool m_isServiceRunning = false;
         private Button m_startStopBtn;
+        private Button m_processBtn;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -26,11 +27,31 @@ namespace SensorClientApp
             // Get our button from the layout resource,
             // and attach an event to it
             m_startStopBtn = FindViewById<Button>(Resource.Id.MyButton);
+            m_processBtn = FindViewById<Button>(Resource.Id.ProcessButton);
 
             m_startStopBtn.Click += OnStartSessionClick;
+            m_processBtn.Click += OnProcessBtnClick;
+        }
+
+        private void OnProcessBtnClick(object sender, EventArgs e)
+        {
+            // cleanup service just in case it's still running
+            if (m_isServiceRunning)
+            {
+                ToggleListenerService();
+            }
+
+            // start another activity
+            Intent serviceIntent = new Intent(this, typeof(DataProcessorActivity));
+            StartActivity(serviceIntent);
         }
 
         private void OnStartSessionClick(object sender, EventArgs e)
+        {
+            ToggleListenerService();
+        }
+
+        private void ToggleListenerService()
         {
             Intent serviceIntent = new Intent(this, typeof(WearListenerService));
 

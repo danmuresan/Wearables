@@ -440,8 +440,14 @@ namespace SensorClientApp
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f08000c
+			public const int ExportCsvButton = 2131230732;
+			
 			// aapt resource value: 0x7f08000a
 			public const int MyButton = 2131230730;
+			
+			// aapt resource value: 0x7f08000b
+			public const int ProcessButton = 2131230731;
 			
 			// aapt resource value: 0x7f080001
 			public const int adjust_height = 2131230721;
@@ -505,6 +511,9 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f030000
 			public const int Main = 2130903040;
 			
+			// aapt resource value: 0x7f030001
+			public const int SimpleProcessorLayout = 2130903041;
+			
 			static Layout()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -521,8 +530,20 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f040020
 			public const int ApplicationName = 2130968608;
 			
+			// aapt resource value: 0x7f040026
+			public const int ExportToCsv = 2130968614;
+			
+			// aapt resource value: 0x7f040027
+			public const int ExportToCsvInfo = 2130968615;
+			
 			// aapt resource value: 0x7f04001f
 			public const int Hello = 2130968607;
+			
+			// aapt resource value: 0x7f040024
+			public const int ProcessData = 2130968612;
+			
+			// aapt resource value: 0x7f040025
+			public const int ProcessDataInfo = 2130968613;
 			
 			// aapt resource value: 0x7f040021
 			public const int StartService = 2130968609;

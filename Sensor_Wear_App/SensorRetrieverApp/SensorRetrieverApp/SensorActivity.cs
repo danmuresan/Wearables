@@ -73,9 +73,9 @@ namespace SensorRetrieverApp
 
         private void UpdateUi(Acceleration acc)
         {
-            XAxisTextView.Text = acc.X.ToString("N1");
-            YAxisTextView.Text = acc.Y.ToString("N1");
-            ZAxisTextView.Text = acc.Z.ToString("N1");
+            XAxisTextView.Text = acc.X.ToString("N2");
+            YAxisTextView.Text = acc.Y.ToString("N2");
+            ZAxisTextView.Text = acc.Z.ToString("N2");
             ElapsedTextView.Text = $"{m_stopWatch.Elapsed.TotalSeconds} s";
         }
     }

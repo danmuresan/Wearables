@@ -12,4 +12,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/StartSession" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/ProcessData" />
+    <Button
+        android:id="@+id/ProcessButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ProcessData" />
 </LinearLayout>

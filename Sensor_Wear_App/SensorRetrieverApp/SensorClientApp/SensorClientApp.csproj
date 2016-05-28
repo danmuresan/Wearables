@@ -75,6 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataProcessorActivity.cs" />
     <Compile Include="Helpers\DataProcessor.cs" />
     <Compile Include="Helpers\IncomingDataEventArgs.cs" />
     <Compile Include="Helpers\SerializedDataProcessor.cs" />
@@ -90,6 +91,9 @@
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
+    <AndroidResource Include="Resources\layout\SimpleProcessorLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />

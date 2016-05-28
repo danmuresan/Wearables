@@ -70,7 +70,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Helpers\DataConversionHelper.cs" />
     <Compile Include="Helpers\DataSerializationHelper.cs" />
+    <Compile Include="Helpers\FileManipulationHelper.cs" />
     <Compile Include="Models\Acceleration.cs" />
     <Compile Include="Models\AccelerationBatch.cs" />
     <Compile Include="Models\IDataModel.cs" />

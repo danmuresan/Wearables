@@ -5,4 +5,8 @@
   <string name="StartService">To start the service which listens for your wear application, press the button below</string>
   <string name="StartSession">Begin Listening</string>
   <string name="StopSession">Stop Listening</string>
+  <string name="ProcessData">Process Data</string>
+  <string name="ProcessDataInfo">Analyze locally collected data from previous sessions</string>
+  <string name="ExportToCsv">Export to CSV</string>
+  <string name="ExportToCsvInfo">Export locally collected data to a CSV format for plotting</string>
 </resources>
