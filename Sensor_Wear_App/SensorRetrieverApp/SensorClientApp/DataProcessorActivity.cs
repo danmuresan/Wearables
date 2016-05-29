@@ -35,7 +35,7 @@ namespace SensorClientApp
         private async void OnExportToCsvClick(object sender, EventArgs e)
         {
             string csvX = string.Empty, csvY = string.Empty, csvZ = string.Empty;
-            foreach (var item in m_storageManager.RetrieveAllSerializedData<AccelerationBatch>())
+            foreach (var item in m_storageManager.RetrieveAllUnexportedSerializedData<AccelerationBatch>())
             {
                 var csvAccelerationBatch = item.ToCsv();
                 csvX += csvAccelerationBatch[0];
@@ -45,10 +45,12 @@ namespace SensorClientApp
 
             try
             {
-                Task xWriteTask = FileManipulationHelper.WriteToFileAsync($"{Constants.XAxisCsvFileSuffix}_{DateTime.Now.ToShortDateString()}", csvX);
-                Task yWriteTask = FileManipulationHelper.WriteToFileAsync($"{Constants.YAxisCsvFileSuffix}_{DateTime.Now.ToShortDateString()}", csvY);
-                Task zWriteTask = FileManipulationHelper.WriteToFileAsync($"{Constants.ZAxisCsvFileSuffix}_{DateTime.Now.ToShortDateString()}", csvZ);
+                Task xWriteTask = FileManipulationHelper.WriteToFileAsync($"{Constants.XAxisCsvFileSuffix}_{DateTime.Now.ToString(Constants.CustomShortDateFormat)}.csv", csvX);
+                Task yWriteTask = FileManipulationHelper.WriteToFileAsync($"{Constants.YAxisCsvFileSuffix}_{DateTime.Now.ToString(Constants.CustomShortDateFormat)}.csv", csvY);
+                Task zWriteTask = FileManipulationHelper.WriteToFileAsync($"{Constants.ZAxisCsvFileSuffix}_{DateTime.Now.ToString(Constants.CustomShortDateFormat)}.csv", csvZ);
                 await Task.WhenAll(new List<Task> { xWriteTask, yWriteTask, zWriteTask });
+                m_storageManager.SaveExportIndex(m_storageManager.RetrieveDataIndex());
+
                 Toast.MakeText(this, "CSV export successful!", ToastLength.Long).Show();
             }
             catch (Exception ex)

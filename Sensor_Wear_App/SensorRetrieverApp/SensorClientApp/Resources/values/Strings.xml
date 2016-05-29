@@ -9,4 +9,10 @@
   <string name="ProcessDataInfo">Analyze locally collected data from previous sessions</string>
   <string name="ExportToCsv">Export to CSV</string>
   <string name="ExportToCsvInfo">Export locally collected data to a CSV format for plotting</string>
+  <string name="ClearData">Clear All Data</string>
+  <string name="ClearDataInfo">Clear all locally stored data from previous data-gathering sessions</string>
+  <string name="Yes">Yes</string>
+  <string name="No">No</string>
+  <string name="Options">Options</string>
+
 </resources>

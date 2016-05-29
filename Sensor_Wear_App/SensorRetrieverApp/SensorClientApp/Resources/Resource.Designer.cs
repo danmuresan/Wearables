@@ -440,11 +440,17 @@ namespace SensorClientApp
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f08000c
-			public const int ExportCsvButton = 2131230732;
+			// aapt resource value: 0x7f08000d
+			public const int ClearDataButton = 2131230733;
+			
+			// aapt resource value: 0x7f08000e
+			public const int ExportCsvButton = 2131230734;
 			
 			// aapt resource value: 0x7f08000a
 			public const int MyButton = 2131230730;
+			
+			// aapt resource value: 0x7f08000c
+			public const int OptionsButtonn = 2131230732;
 			
 			// aapt resource value: 0x7f08000b
 			public const int ProcessButton = 2131230731;
@@ -512,7 +518,10 @@ namespace SensorClientApp
 			public const int Main = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int SimpleProcessorLayout = 2130903041;
+			public const int OptionsLayout = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int SimpleProcessorLayout = 2130903042;
 			
 			static Layout()
 			{
@@ -530,6 +539,12 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f040020
 			public const int ApplicationName = 2130968608;
 			
+			// aapt resource value: 0x7f040028
+			public const int ClearData = 2130968616;
+			
+			// aapt resource value: 0x7f040029
+			public const int ClearDataInfo = 2130968617;
+			
 			// aapt resource value: 0x7f040026
 			public const int ExportToCsv = 2130968614;
 			
@@ -538,6 +553,12 @@ namespace SensorClientApp
 			
 			// aapt resource value: 0x7f04001f
 			public const int Hello = 2130968607;
+			
+			// aapt resource value: 0x7f04002b
+			public const int No = 2130968619;
+			
+			// aapt resource value: 0x7f04002c
+			public const int Options = 2130968620;
 			
 			// aapt resource value: 0x7f040024
 			public const int ProcessData = 2130968612;
@@ -553,6 +574,9 @@ namespace SensorClientApp
 			
 			// aapt resource value: 0x7f040023
 			public const int StopSession = 2130968611;
+			
+			// aapt resource value: 0x7f04002a
+			public const int Yes = 2130968618;
 			
 			// aapt resource value: 0x7f040001
 			public const int auth_google_play_services_client_facebook_display_name = 2130968577;

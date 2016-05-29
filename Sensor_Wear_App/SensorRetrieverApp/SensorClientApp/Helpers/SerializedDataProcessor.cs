@@ -11,12 +11,13 @@ namespace SensorClientApp.Helpers
 
         private string m_incomingDataBatches = "[";
         private int m_index = 0;
-        private int m_dataCycle = 0;
+        private int m_dataCycle;
         private readonly StorageManager m_storageManager;
 
         public SerializedDataProcessor(IDataListener listener) : base(listener)
         {
             m_storageManager = new StorageManager();
+            m_dataCycle = m_storageManager.RetrieveDataIndex();
             m_timeoutTimer = new Timer(OnTimeout, null, Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
         }
 
@@ -52,7 +53,7 @@ namespace SensorClientApp.Helpers
             m_index = 0;
             m_incomingDataBatches = "[";
             m_dataCycle++;
-            m_storageManager.SaveNumber(m_dataCycle);
+            m_storageManager.SaveDataIndex(m_dataCycle);
         }
 
         private void OnTimeout(object state)
