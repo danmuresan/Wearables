@@ -70,12 +70,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Filters\FilterFactory.cs" />
+    <Compile Include="Filters\IFilterOperation.cs" />
+    <Compile Include="Filters\RollingAverageFilter.cs" />
     <Compile Include="Helpers\DataConversionHelper.cs" />
+    <Compile Include="Helpers\DataFilteringHelper.cs" />
     <Compile Include="Helpers\DataSerializationHelper.cs" />
     <Compile Include="Helpers\FileManipulationHelper.cs" />
     <Compile Include="Models\Acceleration.cs" />
     <Compile Include="Models\AccelerationBatch.cs" />
     <Compile Include="Models\IDataModel.cs" />
+    <Compile Include="Models\Rotation.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

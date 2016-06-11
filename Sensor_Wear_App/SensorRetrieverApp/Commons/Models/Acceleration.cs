@@ -5,6 +5,10 @@ namespace Commons.Models
 {
     public class Acceleration : IDataModel
     {
+        /// <summary>
+        /// All values are in SI units (m / s^2)
+        /// </summary>
+
         [JsonProperty("X")]
         public double X { get; set; }
 

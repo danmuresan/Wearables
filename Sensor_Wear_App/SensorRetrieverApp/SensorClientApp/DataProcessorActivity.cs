@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Android.Util;
 using Commons.Constants;
+using Commons.Filters;
 
 namespace SensorClientApp
 {
@@ -37,7 +38,9 @@ namespace SensorClientApp
             string csvX = string.Empty, csvY = string.Empty, csvZ = string.Empty;
             foreach (var item in m_storageManager.RetrieveAllUnexportedSerializedData<AccelerationBatch>())
             {
-                var csvAccelerationBatch = item.ToCsv();
+                // apply a low pass filter for the retreived acceleration batches
+                var filteredItem = item.FilterAccelerationBatch(FilterType.RollingAverageLowPass);
+                var csvAccelerationBatch = filteredItem.ToCsv();
                 csvX += csvAccelerationBatch[0];
                 csvY += csvAccelerationBatch[1];
                 csvZ += csvAccelerationBatch[2];

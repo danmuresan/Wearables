@@ -14,5 +14,13 @@
   <string name="Yes">Yes</string>
   <string name="No">No</string>
   <string name="Options">Options</string>
-
+  <string name="LoginInfo">Enter your credentials in the field below:</string>
+  <string name="Username">Username</string>
+  <string name="Password">Password</string>
+  <string name="Login">Login</string>
+  <string name="Register">Register</string>
+  <string name="RegisterInfo">Please fill the fields below to register as a new user</string>
+  <string name="RepeatPassword">Repeat Password</string>
+  <string name="Email">Email</string>
+  <string name="Submit">Submit</string>
 </resources>

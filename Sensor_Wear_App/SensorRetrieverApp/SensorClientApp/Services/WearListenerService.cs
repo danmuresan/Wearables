@@ -1,10 +1,7 @@
-using Android.App;
 using Android.Gms.Wearable;
-using Android.Gms.Common.Data;
 using Commons.Constants;
 using Commons.Models;
 using Commons.Helpers;
-using Android.Widget;
 using Android.Content;
 using Android.Gms.Common.Apis;
 using Android.Gms.Common;

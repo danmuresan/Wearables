@@ -440,20 +440,20 @@ namespace SensorClientApp
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f08000d
-			public const int ClearDataButton = 2131230733;
+			// aapt resource value: 0x7f080011
+			public const int ClearDataButton = 2131230737;
+			
+			// aapt resource value: 0x7f080015
+			public const int ExportCsvButton = 2131230741;
 			
 			// aapt resource value: 0x7f08000e
-			public const int ExportCsvButton = 2131230734;
+			public const int MyButton = 2131230734;
 			
-			// aapt resource value: 0x7f08000a
-			public const int MyButton = 2131230730;
+			// aapt resource value: 0x7f080010
+			public const int OptionsButtonn = 2131230736;
 			
-			// aapt resource value: 0x7f08000c
-			public const int OptionsButtonn = 2131230732;
-			
-			// aapt resource value: 0x7f08000b
-			public const int ProcessButton = 2131230731;
+			// aapt resource value: 0x7f08000f
+			public const int ProcessButton = 2131230735;
 			
 			// aapt resource value: 0x7f080001
 			public const int adjust_height = 2131230721;
@@ -467,6 +467,9 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f080008
 			public const int dark = 2131230728;
 			
+			// aapt resource value: 0x7f080012
+			public const int emailBox = 2131230738;
+			
 			// aapt resource value: 0x7f080004
 			public const int icon_only = 2131230724;
 			
@@ -476,11 +479,29 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f080009
 			public const int light = 2131230729;
 			
+			// aapt resource value: 0x7f08000c
+			public const int loginBtn = 2131230732;
+			
 			// aapt resource value: 0x7f080003
 			public const int none = 2131230723;
 			
+			// aapt resource value: 0x7f08000b
+			public const int passwordBox = 2131230731;
+			
+			// aapt resource value: 0x7f08000d
+			public const int registerBtn = 2131230733;
+			
+			// aapt resource value: 0x7f080013
+			public const int repeatPasswordBox = 2131230739;
+			
 			// aapt resource value: 0x7f080005
 			public const int standard = 2131230725;
+			
+			// aapt resource value: 0x7f080014
+			public const int submitRegistrationBtn = 2131230740;
+			
+			// aapt resource value: 0x7f08000a
+			public const int usernameBox = 2131230730;
 			
 			// aapt resource value: 0x7f080006
 			public const int wide = 2131230726;
@@ -515,13 +536,19 @@ namespace SensorClientApp
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Main = 2130903040;
+			public const int Login = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int OptionsLayout = 2130903041;
+			public const int Main = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int SimpleProcessorLayout = 2130903042;
+			public const int OptionsLayout = 2130903042;
+			
+			// aapt resource value: 0x7f030003
+			public const int Register = 2130903043;
+			
+			// aapt resource value: 0x7f030004
+			public const int SimpleProcessorLayout = 2130903044;
 			
 			static Layout()
 			{
@@ -545,6 +572,9 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f040029
 			public const int ClearDataInfo = 2130968617;
 			
+			// aapt resource value: 0x7f040034
+			public const int Email = 2130968628;
+			
 			// aapt resource value: 0x7f040026
 			public const int ExportToCsv = 2130968614;
 			
@@ -554,17 +584,35 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f04001f
 			public const int Hello = 2130968607;
 			
+			// aapt resource value: 0x7f040030
+			public const int Login = 2130968624;
+			
+			// aapt resource value: 0x7f04002d
+			public const int LoginInfo = 2130968621;
+			
 			// aapt resource value: 0x7f04002b
 			public const int No = 2130968619;
 			
 			// aapt resource value: 0x7f04002c
 			public const int Options = 2130968620;
 			
+			// aapt resource value: 0x7f04002f
+			public const int Password = 2130968623;
+			
 			// aapt resource value: 0x7f040024
 			public const int ProcessData = 2130968612;
 			
 			// aapt resource value: 0x7f040025
 			public const int ProcessDataInfo = 2130968613;
+			
+			// aapt resource value: 0x7f040031
+			public const int Register = 2130968625;
+			
+			// aapt resource value: 0x7f040032
+			public const int RegisterInfo = 2130968626;
+			
+			// aapt resource value: 0x7f040033
+			public const int RepeatPassword = 2130968627;
 			
 			// aapt resource value: 0x7f040021
 			public const int StartService = 2130968609;
@@ -574,6 +622,12 @@ namespace SensorClientApp
 			
 			// aapt resource value: 0x7f040023
 			public const int StopSession = 2130968611;
+			
+			// aapt resource value: 0x7f040035
+			public const int Submit = 2130968629;
+			
+			// aapt resource value: 0x7f04002e
+			public const int Username = 2130968622;
 			
 			// aapt resource value: 0x7f04002a
 			public const int Yes = 2130968618;
