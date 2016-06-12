@@ -3,12 +3,7 @@ using Android.App;
 using Android.OS;
 using Android.Widget;
 using SensorClientApp.Helpers;
-using Commons.Models;
-using Commons.Helpers;
-using System.Threading.Tasks;
 using System.Collections.Generic;
-using Android.Util;
-using Commons.Constants;
 using Commons.Filters;
 
 namespace SensorClientApp
@@ -17,7 +12,7 @@ namespace SensorClientApp
     public class DataProcessorActivity : Activity
     {
         private Button m_exportToCsvBtn;
-        private StorageManager m_storageManager;
+        private DataExportManager m_dataExportManager;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -30,37 +25,30 @@ namespace SensorClientApp
 
             m_exportToCsvBtn.Click += OnExportToCsvClick;
 
-            m_storageManager = new StorageManager();
+            m_dataExportManager = new DataExportManager(this);
         }
 
-        private async void OnExportToCsvClick(object sender, EventArgs e)
+        private void OnExportToCsvClick(object sender, EventArgs e)
         {
-            string csvX = string.Empty, csvY = string.Empty, csvZ = string.Empty;
-            foreach (var item in m_storageManager.RetrieveAllUnexportedSerializedData<AccelerationBatch>())
-            {
-                // apply a low pass filter for the retreived acceleration batches
-                var filteredItem = item.FilterAccelerationBatch(FilterType.RollingAverageLowPass);
-                var csvAccelerationBatch = filteredItem.ToCsv();
-                csvX += csvAccelerationBatch[0];
-                csvY += csvAccelerationBatch[1];
-                csvZ += csvAccelerationBatch[2];
-            }
-
-            try
-            {
-                Task xWriteTask = FileManipulationHelper.WriteToFileAsync($"{Constants.XAxisCsvFileSuffix}_{DateTime.Now.ToString(Constants.CustomShortDateFormat)}.csv", csvX);
-                Task yWriteTask = FileManipulationHelper.WriteToFileAsync($"{Constants.YAxisCsvFileSuffix}_{DateTime.Now.ToString(Constants.CustomShortDateFormat)}.csv", csvY);
-                Task zWriteTask = FileManipulationHelper.WriteToFileAsync($"{Constants.ZAxisCsvFileSuffix}_{DateTime.Now.ToString(Constants.CustomShortDateFormat)}.csv", csvZ);
-                await Task.WhenAll(new List<Task> { xWriteTask, yWriteTask, zWriteTask });
-                m_storageManager.SaveExportIndex(m_storageManager.RetrieveDataIndex());
-
-                Toast.MakeText(this, "CSV export successful!", ToastLength.Long).Show();
-            }
-            catch (Exception ex)
-            {
-                Log.Error("PROCESSOR", ex.ToString());
-                Toast.MakeText(this, "CSV export failed!", ToastLength.Long).Show();
-            }
+            new AlertDialog.Builder(this)
+                .SetTitle("Export options")
+                .SetMessage("Choose how you want to export your data?")
+                .SetPositiveButton("Export all (apply low-pass filter on raw data and export it entirely) ?", async (o, ev) => {
+                    var result = await m_dataExportManager.ExportAllRawAsync(new List<FilterType> { FilterType.RollingAverageLowPass });
+                    if (result)
+                    {
+                        Toast.MakeText(this, "CSV export successful!", ToastLength.Long).Show();
+                    }
+                    else
+                    {
+                        Toast.MakeText(this, "CSV export failed!", ToastLength.Long).Show();
+                    }
+                })
+                .SetNegativeButton("Export single shot only (filter out data we don't really need) ?", async (o, ev) => {
+                    await m_dataExportManager.ExportPerShotDataAsync();
+                    Toast.MakeText(this, "Nothing to do for now!", ToastLength.Long).Show();
+                })
+                .Show();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Commons.Filters
             {
                 throw new ArgumentNullException(nameof(dataBatch));
             }
-            if (filterOrder % 2 != 0)
+            if (filterOrder % 2 == 0)
             {
                 throw new ArgumentException(nameof(filterOrder), "Filter order must be an odd number");
             }

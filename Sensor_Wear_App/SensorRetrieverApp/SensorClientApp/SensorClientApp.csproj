@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataProcessorActivity.cs" />
+    <Compile Include="Helpers\DataExportManager.cs" />
     <Compile Include="Helpers\DataProcessor.cs" />
     <Compile Include="Helpers\IncomingDataEventArgs.cs" />
     <Compile Include="Helpers\SerializedDataProcessor.cs" />
