@@ -27,8 +27,6 @@ namespace SensorClientApp.Helpers
         public async Task<bool> ExportAllRawAsync(List<FilterType> filtersByType)
         {
             string csvX = string.Empty, csvY = string.Empty, csvZ = string.Empty;
-            bool result = false;
-
             await Task.Run(async () =>
             {
                 foreach (var item in m_storageManager.RetrieveAllUnexportedSerializedData<AccelerationBatch>())
@@ -41,27 +39,35 @@ namespace SensorClientApp.Helpers
                     csvZ += csvAccelerationBatch[2];
                 }
 
-                if (string.IsNullOrEmpty(csvX) && string.IsNullOrEmpty(csvY) && string.IsNullOrEmpty(csvZ))
-                {
-                    result = true;
-                }
-
-                try
-                {
-                    Task xWriteTask = FileManipulationHelper.WriteToFileAsync($"{Constants.XAxisCsvFileSuffix}_{DateTime.Now.ToString(Constants.CustomShortDateFormat)}.csv", csvX);
-                    Task yWriteTask = FileManipulationHelper.WriteToFileAsync($"{Constants.YAxisCsvFileSuffix}_{DateTime.Now.ToString(Constants.CustomShortDateFormat)}.csv", csvY);
-                    Task zWriteTask = FileManipulationHelper.WriteToFileAsync($"{Constants.ZAxisCsvFileSuffix}_{DateTime.Now.ToString(Constants.CustomShortDateFormat)}.csv", csvZ);
-                    await Task.WhenAll(new List<Task> { xWriteTask, yWriteTask, zWriteTask });
-                    m_storageManager.SaveExportIndex(m_storageManager.RetrieveDataIndex());
-
-                    result = true;
-                }
-                catch (Exception ex)
-                {
-                    Log.Error("PROCESSOR", ex.ToString());
-                    result = false;
-                }
+                return await WriteAccelerationBatchToCsvFileAsync(csvX, csvY, csvZ);
             });
+
+            return false;
+        }
+
+        private async Task<bool> WriteAccelerationBatchToCsvFileAsync(string csvX, string csvY, string csvZ)
+        {
+            bool result;
+            if (string.IsNullOrEmpty(csvX) && string.IsNullOrEmpty(csvY) && string.IsNullOrEmpty(csvZ))
+            {
+                result = true;
+            }
+
+            try
+            {
+                Task xWriteTask = FileManipulationHelper.WriteToFileAsync($"{Constants.XAxisCsvFileSuffix}_{DateTime.Now.ToString(Constants.CustomShortDateFormat)}.csv", csvX);
+                Task yWriteTask = FileManipulationHelper.WriteToFileAsync($"{Constants.YAxisCsvFileSuffix}_{DateTime.Now.ToString(Constants.CustomShortDateFormat)}.csv", csvY);
+                Task zWriteTask = FileManipulationHelper.WriteToFileAsync($"{Constants.ZAxisCsvFileSuffix}_{DateTime.Now.ToString(Constants.CustomShortDateFormat)}.csv", csvZ);
+                await Task.WhenAll(new List<Task> { xWriteTask, yWriteTask, zWriteTask });
+                m_storageManager.SaveExportIndex(m_storageManager.RetrieveDataIndex());
+
+                result = true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("PROCESSOR", ex.ToString());
+                result = false;
+            }
 
             return result;
         }
@@ -79,8 +85,11 @@ namespace SensorClientApp.Helpers
         public async Task<bool> ExportPerShotDataAsync()
         {
             var allUnexportedData = m_storageManager.RetrieveAllUnexportedSerializedData<AccelerationBatch>();
+            string csvX = string.Empty;
+            string csvY = string.Empty;
+            string csvZ = string.Empty;
 
-            await Task.Run(() => {
+            await Task.Run(async () => {
 
                 foreach (var unexportedDataItem in allUnexportedData)
                 {
@@ -102,12 +111,64 @@ namespace SensorClientApp.Helpers
                     var yAxisMinPeaks = minPeaksFilter.ApplyFilter(yFilteredValues);
 
                     // center around x-axis max value peak if we have other peaks in the area
+                    var peaksToCenterAround = xAxisMaxPeaks.ToArray();
+                    const int windowLength = 550;
 
+                    for (int i = 0; i < peaksToCenterAround.Length; i++)
+                    {
+                        if (peaksToCenterAround[i] != 0)
+                        {
+                            // check other peaks
+                            int peaksInWindow = 0;
+                            var startOfWindow = i - windowLength / 2;
+                            if (startOfWindow < 0)
+                            {
+                                startOfWindow = 0;
+                            }
+
+                            var endOfWindow = i + windowLength / 2;
+                            if (endOfWindow > peaksToCenterAround.Length)
+                            {
+                                endOfWindow = peaksToCenterAround.Length;
+                            }
+
+                            for (int j = startOfWindow; j < endOfWindow; j++)
+                            {
+                                if (xAxisMinPeaks.ElementAt(j) != 0)
+                                {
+                                    peaksInWindow++;
+                                }
+
+                                if (yAxisMaxPeaks.ElementAt(j) != 0)
+                                {
+                                    peaksInWindow++;
+                                }
+
+                                if (yAxisMinPeaks.ElementAt(j) != 0)
+                                {
+                                    peaksInWindow++;
+                                }
+                            }
+
+                            if (peaksInWindow >= 3)
+                            {
+                                // TODO: (we have a good window, export it)
+
+                                var accelerationsAroundPeak = filteredItem.Accelerations.Skip(startOfWindow).Take(endOfWindow - startOfWindow).ToList();
+                                var csvAccelerationBatch = accelerationsAroundPeak.ToCsv();
+                                csvX += csvAccelerationBatch[0];
+                                csvY += csvAccelerationBatch[1];
+                                csvZ += csvAccelerationBatch[2];
+                            }
+                        }
+                    }
                 }
 
-            });            
+                // TODO: new file for each new shot, or what we did is actually useless !!!
+                return await WriteAccelerationBatchToCsvFileAsync(csvX, csvY, csvZ);
+            });
 
-            return true;
+            return false;
         }
     }
 }

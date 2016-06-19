@@ -25,7 +25,7 @@ namespace Commons.Filters
 
         private IEnumerable<double> SupressClosePeaks(double[] allPeaks)
         {
-            List<double> finalPeaks = new List<double>();
+            List<Tuple<int, double>> finalPeaks = new List<Tuple<int, double>>();
             const int supressLength = 250;
 
             int i = 0;
@@ -33,7 +33,7 @@ namespace Commons.Filters
             {
                 if (allPeaks[i] != 0)
                 {
-                    finalPeaks.Add(allPeaks[i]);
+                    finalPeaks.Add(new Tuple<int, double>(i, allPeaks[i]));
                     i += supressLength;
                 }
                 else
@@ -42,7 +42,17 @@ namespace Commons.Filters
                 }
             }
 
-            return finalPeaks;
+            for (i = 0; i < allPeaks.Length; i++)
+            {
+                allPeaks[i] = 0;
+            }
+
+            for (i = 0; i < finalPeaks.Count(); i++)
+            {
+                allPeaks[finalPeaks[i].Item1] = finalPeaks[i].Item2;
+            }
+
+            return allPeaks;
         }
     }
 

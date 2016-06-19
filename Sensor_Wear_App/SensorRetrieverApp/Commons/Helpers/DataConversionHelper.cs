@@ -24,5 +24,19 @@ namespace Commons.Helpers
 
             return csvAccs;
         }
+
+        public static string[] ToCsv(this IEnumerable<Acceleration> accelerations)
+        {
+            var xAccs = accelerations.Select(a => a.X).ToList();
+            var yAccs = accelerations.Select(a => a.Y).ToList();
+            var zAccs = accelerations.Select(a => a.Z).ToList();
+
+            string[] csvAccs = new string[3];
+            csvAccs[0] = string.Join(",", xAccs);
+            csvAccs[1] = string.Join(",", yAccs);
+            csvAccs[2] = string.Join(",", zAccs);
+
+            return csvAccs;
+        }
     }
 }
