@@ -7,6 +7,7 @@ using Commons.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace SensorClientApp.Helpers
 {
@@ -77,6 +78,35 @@ namespace SensorClientApp.Helpers
 
         public async Task<bool> ExportPerShotDataAsync()
         {
+            var allUnexportedData = m_storageManager.RetrieveAllUnexportedSerializedData<AccelerationBatch>();
+
+            await Task.Run(() => {
+
+                foreach (var unexportedDataItem in allUnexportedData)
+                {
+                    var filteredItem = FilterRawAccelerationBatch(unexportedDataItem, new List<FilterType> { FilterType.RollingAverageLowPass });
+
+                    var xFilteredValues = filteredItem.Accelerations.Select(x => x.X);
+                    var yFilteredValues = filteredItem.Accelerations.Select(y => y.Y);
+
+                    var maxPeaksFilter = FilterFactory.GetFilterByType(FilterType.MaxPeaksFilter);
+                    var minPeaksFilter = FilterFactory.GetFilterByType(FilterType.MinPeaksFilter);
+
+                    var xAxisMaxPeaks = maxPeaksFilter.ApplyFilter(xFilteredValues);
+                    var xAxisMinPeaks = minPeaksFilter.ApplyFilter(xFilteredValues);
+
+                    maxPeaksFilter.FilterOrder = 0.7;
+                    minPeaksFilter.FilterOrder = 0.7;
+
+                    var yAxisMaxPeaks = maxPeaksFilter.ApplyFilter(yFilteredValues);
+                    var yAxisMinPeaks = minPeaksFilter.ApplyFilter(yFilteredValues);
+
+                    // center around x-axis max value peak if we have other peaks in the area
+
+                }
+
+            });            
+
             return true;
         }
     }

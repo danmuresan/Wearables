@@ -70,11 +70,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Filters\DerivativeFilter.cs" />
     <Compile Include="Filters\FilterFactory.cs" />
     <Compile Include="Filters\IFilterOperation.cs" />
+    <Compile Include="Filters\PeaksFIlter.cs" />
     <Compile Include="Filters\RollingAverageFilter.cs" />
     <Compile Include="Helpers\DataConversionHelper.cs" />
     <Compile Include="Helpers\DataFilteringHelper.cs" />
+    <Compile Include="Helpers\DataOperationsUtil.cs" />
     <Compile Include="Helpers\DataSerializationHelper.cs" />
     <Compile Include="Helpers\FileManipulationHelper.cs" />
     <Compile Include="Models\Acceleration.cs" />

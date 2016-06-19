@@ -30,11 +30,12 @@ namespace SensorClientApp
 
         private void OnExportToCsvClick(object sender, EventArgs e)
         {
+            var filters = new List<FilterType> { FilterType.RollingAverageLowPass };
             new AlertDialog.Builder(this)
                 .SetTitle("Export options")
                 .SetMessage("Choose how you want to export your data?")
                 .SetPositiveButton("Export all (apply low-pass filter on raw data and export it entirely) ?", async (o, ev) => {
-                    var result = await m_dataExportManager.ExportAllRawAsync(new List<FilterType> { FilterType.RollingAverageLowPass });
+                    var result = await m_dataExportManager.ExportAllRawAsync(filters);
                     if (result)
                     {
                         Toast.MakeText(this, "CSV export successful!", ToastLength.Long).Show();

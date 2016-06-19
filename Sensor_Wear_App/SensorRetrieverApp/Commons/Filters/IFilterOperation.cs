@@ -4,11 +4,15 @@ namespace Commons.Filters
 {
     public interface IFilterOperation
     {
+        double FilterOrder { get; set; }
         IEnumerable<double> ApplyFilter(IEnumerable<double> inputData);
     }
 
     public enum FilterType
     {
-        RollingAverageLowPass
+        RollingAverageLowPass,
+        DerivativeFilter,
+        MaxPeaksFilter,
+        MinPeaksFilter
     }
 }

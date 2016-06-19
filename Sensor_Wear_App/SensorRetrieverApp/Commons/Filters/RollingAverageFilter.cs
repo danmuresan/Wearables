@@ -12,6 +12,13 @@ namespace Commons.Filters
         private const int DefaultFilterMagnitude = 5;
         private int? m_filterMagnitude = null;
 
+        public RollingAverageFilter(double order = 0)
+        {
+            FilterOrder = order;
+        }
+
+        public double FilterOrder { get; set; }
+
         private void CheckFilterData(IEnumerable<double> dataBatch, int filterOrder)
         {
             if (dataBatch == null)
