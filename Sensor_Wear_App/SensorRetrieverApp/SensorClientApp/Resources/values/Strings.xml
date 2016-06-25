@@ -23,4 +23,6 @@
   <string name="RepeatPassword">Repeat Password</string>
   <string name="Email">Email</string>
   <string name="Submit">Submit</string>
+  <string name="ResetCollectedDataIndex">Reset collected data index</string>
+  <string name="ResetCollectedDataIndexInfo">Reset the index which marks data as processed and exported, such that we can export all data again (export failure recovery setting)</string>
 </resources>

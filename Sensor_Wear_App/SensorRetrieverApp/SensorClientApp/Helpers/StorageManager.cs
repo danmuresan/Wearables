@@ -52,6 +52,11 @@ namespace SensorClientApp.Helpers
             return RetrieveNumber(Constants.LastExportIndexTag);
         }
 
+        internal void ResetExportIndex()
+        {
+            SaveNumber(0, Constants.LastExportIndexTag);
+        }
+
         public void SaveSerializedData(string data, int? dataCount = null)
         {
             var dataTag = dataCount != null ? $"{Constants.DefaultDataTag}_{dataCount.ToString()}" : Constants.DefaultDataTag;

@@ -13,4 +13,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/ClearData" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="@string/ResetCollectedDataIndexInfo" />
+    <Button
+        android:id="@+id/ResetCollectedDataIndex"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ResetCollectedDataIndex" />
 </LinearLayout>

@@ -26,6 +26,7 @@ namespace SensorClientApp.Helpers
         /// </summary>
         public async Task<bool> ExportAllRawAsync(List<FilterType> filtersByType)
         {
+            bool result = false;
             string csvX = string.Empty, csvY = string.Empty, csvZ = string.Empty;
             await Task.Run(async () =>
             {
@@ -39,25 +40,29 @@ namespace SensorClientApp.Helpers
                     csvZ += csvAccelerationBatch[2];
                 }
 
-                return await WriteAccelerationBatchToCsvFileAsync(csvX, csvY, csvZ);
+                result = await WriteAccelerationBatchToCsvFileAsync(csvX, csvY, csvZ);
             });
 
-            return false;
+            return result;
         }
 
-        private async Task<bool> WriteAccelerationBatchToCsvFileAsync(string csvX, string csvY, string csvZ)
+        private async Task<bool> WriteAccelerationBatchToCsvFileAsync(string csvX, string csvY, string csvZ, string fileName = null)
         {
             bool result;
+            string fileNameXAxis = $"{Constants.XAxisCsvFileSuffix}_{fileName ?? DateTime.Now.ToString(Constants.CustomShortDateFormat)}.csv";
+            string fileNameYAxis = $"{Constants.YAxisCsvFileSuffix}_{fileName ?? DateTime.Now.ToString(Constants.CustomShortDateFormat)}.csv";
+            string fileNameZAxis = $"{Constants.ZAxisCsvFileSuffix}_{fileName ?? DateTime.Now.ToString(Constants.CustomShortDateFormat)}.csv";
+
             if (string.IsNullOrEmpty(csvX) && string.IsNullOrEmpty(csvY) && string.IsNullOrEmpty(csvZ))
             {
-                result = true;
+                return false;
             }
 
             try
             {
-                Task xWriteTask = FileManipulationHelper.WriteToFileAsync($"{Constants.XAxisCsvFileSuffix}_{DateTime.Now.ToString(Constants.CustomShortDateFormat)}.csv", csvX);
-                Task yWriteTask = FileManipulationHelper.WriteToFileAsync($"{Constants.YAxisCsvFileSuffix}_{DateTime.Now.ToString(Constants.CustomShortDateFormat)}.csv", csvY);
-                Task zWriteTask = FileManipulationHelper.WriteToFileAsync($"{Constants.ZAxisCsvFileSuffix}_{DateTime.Now.ToString(Constants.CustomShortDateFormat)}.csv", csvZ);
+                Task xWriteTask = FileManipulationHelper.WriteToFileAsync(fileNameXAxis, csvX);
+                Task yWriteTask = FileManipulationHelper.WriteToFileAsync(fileNameYAxis, csvY);
+                Task zWriteTask = FileManipulationHelper.WriteToFileAsync(fileNameZAxis, csvZ);
                 await Task.WhenAll(new List<Task> { xWriteTask, yWriteTask, zWriteTask });
                 m_storageManager.SaveExportIndex(m_storageManager.RetrieveDataIndex());
 
@@ -82,12 +87,13 @@ namespace SensorClientApp.Helpers
             return item;
         }
 
-        public async Task<bool> ExportPerShotDataAsync()
+        public async Task<List<bool>> ExportPerShotDataAsync()
         {
             var allUnexportedData = m_storageManager.RetrieveAllUnexportedSerializedData<AccelerationBatch>();
             string csvX = string.Empty;
             string csvY = string.Empty;
             string csvZ = string.Empty;
+            List<bool> shotsExportedSuccessfully = new List<bool>();
 
             await Task.Run(async () => {
 
@@ -156,19 +162,19 @@ namespace SensorClientApp.Helpers
 
                                 var accelerationsAroundPeak = filteredItem.Accelerations.Skip(startOfWindow).Take(endOfWindow - startOfWindow).ToList();
                                 var csvAccelerationBatch = accelerationsAroundPeak.ToCsv();
-                                csvX += csvAccelerationBatch[0];
-                                csvY += csvAccelerationBatch[1];
-                                csvZ += csvAccelerationBatch[2];
+                                csvX = csvAccelerationBatch[0];
+                                csvY = csvAccelerationBatch[1];
+                                csvZ = csvAccelerationBatch[2];
+
+                                var res = await WriteAccelerationBatchToCsvFileAsync(csvX, csvY, csvZ, $"shot_{i}");
+                                shotsExportedSuccessfully.Add(res);
                             }
                         }
                     }
                 }
-
-                // TODO: new file for each new shot, or what we did is actually useless !!!
-                return await WriteAccelerationBatchToCsvFileAsync(csvX, csvY, csvZ);
             });
 
-            return false;
+            return shotsExportedSuccessfully;
         }
     }
 }
