@@ -1,6 +1,6 @@
+using Android.Util;
 using SensorClientApp.Services;
 using System;
-using System.Threading;
 
 namespace SensorClientApp.Helpers
 {
@@ -10,19 +10,27 @@ namespace SensorClientApp.Helpers
 
         private IDataListener m_wearListenerService;
 
-        protected Timer m_timeoutTimer;
-
         public DataProcessor(IDataListener listener)
         {
             m_wearListenerService = listener;
             m_wearListenerService.NewDataArrived += OnDataArrived;
+            m_wearListenerService.ClientTimedOut += OnTimeout;
+        }
+        
+        protected virtual void OnDataArrived(object sender, IncomingDataEventArgs e)
+        {
+            Log.Debug("PROCESSOR", "Begin processing new data...");
         }
 
-        protected abstract void OnDataArrived(object sender, IncomingDataEventArgs e);
+        protected virtual void OnTimeout(object sender, EventArgs e)
+        {
+            Log.Debug("PROCESSOR", "Timeout occurred, device hasn't sent us data in some time.");
+        }
 
         public void Dispose()
         {
             m_wearListenerService.NewDataArrived -= OnDataArrived;
+            m_wearListenerService.ClientTimedOut -= OnTimeout;
         }
     }
 }
