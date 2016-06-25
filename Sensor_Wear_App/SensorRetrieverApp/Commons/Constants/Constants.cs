@@ -17,5 +17,8 @@ namespace Commons.Constants
         public const string ZAxisCsvFileSuffix = "Z_Axis";
 
         public const string CustomShortDateFormat = "dd-MM-yyyy";
+
+        public const string AccelerationUiUpdateMessage = "updateUiWithAcc";
+        public const string AccelerationUiUpdateResult = "updateUiWithAcc_RequestProcessed";
     }
 }

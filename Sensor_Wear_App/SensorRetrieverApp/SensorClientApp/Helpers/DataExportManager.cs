@@ -95,7 +95,8 @@ namespace SensorClientApp.Helpers
             string csvZ = string.Empty;
             List<bool> shotsExportedSuccessfully = new List<bool>();
 
-            await Task.Run(async () => {
+            await Task.Run(async () =>
+            {
 
                 foreach (var unexportedDataItem in allUnexportedData)
                 {

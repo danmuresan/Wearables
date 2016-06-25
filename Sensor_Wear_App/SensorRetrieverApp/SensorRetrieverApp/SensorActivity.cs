@@ -1,22 +1,25 @@
-
 using System;
 using Android.App;
 using Android.Hardware;
 using Android.OS;
-using Android.Runtime;
 using SensorRetrieverApp.Helpers;
 using Android.Widget;
 using System.Diagnostics;
 using Commons.Models;
+using Android.Support.V4.Content;
+using Android.Content;
+using Commons.Helpers;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace SensorRetrieverApp
 {
     [Activity(Label = "SensorActivity")]
-    public class SensorActivity : Activity, ISensorEventListener
+    public class SensorActivity : Activity
     {
-        private SensorManager m_sensorManager;
-        private AccelerationManager m_accManager;
         private Stopwatch m_stopWatch;
+        private AccelerometerUiBroadcastReceiver m_broadcastReceiver;
+        private Intent m_serviceIntent;
 
         internal TextView XAxisTextView { get; private set; }
         internal TextView YAxisTextView { get; private set; }
@@ -27,6 +30,8 @@ namespace SensorRetrieverApp
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            m_broadcastReceiver = new AccelerometerUiBroadcastReceiver(this);
+            m_serviceIntent = new Intent(this, typeof(SensorRetrieverService));
 
             // Create your application here
             SetContentView(Resource.Layout.SensorView);
@@ -38,45 +43,64 @@ namespace SensorRetrieverApp
             StopSessionBtn = FindViewById<Button>(Resource.Id.stop_session_btn);
             StopSessionBtn.Click += OnStopSessionBtnClick;
 
-            m_accManager = new AccelerationManager(this);
-            m_sensorManager = (SensorManager)GetSystemService(SensorService);
-            m_sensorManager.RegisterListener(this, m_sensorManager.GetDefaultSensor(SensorType.Accelerometer), SensorDelay.Fastest);
-
             m_stopWatch = new Stopwatch();
+        }
+
+        protected async override void OnStart()
+        {
+            base.OnStart();
+
+            // start the service and ui updater
+            Thread t = new Thread(() => {
+                StartService(m_serviceIntent);
+            });
+            t.Start();
+
+            await Task.Delay(2000);
+
+            LocalBroadcastManager.GetInstance(this).RegisterReceiver((m_broadcastReceiver),
+                new IntentFilter(Commons.Constants.Constants.AccelerationUiUpdateResult)
+            );
+
             m_stopWatch.Start();
+        }
+
+        protected override void OnStop()
+        {
+            LocalBroadcastManager.GetInstance(this).UnregisterReceiver(m_broadcastReceiver);
+            base.OnStop();
         }
 
         private void OnStopSessionBtnClick(object sender, EventArgs e)
         {
             m_stopWatch.Stop();
-            m_sensorManager.UnregisterListener(this);
+            StopService(m_serviceIntent);
             Finish();
         }
 
-        public void OnAccuracyChanged(Sensor sensor, [GeneratedEnum] SensorStatus accuracy)
-        {
-            // Do nothing
-        }
-
-        public async void OnSensorChanged(SensorEvent e)
-        {
-            if (e.Sensor.Type == SensorType.Accelerometer)
-            {
-                var x = e.Values[0];
-                var y = e.Values[1];
-                var z = e.Values[2];
-                var acc = new Acceleration(x, y, z);
-                await m_accManager.RegisterItemAsync(acc);
-                UpdateUi(acc);
-            }
-        }
-
-        private void UpdateUi(Acceleration acc)
+        internal void UpdateUi(Acceleration acc)
         {
             XAxisTextView.Text = acc.X.ToString("N2");
             YAxisTextView.Text = acc.Y.ToString("N2");
             ZAxisTextView.Text = acc.Z.ToString("N2");
-            ElapsedTextView.Text = $"{m_stopWatch.Elapsed.TotalSeconds} s";
+            ElapsedTextView.Text = $"{(int)m_stopWatch.Elapsed.TotalSeconds} s";
+        }
+    }
+
+    internal class AccelerometerUiBroadcastReceiver : BroadcastReceiver
+    {
+        private readonly SensorActivity m_callingActivity;
+
+        public AccelerometerUiBroadcastReceiver(Context caller)
+        {
+            m_callingActivity = (SensorActivity)caller;
+        }
+
+        public override void OnReceive(Context context, Intent intent)
+        {
+            var serializedLastAcc = intent.GetStringExtra(Commons.Constants.Constants.AccelerationUiUpdateMessage);
+            var lastAcc = serializedLastAcc?.GetObjectFromJson<Acceleration>() ?? new Acceleration(0, 0, 0);
+            m_callingActivity.UpdateUi(lastAcc);
         }
     }
 }

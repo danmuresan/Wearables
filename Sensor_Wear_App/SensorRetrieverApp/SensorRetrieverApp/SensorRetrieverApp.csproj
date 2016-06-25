@@ -79,7 +79,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccelerometerService.cs" />
+    <Compile Include="SensorRetrieverService.cs" />
     <Compile Include="Helpers\AccelerationManager.cs" />
     <Compile Include="Helpers\CommunicationManager.cs" />
     <Compile Include="MainActivity.cs" />

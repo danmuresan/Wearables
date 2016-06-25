@@ -5,7 +5,7 @@ using System;
 using Android.OS;
 using Android.Gms.Common;
 using Commons.Constants;
-using System.Threading.Tasks;
+using Android.Util;
 
 namespace SensorRetrieverApp.Helpers
 {
@@ -26,18 +26,17 @@ namespace SensorRetrieverApp.Helpers
 
         public void OnConnected(Bundle p0)
         {
-            //
+            Log.Debug("LISTENER", "Google Api Client connected successfully!");
         }
-
 
         public void OnConnectionFailed(ConnectionResult p0)
         {
-            //
+            Log.Debug("LISTENER", "Google Api Client did not successfully connect!");
         }
 
         public void OnConnectionSuspended(int p0)
         {
-            //
+            Log.Debug("LISTENER", "Google Api Client connection suspended!");
         }
 
         public void OnDataChanged(DataEventBuffer dataEvents)
@@ -46,6 +45,8 @@ namespace SensorRetrieverApp.Helpers
 
         public bool SendDataRequest(string dataAsJson)
         {
+            Log.Debug("SENDER", "Preparing data request for sending...");
+
             PutDataMapRequest dataMap = PutDataMapRequest.Create(Constants.AccDataPath);
             var data = dataMap.DataMap;
             data.PutString(Constants.AccDataTag, dataAsJson);
@@ -61,6 +62,7 @@ namespace SensorRetrieverApp.Helpers
             }
             catch (Exception ex)
             {
+                Log.Debug("SENDER", ex.ToString());
                 return false;
             }
         }

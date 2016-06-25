@@ -3,7 +3,6 @@ using Android.Content;
 using System.Threading.Tasks;
 using Commons.Models;
 using Commons.Helpers;
-using System.Threading;
 using Commons.Constants;
 
 namespace SensorRetrieverApp.Helpers
@@ -30,7 +29,7 @@ namespace SensorRetrieverApp.Helpers
 
             if (m_currentIndex >= Constants.BufferOverflowLength)
             {
-                await TrySendBatchAsync(m_accBatch);
+                await TrySendDataBatch(m_accBatch);
                 m_accBatch = new AccelerationBatch();
                 m_currentIndex = 0;
             }
@@ -39,14 +38,19 @@ namespace SensorRetrieverApp.Helpers
             m_currentIndex++;
         }
 
-        private async Task TrySendBatchAsync(AccelerationBatch accBatch)
+        private async Task TrySendDataBatch(AccelerationBatch accBatch)
         {
-            Toast.MakeText(m_ctx, "Sending data batch...", ToastLength.Long).Show();
+            var result = m_commManager.SendDataRequest(accBatch.GetJsonFromObject());
+            //await Task.Run(() => m_commManager.SendDataRequest(accBatch.GetJsonFromObject()));
 
-            //m_commManager.SendDataRequest(accBatch.GetJsonFromObject());
-
-            new Thread(
-                () => m_commManager.SendDataRequest(accBatch.GetJsonFromObject())).Start();
+            if (result)
+            {
+                Toast.MakeText(m_ctx, "Data batch sent successfully!", ToastLength.Short).Show();
+            }
+            else
+            {
+                Toast.MakeText(m_ctx, "Data batch failed to send!", ToastLength.Short).Show();
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ namespace SensorClientApp.Helpers
         {
             m_storageManager = new StorageManager();
             m_dataCycle = m_storageManager.RetrieveDataIndex();
-            m_timeoutTimer = new Timer(OnTimeout, null, Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
+            m_timeoutTimer = new Timer(OnTimeout, null, TimeSpan.FromSeconds(TimeoutInSeconds), Timeout.InfiniteTimeSpan);
         }
 
         protected override void OnDataArrived(object sender, IncomingDataEventArgs e)

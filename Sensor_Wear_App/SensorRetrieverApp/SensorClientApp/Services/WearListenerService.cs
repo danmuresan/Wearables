@@ -9,9 +9,12 @@ using System;
 using Android.OS;
 using SensorClientApp.Helpers;
 using Android.Util;
+using Android.Widget;
+using Android.App;
 
 namespace SensorClientApp.Services
 {
+    [Service]
     public class WearListenerService : WearableListenerService, GoogleApiClient.IConnectionCallbacks, GoogleApiClient.IOnConnectionFailedListener, IDataListener
     {
         private GoogleApiClient m_googleApiClient;
@@ -48,6 +51,7 @@ namespace SensorClientApp.Services
         {
             base.OnDataChanged(dataEvents);
             Log.Debug("LISTENER", "New data batch arrived");
+            Toast.MakeText(this, "Processing arrived data...", ToastLength.Short).Show();
 
             foreach (IDataEvent ev in dataEvents)
             {
@@ -67,70 +71,20 @@ namespace SensorClientApp.Services
         public void OnConnectionFailed(ConnectionResult result)
         {
             Log.Debug("LISTENER", "Google Api Client did not successfully connect!");
+            Toast.MakeText(this, "Client did not successfully connect!", ToastLength.Long).Show();
         }
 
         public void OnConnected(Bundle connectionHint)
         {
             Log.Debug("LISTENER", "Google Api Client connected successfully!");
+            Toast.MakeText(this, "Client connected successfully!", ToastLength.Long).Show();
+            WearableClass.DataApi.AddListener(m_googleApiClient, this);
         }
 
         public void OnConnectionSuspended(int cause)
         {
             Log.Debug("LISTENER", "Google Api Client connection suspended!");
+            Toast.MakeText(this, "Client connection suspended!", ToastLength.Long).Show();
         }
     }
-
-    //public class WearListenerService : WearableListenerService, GoogleApiClient.IConnectionCallbacks, GoogleApiClient.IOnConnectionFailedListener
-    //{
-    //    private const string WearAccDataTag = "/accelerations";
-
-    //    private GoogleApiClient m_googleClientApi;
-    //    private Timer m_dataRequestTimer;
-
-    //    public void OnConnected(Bundle connectionHint)
-    //    {
-    //    }
-
-    //    private void PollForNewData(object state)
-    //    {
-    //        if (m_googleClientApi.IsConnected)
-    //        {
-    //            var putDataMapRequest = PutDataMapRequest.Create(WearAccDataTag);
-    //            var dataMap = putDataMapRequest.DataMap;
-
-    //        }
-    //    }
-
-    //    public void OnConnectionFailed(ConnectionResult result)
-    //    {
-    //    }
-
-    //    public void OnConnectionSuspended(int cause)
-    //    {
-    //    }
-
-    //    protected override void OnHandleIntent(Intent intent)
-    //    {
-    //        // TODO...
-    //    }
-
-    //    public override void OnStart(Intent intent, int startId)
-    //    {
-    //        base.OnStart(intent, startId);
-
-    //        m_googleClientApi = new GoogleApiClient.Builder(this)
-    //            .AddConnectionCallbacks(this)
-    //            .AddOnConnectionFailedListener(this)
-    //            .AddApi(WearableClass.API)
-    //            .Build();
-
-    //        m_googleClientApi.Connect();
-    //    }
-
-    //    public override void OnDestroy()
-    //    {
-    //        base.OnDestroy();
-    //        m_googleClientApi.Disconnect();
-    //    }
-    //}
 }
