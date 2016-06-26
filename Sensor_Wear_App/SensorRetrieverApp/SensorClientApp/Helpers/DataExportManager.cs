@@ -20,6 +20,12 @@ namespace SensorClientApp.Helpers
             m_storageManager = new StorageManager();
         }
 
+        public async Task<bool> ExportLogsAsync()
+        {
+            // TODO: custom logger which actually builds out a string with the stack trace (common for both apps)
+            return false;
+        }
+
         /// <summary>
         /// Exports all not previously exported data
         /// Adds processing options such as filters which are applied successively
@@ -87,6 +93,38 @@ namespace SensorClientApp.Helpers
             return item;
         }
 
+        /// <summary>
+        /// Exports all not previously exported data and throws out data not corresponding to a shot based on a custom alg
+        /// Adds processing options such as filters which are applied successively
+        /* 
+         *  Compute mean of X_Axis
+         *  Compute max and min of X_Axis
+
+         *  Compute mean of Y_Axis
+         *  Compute max and min of Y_Axis
+
+         *  Skip check for Z_Axis
+            --------------------------------------------------
+         *  From observations:
+            - take all x peaks for which: value >= 80% of ABS(MAX - AVG)
+            - take all x peaks for which: value <= 80% of ABS(MIN - AVG)
+
+            - supress close peaks(close to each other) - take one max / min only
+
+            - take all y peaks for which same conditions hold with 70%
+
+            - supress close peaks for Y
+
+            - take a window of 500 samples and check for peaks within window(X and Y)
+
+            - if conditions for peaks are met in the window, remove the peaks from the list and mark a window of 500 samples,
+            centered around some peak as a new shot found
+
+            - isolate and save off those positions in the raw acceleration array
+
+            - continue checks until end */
+        /// </summary>
+        // TODO: Maybe add a safe check to not allow peaks of absolute values smaller than some threshold???
         public async Task<List<bool>> ExportPerShotDataAsync()
         {
             var allUnexportedData = m_storageManager.RetrieveAllUnexportedSerializedData<AccelerationBatch>();

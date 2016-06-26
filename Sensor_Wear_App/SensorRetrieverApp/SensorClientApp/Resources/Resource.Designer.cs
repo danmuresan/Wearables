@@ -443,8 +443,8 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f080011
 			public const int ClearDataButton = 2131230737;
 			
-			// aapt resource value: 0x7f080016
-			public const int ExportCsvButton = 2131230742;
+			// aapt resource value: 0x7f080017
+			public const int ExportCsvButton = 2131230743;
 			
 			// aapt resource value: 0x7f08000e
 			public const int MyButton = 2131230734;
@@ -458,6 +458,9 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f080012
 			public const int ResetCollectedDataIndex = 2131230738;
 			
+			// aapt resource value: 0x7f080013
+			public const int SendLogsButton = 2131230739;
+			
 			// aapt resource value: 0x7f080001
 			public const int adjust_height = 2131230721;
 			
@@ -470,8 +473,8 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f080008
 			public const int dark = 2131230728;
 			
-			// aapt resource value: 0x7f080013
-			public const int emailBox = 2131230739;
+			// aapt resource value: 0x7f080014
+			public const int emailBox = 2131230740;
 			
 			// aapt resource value: 0x7f080004
 			public const int icon_only = 2131230724;
@@ -494,14 +497,14 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f08000d
 			public const int registerBtn = 2131230733;
 			
-			// aapt resource value: 0x7f080014
-			public const int repeatPasswordBox = 2131230740;
+			// aapt resource value: 0x7f080015
+			public const int repeatPasswordBox = 2131230741;
 			
 			// aapt resource value: 0x7f080005
 			public const int standard = 2131230725;
 			
-			// aapt resource value: 0x7f080015
-			public const int submitRegistrationBtn = 2131230741;
+			// aapt resource value: 0x7f080016
+			public const int submitRegistrationBtn = 2131230742;
 			
 			// aapt resource value: 0x7f08000a
 			public const int usernameBox = 2131230730;
@@ -622,6 +625,12 @@ namespace SensorClientApp
 			
 			// aapt resource value: 0x7f040037
 			public const int ResetCollectedDataIndexInfo = 2130968631;
+			
+			// aapt resource value: 0x7f040039
+			public const int SendLogsReport = 2130968633;
+			
+			// aapt resource value: 0x7f040038
+			public const int SendLogsReportInfo = 2130968632;
 			
 			// aapt resource value: 0x7f040021
 			public const int StartService = 2130968609;

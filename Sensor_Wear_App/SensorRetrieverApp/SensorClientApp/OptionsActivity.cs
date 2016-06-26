@@ -3,29 +3,48 @@ using Android.App;
 using Android.OS;
 using Android.Widget;
 using Android.Content;
+using SensorClientApp.Helpers;
 
 namespace SensorClientApp
 {
     [Activity(Label = "OptionsActivity")]
     public class OptionsActivity : Activity
     {
-        private Helpers.StorageManager m_storageManager;
+        private StorageManager m_storageManager;
+        private DataExportManager m_dataExportManager;
         private Button m_clearOptionBtn;
-        private Button m_resetCollectedDataIndex;
+        private Button m_resetCollectedDataIndexBtn;
+        private Button m_sendLogsBtn;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Create your application here
-            m_storageManager = new Helpers.StorageManager();
+            m_storageManager = new StorageManager();
+            m_dataExportManager = new DataExportManager(this);
             SetContentView(Resource.Layout.OptionsLayout);
 
             m_clearOptionBtn = FindViewById<Button>(Resource.Id.ClearDataButton);
-            m_resetCollectedDataIndex = FindViewById<Button>(Resource.Id.ResetCollectedDataIndex);
+            m_resetCollectedDataIndexBtn = FindViewById<Button>(Resource.Id.ResetCollectedDataIndex);
+            m_sendLogsBtn = FindViewById<Button>(Resource.Id.SendLogsButton);
 
             m_clearOptionBtn.Click += OnClearOptionBtnClick;
-            m_resetCollectedDataIndex.Click += OnResetIndexClick;
+            m_resetCollectedDataIndexBtn.Click += OnResetIndexClick;
+            m_sendLogsBtn.Click += OnSendLogsClick;
+        }
+
+        private async void OnSendLogsClick(object sender, EventArgs e)
+        {
+            var logsExported = await m_dataExportManager.ExportLogsAsync();
+            if (logsExported)
+            {
+                Toast.MakeText(this, "Logs exported successfully!", ToastLength.Long).Show();
+            }
+            else
+            {
+                Toast.MakeText(this, "Log export failed!", ToastLength.Long).Show();
+            }
         }
 
         private void OnResetIndexClick(object sender, EventArgs e)

@@ -25,4 +25,6 @@
   <string name="Submit">Submit</string>
   <string name="ResetCollectedDataIndex">Reset collected data index</string>
   <string name="ResetCollectedDataIndexInfo">Reset the index which marks data as processed and exported, such that we can export all data again (export failure recovery setting)</string>
+  <string name="SendLogsReportInfo">Send log reports for debugging</string>
+  <string name="SendLogsReport">Send Log Report</string>
 </resources>
