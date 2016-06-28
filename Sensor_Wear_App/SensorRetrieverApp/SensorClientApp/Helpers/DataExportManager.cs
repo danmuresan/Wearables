@@ -135,79 +135,78 @@ namespace SensorClientApp.Helpers
 
             await Task.Run(async () =>
             {
-
+                var dataToProcess = new List<Acceleration>();
                 foreach (var unexportedDataItem in allUnexportedData)
                 {
                     var filteredItem = FilterRawAccelerationBatch(unexportedDataItem, new List<FilterType> { FilterType.RollingAverageLowPass });
+                    dataToProcess.AddRange(filteredItem.Accelerations);
+                }
 
-                    var xFilteredValues = filteredItem.Accelerations.Select(x => x.X);
-                    var yFilteredValues = filteredItem.Accelerations.Select(y => y.Y);
+                var xFilteredValues = dataToProcess.Select(x => x.X);
+                var yFilteredValues = dataToProcess.Select(y => y.Y);
 
-                    var maxPeaksFilter = FilterFactory.GetFilterByType(FilterType.MaxPeaksFilter);
-                    var minPeaksFilter = FilterFactory.GetFilterByType(FilterType.MinPeaksFilter);
+                var maxPeaksFilter = FilterFactory.GetFilterByType(FilterType.MaxPeaksFilter);
+                var minPeaksFilter = FilterFactory.GetFilterByType(FilterType.MinPeaksFilter);
 
-                    var xAxisMaxPeaks = maxPeaksFilter.ApplyFilter(xFilteredValues);
-                    var xAxisMinPeaks = minPeaksFilter.ApplyFilter(xFilteredValues);
+                var xAxisMaxPeaks = maxPeaksFilter.ApplyFilter(xFilteredValues);
+                var xAxisMinPeaks = minPeaksFilter.ApplyFilter(xFilteredValues);
 
-                    maxPeaksFilter.FilterOrder = 0.7;
-                    minPeaksFilter.FilterOrder = 0.7;
+                maxPeaksFilter.FilterOrder = 0.7;
+                minPeaksFilter.FilterOrder = 0.7;
 
-                    var yAxisMaxPeaks = maxPeaksFilter.ApplyFilter(yFilteredValues);
-                    var yAxisMinPeaks = minPeaksFilter.ApplyFilter(yFilteredValues);
+                var yAxisMaxPeaks = maxPeaksFilter.ApplyFilter(yFilteredValues);
+                var yAxisMinPeaks = minPeaksFilter.ApplyFilter(yFilteredValues);
 
-                    // center around x-axis max value peak if we have other peaks in the area
-                    var peaksToCenterAround = xAxisMaxPeaks.ToArray();
-                    const int windowLength = 550;
+                // center around x-axis max value peak if we have other peaks in the area
+                var peaksToCenterAround = xAxisMaxPeaks.ToArray();
+                const int windowLength = 550;
 
-                    for (int i = 0; i < peaksToCenterAround.Length; i++)
+                for (int i = 0; i < peaksToCenterAround.Length; i++)
+                {
+                    if (peaksToCenterAround[i] != 0)
                     {
-                        if (peaksToCenterAround[i] != 0)
+                        // check other peaks
+                        int peaksInWindow = 0;
+                        var startOfWindow = i - windowLength / 2;
+                        if (startOfWindow < 0)
                         {
-                            // check other peaks
-                            int peaksInWindow = 0;
-                            var startOfWindow = i - windowLength / 2;
-                            if (startOfWindow < 0)
+                            startOfWindow = 0;
+                        }
+
+                        var endOfWindow = i + windowLength / 2;
+                        if (endOfWindow > peaksToCenterAround.Length)
+                        {
+                            endOfWindow = peaksToCenterAround.Length;
+                        }
+
+                        for (int j = startOfWindow; j < endOfWindow; j++)
+                        {
+                            if (xAxisMinPeaks.ElementAt(j) != 0)
                             {
-                                startOfWindow = 0;
+                                peaksInWindow++;
                             }
 
-                            var endOfWindow = i + windowLength / 2;
-                            if (endOfWindow > peaksToCenterAround.Length)
+                            if (yAxisMaxPeaks.ElementAt(j) != 0)
                             {
-                                endOfWindow = peaksToCenterAround.Length;
+                                peaksInWindow++;
                             }
 
-                            for (int j = startOfWindow; j < endOfWindow; j++)
+                            if (yAxisMinPeaks.ElementAt(j) != 0)
                             {
-                                if (xAxisMinPeaks.ElementAt(j) != 0)
-                                {
-                                    peaksInWindow++;
-                                }
-
-                                if (yAxisMaxPeaks.ElementAt(j) != 0)
-                                {
-                                    peaksInWindow++;
-                                }
-
-                                if (yAxisMinPeaks.ElementAt(j) != 0)
-                                {
-                                    peaksInWindow++;
-                                }
+                                peaksInWindow++;
                             }
+                        }
 
-                            if (peaksInWindow >= 3)
-                            {
-                                // TODO: (we have a good window, export it)
+                        if (peaksInWindow >= 3)
+                        {
+                            var accelerationsAroundPeak = dataToProcess.Skip(startOfWindow).Take(endOfWindow - startOfWindow).ToList();
+                            var csvAccelerationBatch = accelerationsAroundPeak.ToCsv();
+                            csvX = csvAccelerationBatch[0];
+                            csvY = csvAccelerationBatch[1];
+                            csvZ = csvAccelerationBatch[2];
 
-                                var accelerationsAroundPeak = filteredItem.Accelerations.Skip(startOfWindow).Take(endOfWindow - startOfWindow).ToList();
-                                var csvAccelerationBatch = accelerationsAroundPeak.ToCsv();
-                                csvX = csvAccelerationBatch[0];
-                                csvY = csvAccelerationBatch[1];
-                                csvZ = csvAccelerationBatch[2];
-
-                                var res = await WriteAccelerationBatchToCsvFileAsync(csvX, csvY, csvZ, $"shot_{i}");
-                                shotsExportedSuccessfully.Add(res);
-                            }
+                            var res = await WriteAccelerationBatchToCsvFileAsync(csvX, csvY, csvZ, $"shot_{i}");
+                            shotsExportedSuccessfully.Add(res);
                         }
                     }
                 }
