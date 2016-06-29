@@ -7,7 +7,6 @@ using Commons.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace SensorClientApp.Helpers
 {
@@ -96,35 +95,6 @@ namespace SensorClientApp.Helpers
         /// <summary>
         /// Exports all not previously exported data and throws out data not corresponding to a shot based on a custom alg
         /// Adds processing options such as filters which are applied successively
-        /* 
-         *  Compute mean of X_Axis
-         *  Compute max and min of X_Axis
-
-         *  Compute mean of Y_Axis
-         *  Compute max and min of Y_Axis
-
-         *  Skip check for Z_Axis
-            --------------------------------------------------
-         *  From observations:
-            - take all x peaks for which: value >= 80% of ABS(MAX - AVG)
-            - take all x peaks for which: value <= 80% of ABS(MIN - AVG)
-
-            - supress close peaks(close to each other) - take one max / min only
-
-            - take all y peaks for which same conditions hold with 70%
-
-            - supress close peaks for Y
-
-            - take a window of 500 samples and check for peaks within window(X and Y)
-
-            - if conditions for peaks are met in the window, remove the peaks from the list and mark a window of 500 samples,
-            centered around some peak as a new shot found
-
-            - isolate and save off those positions in the raw acceleration array
-
-            - continue checks until end */
-        /// </summary>
-        // TODO: Maybe add a safe check to not allow peaks of absolute values smaller than some threshold???
         public async Task<List<bool>> ExportPerShotDataAsync()
         {
             var allUnexportedData = m_storageManager.RetrieveAllUnexportedSerializedData<AccelerationBatch>();
@@ -142,77 +112,20 @@ namespace SensorClientApp.Helpers
                     dataToProcess.AddRange(filteredItem.Accelerations);
                 }
 
-                var xFilteredValues = dataToProcess.Select(x => x.X);
-                var yFilteredValues = dataToProcess.Select(y => y.Y);
-
-                var maxPeaksFilter = FilterFactory.GetFilterByType(FilterType.MaxPeaksFilter);
-                var minPeaksFilter = FilterFactory.GetFilterByType(FilterType.MinPeaksFilter);
-
-                var xAxisMaxPeaks = maxPeaksFilter.ApplyFilter(xFilteredValues);
-                var xAxisMinPeaks = minPeaksFilter.ApplyFilter(xFilteredValues);
-
-                maxPeaksFilter.FilterOrder = 0.7;
-                minPeaksFilter.FilterOrder = 0.7;
-
-                var yAxisMaxPeaks = maxPeaksFilter.ApplyFilter(yFilteredValues);
-                var yAxisMinPeaks = minPeaksFilter.ApplyFilter(yFilteredValues);
-
-                // center around x-axis max value peak if we have other peaks in the area
-                var peaksToCenterAround = xAxisMaxPeaks.ToArray();
-                const int windowLength = 550;
-
-                for (int i = 0; i < peaksToCenterAround.Length; i++)
+                var shotsList = DataOperationsUtil.ApplyShotsExtractionAlgorithm(dataToProcess);
+                foreach (var shot in shotsList)
                 {
-                    if (peaksToCenterAround[i] != 0)
-                    {
-                        // check other peaks
-                        int peaksInWindow = 0;
-                        var startOfWindow = i - windowLength / 2;
-                        if (startOfWindow < 0)
-                        {
-                            startOfWindow = 0;
-                        }
+                    var csvAccelerationBatch = shot.ToCsv();
+                    csvX = csvAccelerationBatch[0];
+                    csvY = csvAccelerationBatch[1];
+                    csvZ = csvAccelerationBatch[2];
 
-                        var endOfWindow = i + windowLength / 2;
-                        if (endOfWindow > peaksToCenterAround.Length)
-                        {
-                            endOfWindow = peaksToCenterAround.Length;
-                        }
-
-                        for (int j = startOfWindow; j < endOfWindow; j++)
-                        {
-                            if (xAxisMinPeaks.ElementAt(j) != 0)
-                            {
-                                peaksInWindow++;
-                            }
-
-                            if (yAxisMaxPeaks.ElementAt(j) != 0)
-                            {
-                                peaksInWindow++;
-                            }
-
-                            if (yAxisMinPeaks.ElementAt(j) != 0)
-                            {
-                                peaksInWindow++;
-                            }
-                        }
-
-                        if (peaksInWindow >= 3)
-                        {
-                            var accelerationsAroundPeak = dataToProcess.Skip(startOfWindow).Take(endOfWindow - startOfWindow).ToList();
-                            var csvAccelerationBatch = accelerationsAroundPeak.ToCsv();
-                            csvX = csvAccelerationBatch[0];
-                            csvY = csvAccelerationBatch[1];
-                            csvZ = csvAccelerationBatch[2];
-
-                            var res = await WriteAccelerationBatchToCsvFileAsync(csvX, csvY, csvZ, $"shot_{i}");
-                            shotsExportedSuccessfully.Add(res);
-                        }
-                    }
+                    var res = await WriteAccelerationBatchToCsvFileAsync(csvX, csvY, csvZ, $"shot_{shotsList.IndexOf(shot)}");
+                    shotsExportedSuccessfully.Add(res);
                 }
             });
 
             return shotsExportedSuccessfully;
-        }
+        }        
     }
 }
