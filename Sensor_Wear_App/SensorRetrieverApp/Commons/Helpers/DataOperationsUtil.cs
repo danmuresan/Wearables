@@ -130,8 +130,8 @@ namespace Commons.Helpers
             var xAxisMinPeaks = minPeaksFilter.ApplyFilter(xFilteredValues);
 
             // 80 % is the default, we need a smaller threshold here
-            maxPeaksFilter.FilterOrder = 0.6;
-            minPeaksFilter.FilterOrder = 0.6;
+            maxPeaksFilter.FilterOrder = 0.65;
+            minPeaksFilter.FilterOrder = 0.65;
 
             var yAxisMaxPeaks = maxPeaksFilter.ApplyFilter(yFilteredValues);
             var yAxisMinPeaks = minPeaksFilter.ApplyFilter(yFilteredValues);
