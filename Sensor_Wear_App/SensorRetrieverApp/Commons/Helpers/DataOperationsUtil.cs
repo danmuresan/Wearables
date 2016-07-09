@@ -68,6 +68,17 @@ namespace Commons.Helpers
             return new MinMaxAverageValues(min, max, sum / dataAsArray.Length);
         }
 
+
+        /// <summary>
+        /// At places where there is no movement (which we may be interested in), we should simplify the signal
+        /// by nulling out those values below some adaptive threshold value
+        /// </summary>
+        public static List<Acceleration> NullOutSignal(List<Acceleration> initialSignal)
+        {
+            // TODO: ...
+            return initialSignal;
+        }
+
         /// <summary>
         /// Peak based, shot extraction algorithm as descibed below
         /// Takes a list of accelerations as input and produces a list of lists of accelerations (each subist representing a shot out of the original raw signal)
@@ -118,8 +129,9 @@ namespace Commons.Helpers
             var xAxisMaxPeaks = maxPeaksFilter.ApplyFilter(xFilteredValues);
             var xAxisMinPeaks = minPeaksFilter.ApplyFilter(xFilteredValues);
 
-            maxPeaksFilter.FilterOrder = 0.7;
-            minPeaksFilter.FilterOrder = 0.7;
+            // 80 % is the default, we need a smaller threshold here
+            maxPeaksFilter.FilterOrder = 0.6;
+            minPeaksFilter.FilterOrder = 0.6;
 
             var yAxisMaxPeaks = maxPeaksFilter.ApplyFilter(yFilteredValues);
             var yAxisMinPeaks = minPeaksFilter.ApplyFilter(yFilteredValues);

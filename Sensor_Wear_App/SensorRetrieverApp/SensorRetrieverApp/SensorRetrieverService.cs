@@ -28,7 +28,7 @@ namespace SensorRetrieverApp
 
             m_accManager = new AccelerationManager(this);
             m_sensorManager = (SensorManager)GetSystemService(SensorService);
-            m_sensorManager.RegisterListener(this, m_sensorManager.GetDefaultSensor(SensorType.Accelerometer), SensorDelay.Fastest);
+            m_sensorManager.RegisterListener(this, m_sensorManager.GetDefaultSensor(SensorType.LinearAcceleration), SensorDelay.Fastest);
             //m_sensorManager.RegisterListener(this, m_sensorManager.GetDefaultSensor(SensorType.Gyroscope), SensorDelay.Fastest);
         }
 
@@ -68,7 +68,7 @@ namespace SensorRetrieverApp
 
         public async void OnSensorChanged(SensorEvent e)
         {
-            if (e.Sensor.Type == SensorType.Accelerometer)
+            if (e.Sensor.Type == SensorType.LinearAcceleration)
             {
                 var x = e.Values[0];
                 var y = e.Values[1];

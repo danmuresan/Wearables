@@ -9,7 +9,7 @@ namespace Commons.Filters
     /// </summary>
     public class RollingAverageFilter : IFilterOperation
     {
-        private const int DefaultFilterMagnitude = 5;
+        private const int DefaultFilterMagnitude = 9;
         private int? m_filterMagnitude = null;
 
         public RollingAverageFilter(double order = 0)
