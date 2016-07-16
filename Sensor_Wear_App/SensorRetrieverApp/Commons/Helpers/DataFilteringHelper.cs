@@ -1,6 +1,7 @@
 using Commons.Filters;
 using Commons.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Commons.Helpers
@@ -35,6 +36,17 @@ namespace Commons.Helpers
                 Accelerations = accelerations,
                 TimeStamp = accBatch.TimeStamp
             };
+        }
+
+        public static List<Acceleration> FlattenAccelerationBatches(this List<AccelerationBatch> accBatches)
+        {
+            List<Acceleration> accelerations = new List<Acceleration>();
+            foreach (var accBatch in accBatches)
+            {
+                accelerations.AddRange(accBatch.Accelerations);
+            }
+
+            return accelerations;
         }
     }
 }

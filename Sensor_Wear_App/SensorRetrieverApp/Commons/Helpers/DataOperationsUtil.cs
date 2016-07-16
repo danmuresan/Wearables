@@ -70,6 +70,48 @@ namespace Commons.Helpers
 
 
         /// <summary>
+        /// Compute speed based on integral of acceleration over time, starting with initial velocity at 0 (before a shot)
+        /// v = v0 + a * dt
+        /// which is the numerical integration of acceleration over time: v(t) = integral(a(t)dt)
+        /// </summary>
+        /// <param name="cce"></param>
+        /// <returns></returns>
+        private static double GetAvgVelocityForAccelerationAxis(List<double> accOnAxis, int sampleOffset = 10)
+        {
+            // for simplicity, we assume that before any shot, the velocity is at some point 0 (when taking the racket back for instance)
+            // dt (delta time) = 10 samples interval
+            double initialVelocity = 0; // v0
+            double currentVelocity = 0; // v at time t
+            const int sampleFrq = 200;
+            double deltaTime = ((sampleOffset * 1000) / sampleFrq) / 1000.0; // based on 200 HZ sample frq, 10 samples come in at approx. 50 ms offsets => 0.05 seconds
+
+            double totalSpeed = 0;
+            int accCount = 0;
+            for (int i = 0; i < accOnAxis.Count; i += sampleOffset)
+            {
+                currentVelocity = initialVelocity + accOnAxis[i] * deltaTime;
+                totalSpeed += currentVelocity;
+                initialVelocity = currentVelocity;
+                accCount++;
+            }
+
+            // avg speed for current sample batch (meters / second)
+            return currentVelocity;
+        }
+
+        public static double GetAvgVelocityForAccelerationBatch(List<Acceleration> accBatchSignal)
+        {
+            double avgVelocityXAxis = GetAvgVelocityForAccelerationAxis(accBatchSignal.Select(x => x.X).ToList());
+            double avgVelocityYAxis = GetAvgVelocityForAccelerationAxis(accBatchSignal.Select(y => y.Y).ToList());
+            double avgVelocityZAxis = GetAvgVelocityForAccelerationAxis(accBatchSignal.Select(z => z.Z).ToList());
+
+            // compute the avg of total speed based on polar coordinates (per axis values)
+            var velocityTotal = Math.Sqrt(Math.Pow(avgVelocityXAxis, 2) + Math.Pow(avgVelocityYAxis, 2) + Math.Pow(avgVelocityZAxis, 2));
+            return Math.Round(Math.Abs(velocityTotal), 2, MidpointRounding.AwayFromZero);
+        }
+
+
+        /// <summary>
         /// At places where there is no movement (which we may be interested in), we should simplify the signal
         /// by nulling out those values below some adaptive threshold value
         /// </summary>

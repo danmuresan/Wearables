@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+  <TextView
+      android:layout_marginLeft="8dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="24sp"
+      android:text="@string/StatsInfoText" />
+  <TextView
+      android:layout_marginLeft="8dp"
+      android:layout_marginTop="10dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="20sp"
+      android:id="@+id/ShotsCount"
+      android:text="@string/ShotsCountText" />
+  <TextView
+      android:layout_marginLeft="8dp"
+      android:layout_marginTop="10dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="20sp"
+      android:id="@+id/TotalAvgVelocity"
+      android:text="@string/TotalAvgVelocityText" />
+  <TextView
+      android:layout_marginLeft="8dp"
+      android:layout_marginTop="10dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="20sp"
+      android:id="@+id/MaxAvgVelocity"
+      android:text="@string/MaxAvgVelocityText" />
+  <TextView
+      android:layout_marginLeft="8dp"
+      android:layout_marginTop="10dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="20sp"
+      android:id="@+id/MinAvgVelocity"
+      android:text="@string/MinAvgVelocityText" />
+</LinearLayout>

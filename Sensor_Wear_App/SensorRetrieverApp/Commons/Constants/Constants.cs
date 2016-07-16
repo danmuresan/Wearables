@@ -9,6 +9,8 @@ namespace Commons.Constants
         public const string DefaultDataTag = "DataBatch";
         public const string SharedPrefsIndexTag = "LastSavedIndex";
         public const string LastExportIndexTag = "LastExportIndex";
+        public const string SessionIndexStartTag = "SessionIndexStart";
+        public const string SessionIndexEndTag = "SessionIndexEnd";
 
         public const short BufferOverflowLength = 1000;
 

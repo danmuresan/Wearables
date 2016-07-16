@@ -131,6 +131,29 @@ namespace SensorClientApp.Helpers
             return retrievedItems;
         }
 
+        public List<T> RetrieveSerializedDataBatch<T>(int startIndex, int endIndex) where T : IDataModel
+        {
+            List<T> retrievedItems = new List<T>();
+            for (int i = startIndex; i <= endIndex; i++)
+            {
+                try
+                {
+                    var serializedDataItem = RetrieveSerializedData(dataCount: i);
+                    var dataItemBatch = serializedDataItem.GetObjectListFromJson<T>();
+                    foreach (var item in dataItemBatch)
+                    {
+                        retrievedItems.Add(item);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("STORAGE", ex.ToString());
+                }
+            }
+
+            return retrievedItems;
+        }
+
         public bool ClearAllData()
         {
             try

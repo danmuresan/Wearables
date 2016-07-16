@@ -4,6 +4,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
+        android:id="@+id/TotalSessionsCollected"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/SamplesCollectedCount" />
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ProcessSample" />
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/FromDataIndex" />
+        <Spinner
+            android:id="@+id/DataIndexSpinnerStart"
+            android:text="@string/DataIndexChoice"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ToDataIndex" />
+        <Spinner
+            android:id="@+id/DataIndexSpinnerEnd"
+            android:text="@string/DataIndexChoice"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/ProcessSampleButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ProcessSampleBtn" />
+    </LinearLayout>
+    <TextView
+        android:layout_marginTop="10dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/ExportToCsvInfo" />

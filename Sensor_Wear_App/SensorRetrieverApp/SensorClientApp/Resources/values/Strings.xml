@@ -27,4 +27,16 @@
   <string name="ResetCollectedDataIndexInfo">Reset the index which marks data as processed and exported, such that we can export all data again (export failure recovery setting)</string>
   <string name="SendLogsReportInfo">Send log reports for debugging</string>
   <string name="SendLogsReport">Send Log Report</string>
+  <string name="SamplesCollectedCount">Stored data collection sessions count: {0}</string>
+  <string name="ProcessSample">Process collected data up until a specified point (index) for mining data from it (1 - oldest session index, n - newest session index).</string>
+  <string name="ProcessSampleBtn">Process Data Session</string>
+  <string name="DataIndexChoice">Choose Data Session</string>
+  <string name="TotalAvgVelocityText">Total Avg Speed: {0} m/s</string>
+  <string name="MaxAvgVelocityText">Total Max Speed: {0} m/s</string>
+  <string name="MinAvgVelocityText">Total Min Speed: {0} m/s</string>
+  <string name="ShotsCountText">Shots Count: {0}</string>
+  <string name="FromDataIndex">From Data Index</string>
+  <string name="ToDataIndex">To Data Index</string>
+  <string name="StatsInfoText">Tennis data statistics</string>
+  
 </resources>

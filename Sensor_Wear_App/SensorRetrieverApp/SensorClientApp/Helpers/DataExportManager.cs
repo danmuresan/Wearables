@@ -25,6 +25,11 @@ namespace SensorClientApp.Helpers
             return false;
         }
 
+        public int GetTotalCollectedSamplesCount()
+        {
+            return m_storageManager.RetrieveDataIndex();
+        }
+
         /// <summary>
         /// Exports all not previously exported data
         /// Adds processing options such as filters which are applied successively
