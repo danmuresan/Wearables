@@ -443,14 +443,17 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f080011
 			public const int ClearDataButton = 2131230737;
 			
+			// aapt resource value: 0x7f080018
+			public const int CorrelationMetricBtn = 2131230744;
+			
+			// aapt resource value: 0x7f08001e
+			public const int DataIndexSpinnerEnd = 2131230750;
+			
 			// aapt resource value: 0x7f08001d
-			public const int DataIndexSpinnerEnd = 2131230749;
+			public const int DataIndexSpinnerStart = 2131230749;
 			
-			// aapt resource value: 0x7f08001c
-			public const int DataIndexSpinnerStart = 2131230748;
-			
-			// aapt resource value: 0x7f08001f
-			public const int ExportCsvButton = 2131230751;
+			// aapt resource value: 0x7f080020
+			public const int ExportCsvButton = 2131230752;
 			
 			// aapt resource value: 0x7f080016
 			public const int MaxAvgVelocity = 2131230742;
@@ -467,8 +470,8 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f08000f
 			public const int ProcessButton = 2131230735;
 			
-			// aapt resource value: 0x7f08001e
-			public const int ProcessSampleButton = 2131230750;
+			// aapt resource value: 0x7f08001f
+			public const int ProcessSampleButton = 2131230751;
 			
 			// aapt resource value: 0x7f080012
 			public const int ResetCollectedDataIndex = 2131230738;
@@ -479,14 +482,14 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f080014
 			public const int ShotsCount = 2131230740;
 			
-			// aapt resource value: 0x7f080020
-			public const int SpinnerTextView = 2131230752;
+			// aapt resource value: 0x7f080021
+			public const int SpinnerTextView = 2131230753;
 			
 			// aapt resource value: 0x7f080015
 			public const int TotalAvgVelocity = 2131230741;
 			
-			// aapt resource value: 0x7f08001b
-			public const int TotalSessionsCollected = 2131230747;
+			// aapt resource value: 0x7f08001c
+			public const int TotalSessionsCollected = 2131230748;
 			
 			// aapt resource value: 0x7f080001
 			public const int adjust_height = 2131230721;
@@ -500,8 +503,8 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f080008
 			public const int dark = 2131230728;
 			
-			// aapt resource value: 0x7f080018
-			public const int emailBox = 2131230744;
+			// aapt resource value: 0x7f080019
+			public const int emailBox = 2131230745;
 			
 			// aapt resource value: 0x7f080004
 			public const int icon_only = 2131230724;
@@ -524,14 +527,14 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f08000d
 			public const int registerBtn = 2131230733;
 			
-			// aapt resource value: 0x7f080019
-			public const int repeatPasswordBox = 2131230745;
+			// aapt resource value: 0x7f08001a
+			public const int repeatPasswordBox = 2131230746;
 			
 			// aapt resource value: 0x7f080005
 			public const int standard = 2131230725;
 			
-			// aapt resource value: 0x7f08001a
-			public const int submitRegistrationBtn = 2131230746;
+			// aapt resource value: 0x7f08001b
+			public const int submitRegistrationBtn = 2131230747;
 			
 			// aapt resource value: 0x7f08000a
 			public const int usernameBox = 2131230730;
@@ -610,6 +613,9 @@ namespace SensorClientApp
 			
 			// aapt resource value: 0x7f040029
 			public const int ClearDataInfo = 2130968617;
+			
+			// aapt resource value: 0x7f040045
+			public const int CorrelationMetric = 2130968645;
 			
 			// aapt resource value: 0x7f04003d
 			public const int DataIndexChoice = 2130968637;

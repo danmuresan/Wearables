@@ -70,9 +70,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Filters\CrossCorrelationOperation.cs" />
     <Compile Include="Filters\DerivativeFilter.cs" />
     <Compile Include="Filters\FilterFactory.cs" />
     <Compile Include="Filters\IFilterOperation.cs" />
+    <Compile Include="Filters\NullOutIrrelevanciesFilter.cs" />
     <Compile Include="Filters\PeaksFIlter.cs" />
     <Compile Include="Filters\RollingAverageFilter.cs" />
     <Compile Include="Helpers\DataConversionHelper.cs" />

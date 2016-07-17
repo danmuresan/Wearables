@@ -68,6 +68,45 @@ namespace Commons.Helpers
             return new MinMaxAverageValues(min, max, sum / dataAsArray.Length);
         }
 
+        public static double GetStandardDeviation(this IEnumerable<double> values)
+        {
+            double avg = values.Average();
+            return Math.Sqrt(values.Average(v => Math.Pow(v - avg, 2)));
+        }
+
+        public static double GetVariance(this IEnumerable<double> values)
+        {
+            double mean = values.GetAvgValueRaw();
+            double variance = 0;
+            var valuesArray = values.ToArray();
+
+            for (int i = 0; i < valuesArray.Count(); i++)
+            {
+                variance += Math.Pow((valuesArray[i] - mean), 2);
+            }
+
+            int start = 0;
+            int n = valuesArray.Count();
+            if (start > 0)
+            {
+                n -= 1;
+            }
+
+            return variance / (n);
+        }
+
+        /// <summary>
+        /// sqrt((x1 - x2)^2 + (y1 - y2)^2)
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y1"></param>
+        /// <param name="y2"></param>
+        /// <returns></returns>
+        public static double GetEuclideanLength(double x1, double x2, double y1, double y2)
+        {
+            return Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));
+        }
 
         /// <summary>
         /// Compute speed based on integral of acceleration over time, starting with initial velocity at 0 (before a shot)
@@ -110,15 +149,27 @@ namespace Commons.Helpers
             return Math.Round(Math.Abs(velocityTotal), 2, MidpointRounding.AwayFromZero);
         }
 
-
-        /// <summary>
-        /// At places where there is no movement (which we may be interested in), we should simplify the signal
-        /// by nulling out those values below some adaptive threshold value
-        /// </summary>
-        public static List<Acceleration> NullOutSignal(List<Acceleration> initialSignal)
+        public static double GetAvgCrossCorrelation(IList<Acceleration> accSeriesFirst, IList<Acceleration> accSeriesSecond)
         {
-            // TODO: ...
-            return initialSignal;
+            var xAxisAccelerationsFirst = accSeriesFirst.Select(x => x.X).ToArray();
+            var xAxisAccelerationsSecond = accSeriesSecond.Select(x => x.X).ToArray();
+            var yAxisAccelerationsFirst = accSeriesFirst.Select(y => y.Y).ToArray();
+            var yAxisAccelerationsSecond = accSeriesSecond.Select(y => y.Y).ToArray();
+            var zAxisAccelerationsFirst = accSeriesFirst.Select(z => z.Z).ToArray();
+            var zAxisAccelerationsSecond = accSeriesSecond.Select(z => z.Z).ToArray();
+
+            var corrOp = new CrossCorrelationOperation(xAxisAccelerationsFirst, xAxisAccelerationsSecond);
+            var corrCoefX = corrOp.ComputeCoeffMethod2();
+
+            corrOp.UpdateInputDataSeries(yAxisAccelerationsFirst, yAxisAccelerationsSecond);
+            var corrCoefY = corrOp.ComputeCoeffMethod2();
+
+            corrOp.UpdateInputDataSeries(zAxisAccelerationsFirst, zAxisAccelerationsSecond);
+            var corrCoefZ = corrOp.ComputeCoeffMethod2();
+
+            var avgCorrScore = (Math.Abs(corrCoefX) + Math.Abs(corrCoefY) + Math.Abs(corrCoefZ)) / 3.0;
+
+            return avgCorrScore;
         }
 
         /// <summary>

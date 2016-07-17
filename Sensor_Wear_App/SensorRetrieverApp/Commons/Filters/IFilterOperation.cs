@@ -13,6 +13,8 @@ namespace Commons.Filters
         RollingAverageLowPass,
         DerivativeFilter,
         MaxPeaksFilter,
-        MinPeaksFilter
+        MinPeaksFilter,
+        NullOutIrrelevantFilter,
+        WindowedLengthFilter
     }
 }

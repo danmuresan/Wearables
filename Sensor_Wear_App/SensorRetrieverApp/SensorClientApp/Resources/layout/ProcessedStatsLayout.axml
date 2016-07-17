@@ -41,4 +41,12 @@
       android:textSize="20sp"
       android:id="@+id/MinAvgVelocity"
       android:text="@string/MinAvgVelocityText" />
+  <Button
+      android:layout_marginTop="10dp"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/CorrelationMetricBtn"
+      android:text="@string/CorrelationMetric" />
 </LinearLayout>

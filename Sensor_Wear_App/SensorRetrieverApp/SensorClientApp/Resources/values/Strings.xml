@@ -38,5 +38,6 @@
   <string name="FromDataIndex">From Data Index</string>
   <string name="ToDataIndex">To Data Index</string>
   <string name="StatsInfoText">Tennis data statistics</string>
-  
+  <string name="CorrelationMetric">Compute Correlation Metric</string>
+
 </resources>
