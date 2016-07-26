@@ -1,5 +1,7 @@
+using Commons.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Commons.Filters
 {
@@ -21,7 +23,19 @@ namespace Commons.Filters
         public IEnumerable<double> ApplyFilter(IEnumerable<double> inputData)
         {
             // TODO: ...
-            return null;
+            var inputDataArray = inputData.ToArray();
+            var mean = inputData.GetAvgValueRaw();
+            var threshold = mean + mean * 0.08;
+
+            for (int i = 0; i < inputData.Count(); i++)
+            {
+                if (inputDataArray[i] < threshold)
+                {
+                    inputDataArray[i] = 0;
+                }
+            }
+
+            return inputDataArray;
         }
     }
 }

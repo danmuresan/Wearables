@@ -55,14 +55,23 @@ namespace SensorClientApp
 
         private void OnCorrelationMetricBtnClick(object sender, EventArgs e)
         {
-            var first = m_shotsAccelerationsList[3];
+            var first = m_shotsAccelerationsList[2];
             var second = m_shotsAccelerationsList[5];
+
+            var firstNormalized = DataFilteringHelper.NormalizeAccelerationBatch(first).ToList();
+            var secondNormalized = DataFilteringHelper.NormalizeAccelerationBatch(second).ToList();
 
             var crossCorrelationCoefficient = DataOperationsUtil.GetAvgCrossCorrelation(first, second);
             var stdDevFirst_XAxis = DataOperationsUtil.GetStandardDeviation(first.Select(x => x.X));
             var stdDevSecond_XAxis = DataOperationsUtil.GetStandardDeviation(second.Select(x => x.X));
             var varianceFirst_XAxis = DataOperationsUtil.GetVariance(first.Select(x => x.X));
             var varianceSecond_XAxis = DataOperationsUtil.GetVariance(second.Select(x => x.X));
+
+            var crossCorrelationCoefficient2 = DataOperationsUtil.GetAvgCrossCorrelation(firstNormalized, secondNormalized);
+            var stdDevFirst_XAxis2 = DataOperationsUtil.GetStandardDeviation(firstNormalized.Select(x => x.X));
+            var stdDevSecond_XAxis2 = DataOperationsUtil.GetStandardDeviation(secondNormalized.Select(x => x.X));
+            var varianceFirst_XAxis2 = DataOperationsUtil.GetVariance(firstNormalized.Select(x => x.X));
+            var varianceSecond_XAxis2 = DataOperationsUtil.GetVariance(secondNormalized.Select(x => x.X));
 
             var stdDevFirst_YAxis = DataOperationsUtil.GetStandardDeviation(first.Select(y => y.Y));
             var stdDevSecond_YAxis = DataOperationsUtil.GetStandardDeviation(second.Select(y => y.Y));

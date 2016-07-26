@@ -48,5 +48,91 @@ namespace Commons.Helpers
 
             return accelerations;
         }
+
+        /// <summary>
+        /// First off, we filter out the accelerations with the window filter.
+        /// We then begin the nulling out procedure - everything below an adaptive threshold of 20% is nulled
+        /// consider the area of interest starting from the earliest non-nulled point up till the latest non-null point
+        /// </summary>
+        /// <param name="accelerations"></param>
+        /// <returns></returns>
+        public static IEnumerable<Acceleration> NormalizeAccelerationBatch(IEnumerable<Acceleration> accelerations)
+        {
+            var windowFiltered = DataOperationsUtil.ApplyWindowFilterOnAccelerationBatch(accelerations);
+            var nullOutFilter = FilterFactory.GetFilterByType(FilterType.NullOutIrrelevantFilter);
+
+            var nulledXAxis = nullOutFilter.ApplyFilter(windowFiltered.Select(x => x.X)).ToList();
+            var nulledYAxis = nullOutFilter.ApplyFilter(windowFiltered.Select(y => y.Y)).ToList();
+            var nulledZAxis = nullOutFilter.ApplyFilter(windowFiltered.Select(z => z.Z)).ToList();
+
+            var firstNonNullOfX = nulledXAxis.FirstOrDefault(x => x > 0);
+            var firstNonNullOfY = nulledYAxis.FirstOrDefault(y => y > 0);
+            var firstNonNullOfZ = nulledZAxis.FirstOrDefault(z => z > 0);
+
+            var lastNonNullOfX = nulledXAxis.LastOrDefault(x => x > 0);
+            var lastNonNullOfY = nulledYAxis.LastOrDefault(y => y > 0);
+            var lastNonNullOfZ = nulledZAxis.LastOrDefault(z => z > 0);
+
+            var firstNonNull = MinOfThree(firstNonNullOfX, firstNonNullOfY, firstNonNullOfZ);
+            var lastNonNull = MinOfThree(lastNonNullOfX, lastNonNullOfY, lastNonNullOfZ);
+
+            int indexOfFirst = 0;
+            if (firstNonNull == firstNonNullOfX)
+            {
+                indexOfFirst = nulledXAxis.IndexOf(firstNonNullOfX);
+            }
+            else if (firstNonNull == firstNonNullOfY)
+            {
+                indexOfFirst = nulledYAxis.IndexOf(firstNonNullOfY);
+            }
+            else if (firstNonNull == firstNonNullOfZ)
+            {
+                indexOfFirst = nulledZAxis.IndexOf(firstNonNullOfZ);
+            }
+
+            int indexOfLast = 0;
+            if (lastNonNull == lastNonNullOfX)
+            {
+                indexOfLast = nulledXAxis.IndexOf(lastNonNullOfX);
+            }
+            else if (lastNonNull == firstNonNullOfY)
+            {
+                indexOfLast = nulledYAxis.IndexOf(lastNonNullOfY);
+            }
+            else if (lastNonNull == firstNonNullOfZ)
+            {
+                indexOfLast = nulledZAxis.IndexOf(lastNonNullOfZ);
+            }
+
+            List<Acceleration> output = new List<Acceleration>();
+            for (int i = 0; i < accelerations.Count(); i++)
+            {
+                if (i < indexOfFirst)
+                {
+                    output.Add(new Acceleration(0, 0, 0));
+                }
+                else if (i > indexOfLast)
+                {
+                    output.Add(new Acceleration(0, 0, 0));
+                }
+                else
+                {
+                    var currentAcc = accelerations.ElementAt(i);
+                    output.Add(new Acceleration(currentAcc.X, currentAcc.Y, currentAcc.Z));
+                }
+            }
+
+            return output;
+        }
+
+        private static double MinOfThree(double a, double b, double c)
+        {
+            return Math.Min(a, Math.Min(b, c));
+        }
+
+        private static double MaxOfThree(double a, double b, double c)
+        {
+            return Math.Max(a, Math.Max(b, c));
+        }
     }
 }

@@ -172,6 +172,23 @@ namespace Commons.Helpers
             return avgCorrScore;
         }
 
+        public static IEnumerable<Acceleration> ApplyWindowFilterOnAccelerationBatch(IEnumerable<Acceleration> accelerations)
+        {
+            List<Acceleration> normalizedAccelerations = new List<Acceleration>();
+            var windowedLengthFilter = FilterFactory.GetFilterByType(FilterType.WindowedLengthFilter);
+
+            var normalizedXAxis = windowedLengthFilter.ApplyFilter(accelerations.Select(x => x.X)).ToList();
+            var normalizedYAxis = windowedLengthFilter.ApplyFilter(accelerations.Select(y => y.Y)).ToList();
+            var normalizedZAxis = windowedLengthFilter.ApplyFilter(accelerations.Select(z => z.Z)).ToList();
+
+            for (int i = 0; i < normalizedXAxis.Count(); i++)
+            {
+                normalizedAccelerations.Add(new Acceleration(normalizedXAxis[i], normalizedYAxis[i], normalizedZAxis[i]));
+            }
+
+            return normalizedAccelerations;
+        }
+
         /// <summary>
         /// Peak based, shot extraction algorithm as descibed below
         /// Takes a list of accelerations as input and produces a list of lists of accelerations (each subist representing a shot out of the original raw signal)

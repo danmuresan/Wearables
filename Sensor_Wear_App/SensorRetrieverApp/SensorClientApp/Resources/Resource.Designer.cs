@@ -440,56 +440,65 @@ namespace SensorClientApp
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f080011
-			public const int ClearDataButton = 2131230737;
-			
-			// aapt resource value: 0x7f080018
-			public const int CorrelationMetricBtn = 2131230744;
-			
-			// aapt resource value: 0x7f08001e
-			public const int DataIndexSpinnerEnd = 2131230750;
-			
-			// aapt resource value: 0x7f08001d
-			public const int DataIndexSpinnerStart = 2131230749;
-			
-			// aapt resource value: 0x7f080020
-			public const int ExportCsvButton = 2131230752;
-			
-			// aapt resource value: 0x7f080016
-			public const int MaxAvgVelocity = 2131230742;
-			
-			// aapt resource value: 0x7f080017
-			public const int MinAvgVelocity = 2131230743;
-			
-			// aapt resource value: 0x7f08000e
-			public const int MyButton = 2131230734;
-			
-			// aapt resource value: 0x7f080010
-			public const int OptionsButtonn = 2131230736;
-			
-			// aapt resource value: 0x7f08000f
-			public const int ProcessButton = 2131230735;
-			
-			// aapt resource value: 0x7f08001f
-			public const int ProcessSampleButton = 2131230751;
-			
-			// aapt resource value: 0x7f080012
-			public const int ResetCollectedDataIndex = 2131230738;
-			
-			// aapt resource value: 0x7f080013
-			public const int SendLogsButton = 2131230739;
-			
 			// aapt resource value: 0x7f080014
-			public const int ShotsCount = 2131230740;
+			public const int ClearDataButton = 2131230740;
+			
+			// aapt resource value: 0x7f08001b
+			public const int CorrelationMetricBtn = 2131230747;
 			
 			// aapt resource value: 0x7f080021
-			public const int SpinnerTextView = 2131230753;
+			public const int DataIndexSpinnerEnd = 2131230753;
+			
+			// aapt resource value: 0x7f080020
+			public const int DataIndexSpinnerStart = 2131230752;
+			
+			// aapt resource value: 0x7f08000a
+			public const int ExportAllBtn = 2131230730;
+			
+			// aapt resource value: 0x7f080023
+			public const int ExportCsvButton = 2131230755;
+			
+			// aapt resource value: 0x7f08000b
+			public const int ExportShotsRawBtn = 2131230731;
+			
+			// aapt resource value: 0x7f08000c
+			public const int ExportWindowedShotsBtn = 2131230732;
+			
+			// aapt resource value: 0x7f080019
+			public const int MaxAvgVelocity = 2131230745;
+			
+			// aapt resource value: 0x7f08001a
+			public const int MinAvgVelocity = 2131230746;
+			
+			// aapt resource value: 0x7f080011
+			public const int MyButton = 2131230737;
+			
+			// aapt resource value: 0x7f080013
+			public const int OptionsButtonn = 2131230739;
+			
+			// aapt resource value: 0x7f080012
+			public const int ProcessButton = 2131230738;
+			
+			// aapt resource value: 0x7f080022
+			public const int ProcessSampleButton = 2131230754;
 			
 			// aapt resource value: 0x7f080015
-			public const int TotalAvgVelocity = 2131230741;
+			public const int ResetCollectedDataIndex = 2131230741;
 			
-			// aapt resource value: 0x7f08001c
-			public const int TotalSessionsCollected = 2131230748;
+			// aapt resource value: 0x7f080016
+			public const int SendLogsButton = 2131230742;
+			
+			// aapt resource value: 0x7f080017
+			public const int ShotsCount = 2131230743;
+			
+			// aapt resource value: 0x7f080024
+			public const int SpinnerTextView = 2131230756;
+			
+			// aapt resource value: 0x7f080018
+			public const int TotalAvgVelocity = 2131230744;
+			
+			// aapt resource value: 0x7f08001f
+			public const int TotalSessionsCollected = 2131230751;
 			
 			// aapt resource value: 0x7f080001
 			public const int adjust_height = 2131230721;
@@ -503,8 +512,8 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f080008
 			public const int dark = 2131230728;
 			
-			// aapt resource value: 0x7f080019
-			public const int emailBox = 2131230745;
+			// aapt resource value: 0x7f08001c
+			public const int emailBox = 2131230748;
 			
 			// aapt resource value: 0x7f080004
 			public const int icon_only = 2131230724;
@@ -515,29 +524,29 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f080009
 			public const int light = 2131230729;
 			
-			// aapt resource value: 0x7f08000c
-			public const int loginBtn = 2131230732;
+			// aapt resource value: 0x7f08000f
+			public const int loginBtn = 2131230735;
 			
 			// aapt resource value: 0x7f080003
 			public const int none = 2131230723;
 			
-			// aapt resource value: 0x7f08000b
-			public const int passwordBox = 2131230731;
+			// aapt resource value: 0x7f08000e
+			public const int passwordBox = 2131230734;
 			
-			// aapt resource value: 0x7f08000d
-			public const int registerBtn = 2131230733;
+			// aapt resource value: 0x7f080010
+			public const int registerBtn = 2131230736;
 			
-			// aapt resource value: 0x7f08001a
-			public const int repeatPasswordBox = 2131230746;
+			// aapt resource value: 0x7f08001d
+			public const int repeatPasswordBox = 2131230749;
 			
 			// aapt resource value: 0x7f080005
 			public const int standard = 2131230725;
 			
-			// aapt resource value: 0x7f08001b
-			public const int submitRegistrationBtn = 2131230747;
+			// aapt resource value: 0x7f08001e
+			public const int submitRegistrationBtn = 2131230750;
 			
-			// aapt resource value: 0x7f08000a
-			public const int usernameBox = 2131230730;
+			// aapt resource value: 0x7f08000d
+			public const int usernameBox = 2131230733;
 			
 			// aapt resource value: 0x7f080006
 			public const int wide = 2131230726;
@@ -572,25 +581,28 @@ namespace SensorClientApp
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Login = 2130903040;
+			public const int DataExportLayout = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int Main = 2130903041;
+			public const int Login = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int OptionsLayout = 2130903042;
+			public const int Main = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int ProcessedStatsLayout = 2130903043;
+			public const int OptionsLayout = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int Register = 2130903044;
+			public const int ProcessedStatsLayout = 2130903044;
 			
 			// aapt resource value: 0x7f030005
-			public const int SimpleProcessorLayout = 2130903045;
+			public const int Register = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int SpinnerItem = 2130903046;
+			public const int SimpleProcessorLayout = 2130903046;
+			
+			// aapt resource value: 0x7f030007
+			public const int SpinnerItem = 2130903047;
 			
 			static Layout()
 			{
@@ -623,11 +635,29 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f040034
 			public const int Email = 2130968628;
 			
+			// aapt resource value: 0x7f040049
+			public const int ExportAll = 2130968649;
+			
+			// aapt resource value: 0x7f040046
+			public const int ExportAllInfo = 2130968646;
+			
+			// aapt resource value: 0x7f04004a
+			public const int ExportShotsRaw = 2130968650;
+			
+			// aapt resource value: 0x7f040047
+			public const int ExportShotsRawInfo = 2130968647;
+			
 			// aapt resource value: 0x7f040026
 			public const int ExportToCsv = 2130968614;
 			
 			// aapt resource value: 0x7f040027
 			public const int ExportToCsvInfo = 2130968615;
+			
+			// aapt resource value: 0x7f04004b
+			public const int ExportWindowedShots = 2130968651;
+			
+			// aapt resource value: 0x7f040048
+			public const int ExportWindowedShotsInfo = 2130968648;
 			
 			// aapt resource value: 0x7f040042
 			public const int FromDataIndex = 2130968642;

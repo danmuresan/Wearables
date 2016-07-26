@@ -131,6 +131,40 @@ namespace SensorClientApp.Helpers
             });
 
             return shotsExportedSuccessfully;
-        }        
+        }      
+        
+        public async Task<List<bool>> ExportPerShotWindowFilteredDataAsync()
+        {
+            var allUnexportedData = m_storageManager.RetrieveAllUnexportedSerializedData<AccelerationBatch>();
+            string csvX = string.Empty;
+            string csvY = string.Empty;
+            string csvZ = string.Empty;
+            List<bool> shotsExportedSuccessfully = new List<bool>();
+
+            await Task.Run(async () =>
+            {
+                var dataToProcess = new List<Acceleration>();
+                foreach (var unexportedDataItem in allUnexportedData)
+                {
+                    var filteredItem = FilterRawAccelerationBatch(unexportedDataItem, new List<FilterType> { FilterType.RollingAverageLowPass });
+                    dataToProcess.AddRange(filteredItem.Accelerations);
+                }
+
+                var shotsList = DataOperationsUtil.ApplyShotsExtractionAlgorithm(dataToProcess);
+                foreach (var shot in shotsList)
+                {
+                    var windowFilteredShot = DataOperationsUtil.ApplyWindowFilterOnAccelerationBatch(shot);
+                    var csvAccelerationBatch = windowFilteredShot.ToCsv();
+                    csvX = csvAccelerationBatch[0];
+                    csvY = csvAccelerationBatch[1];
+                    csvZ = csvAccelerationBatch[2];
+
+                    var res = await WriteAccelerationBatchToCsvFileAsync(csvX, csvY, csvZ, $"windowedShot_{shotsList.IndexOf(shot)}");
+                    shotsExportedSuccessfully.Add(res);
+                }
+            });
+
+            return shotsExportedSuccessfully;
+        }  
     }
 }

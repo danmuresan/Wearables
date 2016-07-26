@@ -39,5 +39,10 @@
   <string name="ToDataIndex">To Data Index</string>
   <string name="StatsInfoText">Tennis data statistics</string>
   <string name="CorrelationMetric">Compute Correlation Metric</string>
-
+  <string name="ExportAllInfo">Export raw acceleration data (apply low-pass filter on raw data and export it entirely) to CSV</string>
+  <string name="ExportShotsRawInfo">Export single shot only, after applying window filter</string>
+  <string name="ExportWindowedShotsInfo">Export single shot only (filter out data we don\'t really need) to CSV</string>
+  <string name="ExportAll">Export All Raw</string>
+  <string name="ExportShotsRaw">Export Shots</string>
+  <string name="ExportWindowedShots">Export Window-Filtered Shots</string>
 </resources>

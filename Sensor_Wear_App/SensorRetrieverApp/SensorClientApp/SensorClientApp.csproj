@@ -75,6 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataExportActivity.cs" />
     <Compile Include="DataProcessorActivity.cs" />
     <Compile Include="Helpers\DataExportManager.cs" />
     <Compile Include="Helpers\DataProcessor.cs" />
@@ -112,6 +113,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\ProcessedStatsLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\DataExportLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
