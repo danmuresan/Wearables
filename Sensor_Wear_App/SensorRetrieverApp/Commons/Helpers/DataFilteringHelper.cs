@@ -73,45 +73,17 @@ namespace Commons.Helpers
             var lastNonNullOfY = nulledYAxis.LastOrDefault(y => y > 0);
             var lastNonNullOfZ = nulledZAxis.LastOrDefault(z => z > 0);
 
-            var firstNonNull = MinOfThree(firstNonNullOfX, firstNonNullOfY, firstNonNullOfZ);
-            var lastNonNull = MinOfThree(lastNonNullOfX, lastNonNullOfY, lastNonNullOfZ);
-
-            int indexOfFirst = 0;
-            if (firstNonNull == firstNonNullOfX)
-            {
-                indexOfFirst = nulledXAxis.IndexOf(firstNonNullOfX);
-            }
-            else if (firstNonNull == firstNonNullOfY)
-            {
-                indexOfFirst = nulledYAxis.IndexOf(firstNonNullOfY);
-            }
-            else if (firstNonNull == firstNonNullOfZ)
-            {
-                indexOfFirst = nulledZAxis.IndexOf(firstNonNullOfZ);
-            }
-
-            int indexOfLast = 0;
-            if (lastNonNull == lastNonNullOfX)
-            {
-                indexOfLast = nulledXAxis.IndexOf(lastNonNullOfX);
-            }
-            else if (lastNonNull == firstNonNullOfY)
-            {
-                indexOfLast = nulledYAxis.IndexOf(lastNonNullOfY);
-            }
-            else if (lastNonNull == firstNonNullOfZ)
-            {
-                indexOfLast = nulledZAxis.IndexOf(lastNonNullOfZ);
-            }
+            var firstNonNullIndex = MinOfThree(nulledXAxis.IndexOf(firstNonNullOfX), nulledYAxis.IndexOf(firstNonNullOfY), nulledZAxis.IndexOf(firstNonNullOfZ));
+            var lastNonNullIndex = MinOfThree(nulledXAxis.IndexOf(lastNonNullOfX), nulledYAxis.IndexOf(lastNonNullOfY), nulledZAxis.IndexOf(lastNonNullOfZ));
 
             List<Acceleration> output = new List<Acceleration>();
             for (int i = 0; i < accelerations.Count(); i++)
             {
-                if (i < indexOfFirst)
+                if (i < firstNonNullIndex)
                 {
                     output.Add(new Acceleration(0, 0, 0));
                 }
-                else if (i > indexOfLast)
+                else if (i > lastNonNullIndex)
                 {
                     output.Add(new Acceleration(0, 0, 0));
                 }
