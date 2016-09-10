@@ -164,11 +164,12 @@ namespace SensorClientApp
                 avgAggressivity = sumAggressivity / m_shotsAccelerationsList.Count();
             });
 
-            // TODO: do conversions to seconds
-            // suppose 7 millis per sample 
-            m_maxShotDuration.Text = string.Format(m_maxShotDuration.Text, maxDurationCount);
-            m_minShotDuration.Text = string.Format(m_minShotDuration.Text, minDurationCount);
-            m_avgShotDuration.Text = string.Format(m_avgShotDuration.Text, avgDuration);
+            const int millisPerSample = 7;
+            const double secondsPerSample = (millisPerSample / 1000.0);
+
+            m_maxShotDuration.Text = string.Format(m_maxShotDuration.Text, Math.Round(maxDurationCount * secondsPerSample , 3));
+            m_minShotDuration.Text = string.Format(m_minShotDuration.Text, Math.Round(minDurationCount * secondsPerSample, 3));
+            m_avgShotDuration.Text = string.Format(m_avgShotDuration.Text, Math.Round(avgDuration * secondsPerSample, 3));
             m_maxShotAggressivity.Text = string.Format(m_maxShotAggressivity.Text, maxAggressivity);
             m_minShotAggressivity.Text = string.Format(m_minShotAggressivity.Text, minAggressivity);
             m_avgShotAggressivity.Text = string.Format(m_avgShotAggressivity.Text, avgAggressivity);
@@ -234,28 +235,6 @@ namespace SensorClientApp
 
                     var firstNormalized = DataFilteringHelper.NormalizeAccelerationBatch(first).ToList();
                     var secondNormalized = DataFilteringHelper.NormalizeAccelerationBatch(second).ToList();
-
-                    //var crossCorrelationCoefficient = DataOperationsUtil.GetAvgCrossCorrelation(first, second);
-                    //var stdDevFirst_XAxis = DataOperationsUtil.GetStandardDeviation(first.Select(x => x.X));
-                    //var stdDevSecond_XAxis = DataOperationsUtil.GetStandardDeviation(second.Select(x => x.X));
-                    //var varianceFirst_XAxis = DataOperationsUtil.GetVariance(first.Select(x => x.X));
-                    //var varianceSecond_XAxis = DataOperationsUtil.GetVariance(second.Select(x => x.X));
-
-                    //var crossCorrelationCoefficient2 = DataOperationsUtil.GetAvgCrossCorrelation(firstNormalized, secondNormalized);
-                    //var stdDevFirst_XAxis = DataOperationsUtil.GetStandardDeviation(firstNormalized.Select(x => x.X));
-                    //var stdDevSecond_XAxis = DataOperationsUtil.GetStandardDeviation(secondNormalized.Select(x => x.X));
-                    //var varianceFirst_XAxis = DataOperationsUtil.GetVariance(firstNormalized.Select(x => x.X));
-                    //var varianceSecond_XAxis = DataOperationsUtil.GetVariance(secondNormalized.Select(x => x.X));
-
-                    //var stdDevFirst_YAxis = DataOperationsUtil.GetStandardDeviation(first.Select(y => y.Y));
-                    //var stdDevSecond_YAxis = DataOperationsUtil.GetStandardDeviation(second.Select(y => y.Y));
-                    //var varianceFirst_YAxis = DataOperationsUtil.GetVariance(first.Select(y => y.Y));
-                    //var varianceSecond_YAxis = DataOperationsUtil.GetVariance(second.Select(y => y.Y));
-
-                    //var stdDevFirst_ZAxis = DataOperationsUtil.GetStandardDeviation(first.Select(z => z.Z));
-                    //var stdDevSecond_ZAxis = DataOperationsUtil.GetStandardDeviation(second.Select(z => z.Z));
-                    //var varianceFirst_ZAxis = DataOperationsUtil.GetVariance(first.Select(z => z.Z));
-                    //var varianceSecond_ZAxis = DataOperationsUtil.GetVariance(second.Select(z => z.Z));
 
                     SimilarityMetrics similarityMetrics = new SimilarityMetrics(firstNormalized, secondNormalized);
                     similarityMetrics.ComputeCrossCorrelationCoefficient();
