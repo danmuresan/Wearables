@@ -44,9 +44,6 @@ namespace SensorClientApp
         private double m_totalAvgVelocity;
         private double m_minAvgVelocity;
         private double m_maxAvgVelocity;
-        private double m_maxDuration;
-        private double m_minDuration;
-        private double m_avgDuration;
         private int m_shotsCount;
         private List<List<Acceleration>> m_shotsAccelerationsList;
         private List<SimilarityMetrics> m_allSimilarityMetrics;
@@ -104,6 +101,10 @@ namespace SensorClientApp
             int minDurationCount = 1000;
             int sumDurations = 0;
             int avgDuration = 0;
+            int minAggressivity = int.MaxValue;
+            int maxAggressivity = 0;
+            int sumAggressivity = 0;
+            int avgAggressivity = 0;
 
             await Task.Run(() => {
                 foreach (var shot in m_shotsAccelerationsList)
@@ -122,6 +123,11 @@ namespace SensorClientApp
                     var medianValY = DataOperationsUtil.GetAvgValueRaw(windowFilteredYAxis);
                     var medianValZ = DataOperationsUtil.GetAvgValueRaw(windowFilteredZAxis);
 
+                    var maxValX = DataOperationsUtil.GetMaxValueRaw(windowFilteredXAxis);
+                    var maxValY = DataOperationsUtil.GetMaxValueRaw(windowFilteredYAxis);
+                    var maxValZ = DataOperationsUtil.GetMaxValueRaw(windowFilteredZAxis);
+                    var aggressivityValForCurrentShot = (int)(maxValX + maxValY + maxValZ) / 3;
+
                     for (int i = 0; i < windowFilteredXAxis.Count(); i++)
                     {
                         if (windowFilteredXAxis[i] > medianValX && windowFilteredYAxis[i] > medianValY && windowFilteredZAxis[i] > medianValZ)
@@ -134,29 +140,44 @@ namespace SensorClientApp
                     {
                         maxDurationCount = shotDurationCount;
                     }
+
                     if (shotDurationCount < minDurationCount)
                     {
                         minDurationCount = shotDurationCount;
                     }
 
+                    if (aggressivityValForCurrentShot > maxAggressivity)
+                    {
+                        maxAggressivity = aggressivityValForCurrentShot;
+                    }
+
+                    if (aggressivityValForCurrentShot < minAggressivity)
+                    {
+                        minAggressivity = aggressivityValForCurrentShot;
+                    }
+
                     sumDurations += shotDurationCount;
+                    sumAggressivity += aggressivityValForCurrentShot;
                 }
 
                 avgDuration = sumDurations / m_shotsAccelerationsList.Count();
+                avgAggressivity = sumAggressivity / m_shotsAccelerationsList.Count();
             });
 
             // TODO: do conversions to seconds
             // suppose 7 millis per sample 
-            m_minDuration = minDurationCount;
-            m_maxDuration = maxDurationCount;
-            m_avgDuration = avgDuration;
-
-            m_maxShotDuration.Text = string.Format(m_maxShotDuration.Text, m_maxDuration);
-            m_minShotDuration.Text = string.Format(m_minShotDuration.Text, m_minDuration);
-            m_avgShotDuration.Text = string.Format(m_avgShotDuration.Text, m_avgDuration);
+            m_maxShotDuration.Text = string.Format(m_maxShotDuration.Text, maxDurationCount);
+            m_minShotDuration.Text = string.Format(m_minShotDuration.Text, minDurationCount);
+            m_avgShotDuration.Text = string.Format(m_avgShotDuration.Text, avgDuration);
+            m_maxShotAggressivity.Text = string.Format(m_maxShotAggressivity.Text, maxAggressivity);
+            m_minShotAggressivity.Text = string.Format(m_minShotAggressivity.Text, minAggressivity);
+            m_avgShotAggressivity.Text = string.Format(m_avgShotAggressivity.Text, avgAggressivity);
             m_minShotDuration.Visibility = Android.Views.ViewStates.Visible;
             m_maxShotDuration.Visibility = Android.Views.ViewStates.Visible;
             m_avgShotDuration.Visibility = Android.Views.ViewStates.Visible;
+            m_maxShotAggressivity.Visibility = Android.Views.ViewStates.Visible;
+            m_minShotAggressivity.Visibility = Android.Views.ViewStates.Visible;
+            m_avgShotAggressivity.Visibility = Android.Views.ViewStates.Visible;
 
             HideProgressDialog();
         }
@@ -168,7 +189,7 @@ namespace SensorClientApp
             double yawGammaAngle = 0;
 
             InitializeProgressDialog();
-            //Toast.MakeText("Not yet available...", ToastLength.Long).Show();
+            Toast.MakeText(this, "Feature not yet available...", ToastLength.Long).Show();
             //await Task.Run(() => {
 
             //    // Todo...
