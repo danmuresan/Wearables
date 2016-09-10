@@ -1,52 +1,208 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-  <TextView
-      android:layout_marginLeft="8dp"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textSize="24sp"
-      android:text="@string/StatsInfoText" />
-  <TextView
-      android:layout_marginLeft="8dp"
-      android:layout_marginTop="10dp"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textSize="20sp"
-      android:id="@+id/ShotsCount"
-      android:text="@string/ShotsCountText" />
-  <TextView
-      android:layout_marginLeft="8dp"
-      android:layout_marginTop="10dp"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textSize="20sp"
-      android:id="@+id/TotalAvgVelocity"
-      android:text="@string/TotalAvgVelocityText" />
-  <TextView
-      android:layout_marginLeft="8dp"
-      android:layout_marginTop="10dp"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textSize="20sp"
-      android:id="@+id/MaxAvgVelocity"
-      android:text="@string/MaxAvgVelocityText" />
-  <TextView
-      android:layout_marginLeft="8dp"
-      android:layout_marginTop="10dp"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textSize="20sp"
-      android:id="@+id/MinAvgVelocity"
-      android:text="@string/MinAvgVelocityText" />
-  <Button
-      android:layout_marginTop="10dp"
-      android:layout_marginLeft="8dp"
-      android:layout_marginRight="8dp"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/CorrelationMetricBtn"
-      android:text="@string/CorrelationMetric" />
-</LinearLayout>
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:text="@string/StatsInfoText" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:id="@+id/ShotsCount"
+            android:text="@string/ShotsCountText" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:id="@+id/TotalAvgVelocity"
+            android:text="@string/TotalAvgVelocityText" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:id="@+id/MaxAvgVelocity"
+            android:text="@string/MaxAvgVelocityText" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:id="@+id/MinAvgVelocity"
+            android:text="@string/MinAvgVelocityText" />
+        <Button
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/CorrelationMetricBtn"
+            android:text="@string/CorrelationMetric" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:id="@+id/AvgCorrelationCoefficient"
+            android:text="@string/AvgCorrelationCoefficientText" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:id="@+id/MaxCorrelationCoefficient"
+            android:text="@string/MaxCorrelationCoefficientText" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:id="@+id/AvgStdDevDiff"
+            android:text="@string/AvgStdDevDiffText" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:id="@+id/MinStdDevDiff"
+            android:text="@string/MinStdDevDiffText" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:id="@+id/AvgVarianceDiff"
+            android:text="@string/AvgVarianceDiffText" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:id="@+id/MinVarianceDiff"
+            android:text="@string/MinVarianceDiffText" />
+        <Button
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ComputeDurationBtn"
+            android:text="@string/ComputeDurationText" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:id="@+id/AvgDuration"
+            android:text="@string/AvgDurationText" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:id="@+id/MaxDuration"
+            android:text="@string/MaxDurationText" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:id="@+id/MinDuration"
+            android:text="@string/MinDurationText" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:id="@+id/AvgAgresivity"
+            android:text="@string/AvgAgresivityText" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:id="@+id/MaxAgresivity"
+            android:text="@string/MaxAgresivityText" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:id="@+id/MinAgresivity"
+            android:text="@string/MinAgresivityText" />
+        <Button
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ComputeAnglesBtn"
+            android:text="@string/ComputeAnglesText" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:id="@+id/PitchAngle"
+            android:text="@string/PitchAngleText" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:id="@+id/RollAngle"
+            android:text="@string/RollAngleText" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:id="@+id/YawAngle"
+            android:text="@string/YawAngleText" />
+    </LinearLayout>
+</ScrollView>

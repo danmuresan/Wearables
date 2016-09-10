@@ -440,23 +440,44 @@ namespace SensorClientApp
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f080026
+			public const int AvgAgresivity = 2131230758;
+			
+			// aapt resource value: 0x7f08001c
+			public const int AvgCorrelationCoefficient = 2131230748;
+			
+			// aapt resource value: 0x7f080023
+			public const int AvgDuration = 2131230755;
+			
+			// aapt resource value: 0x7f08001e
+			public const int AvgStdDevDiff = 2131230750;
+			
+			// aapt resource value: 0x7f080020
+			public const int AvgVarianceDiff = 2131230752;
+			
 			// aapt resource value: 0x7f080014
 			public const int ClearDataButton = 2131230740;
+			
+			// aapt resource value: 0x7f080029
+			public const int ComputeAnglesBtn = 2131230761;
+			
+			// aapt resource value: 0x7f080022
+			public const int ComputeDurationBtn = 2131230754;
 			
 			// aapt resource value: 0x7f08001b
 			public const int CorrelationMetricBtn = 2131230747;
 			
-			// aapt resource value: 0x7f080021
-			public const int DataIndexSpinnerEnd = 2131230753;
+			// aapt resource value: 0x7f080032
+			public const int DataIndexSpinnerEnd = 2131230770;
 			
-			// aapt resource value: 0x7f080020
-			public const int DataIndexSpinnerStart = 2131230752;
+			// aapt resource value: 0x7f080031
+			public const int DataIndexSpinnerStart = 2131230769;
 			
 			// aapt resource value: 0x7f08000a
 			public const int ExportAllBtn = 2131230730;
 			
-			// aapt resource value: 0x7f080023
-			public const int ExportCsvButton = 2131230755;
+			// aapt resource value: 0x7f080034
+			public const int ExportCsvButton = 2131230772;
 			
 			// aapt resource value: 0x7f08000b
 			public const int ExportShotsRawBtn = 2131230731;
@@ -464,11 +485,32 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f08000c
 			public const int ExportWindowedShotsBtn = 2131230732;
 			
+			// aapt resource value: 0x7f080027
+			public const int MaxAgresivity = 2131230759;
+			
 			// aapt resource value: 0x7f080019
 			public const int MaxAvgVelocity = 2131230745;
 			
+			// aapt resource value: 0x7f08001d
+			public const int MaxCorrelationCoefficient = 2131230749;
+			
+			// aapt resource value: 0x7f080024
+			public const int MaxDuration = 2131230756;
+			
+			// aapt resource value: 0x7f080028
+			public const int MinAgresivity = 2131230760;
+			
 			// aapt resource value: 0x7f08001a
 			public const int MinAvgVelocity = 2131230746;
+			
+			// aapt resource value: 0x7f080025
+			public const int MinDuration = 2131230757;
+			
+			// aapt resource value: 0x7f08001f
+			public const int MinStdDevDiff = 2131230751;
+			
+			// aapt resource value: 0x7f080021
+			public const int MinVarianceDiff = 2131230753;
 			
 			// aapt resource value: 0x7f080011
 			public const int MyButton = 2131230737;
@@ -476,14 +518,20 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f080013
 			public const int OptionsButtonn = 2131230739;
 			
+			// aapt resource value: 0x7f08002a
+			public const int PitchAngle = 2131230762;
+			
 			// aapt resource value: 0x7f080012
 			public const int ProcessButton = 2131230738;
 			
-			// aapt resource value: 0x7f080022
-			public const int ProcessSampleButton = 2131230754;
+			// aapt resource value: 0x7f080033
+			public const int ProcessSampleButton = 2131230771;
 			
 			// aapt resource value: 0x7f080015
 			public const int ResetCollectedDataIndex = 2131230741;
+			
+			// aapt resource value: 0x7f08002b
+			public const int RollAngle = 2131230763;
 			
 			// aapt resource value: 0x7f080016
 			public const int SendLogsButton = 2131230742;
@@ -491,14 +539,17 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f080017
 			public const int ShotsCount = 2131230743;
 			
-			// aapt resource value: 0x7f080024
-			public const int SpinnerTextView = 2131230756;
+			// aapt resource value: 0x7f080035
+			public const int SpinnerTextView = 2131230773;
 			
 			// aapt resource value: 0x7f080018
 			public const int TotalAvgVelocity = 2131230744;
 			
-			// aapt resource value: 0x7f08001f
-			public const int TotalSessionsCollected = 2131230751;
+			// aapt resource value: 0x7f080030
+			public const int TotalSessionsCollected = 2131230768;
+			
+			// aapt resource value: 0x7f08002c
+			public const int YawAngle = 2131230764;
 			
 			// aapt resource value: 0x7f080001
 			public const int adjust_height = 2131230721;
@@ -512,8 +563,8 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f080008
 			public const int dark = 2131230728;
 			
-			// aapt resource value: 0x7f08001c
-			public const int emailBox = 2131230748;
+			// aapt resource value: 0x7f08002d
+			public const int emailBox = 2131230765;
 			
 			// aapt resource value: 0x7f080004
 			public const int icon_only = 2131230724;
@@ -536,14 +587,14 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f080010
 			public const int registerBtn = 2131230736;
 			
-			// aapt resource value: 0x7f08001d
-			public const int repeatPasswordBox = 2131230749;
+			// aapt resource value: 0x7f08002e
+			public const int repeatPasswordBox = 2131230766;
 			
 			// aapt resource value: 0x7f080005
 			public const int standard = 2131230725;
 			
-			// aapt resource value: 0x7f08001e
-			public const int submitRegistrationBtn = 2131230750;
+			// aapt resource value: 0x7f08002f
+			public const int submitRegistrationBtn = 2131230767;
 			
 			// aapt resource value: 0x7f08000d
 			public const int usernameBox = 2131230733;
@@ -620,11 +671,32 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f040020
 			public const int ApplicationName = 2130968608;
 			
+			// aapt resource value: 0x7f040059
+			public const int AvgAgresivityText = 2130968665;
+			
+			// aapt resource value: 0x7f04004c
+			public const int AvgCorrelationCoefficientText = 2130968652;
+			
+			// aapt resource value: 0x7f040056
+			public const int AvgDurationText = 2130968662;
+			
+			// aapt resource value: 0x7f04004e
+			public const int AvgStdDevDiffText = 2130968654;
+			
+			// aapt resource value: 0x7f040050
+			public const int AvgVarianceDiffText = 2130968656;
+			
 			// aapt resource value: 0x7f040028
 			public const int ClearData = 2130968616;
 			
 			// aapt resource value: 0x7f040029
 			public const int ClearDataInfo = 2130968617;
+			
+			// aapt resource value: 0x7f040055
+			public const int ComputeAnglesText = 2130968661;
+			
+			// aapt resource value: 0x7f04005c
+			public const int ComputeDurationText = 2130968668;
 			
 			// aapt resource value: 0x7f040045
 			public const int CorrelationMetric = 2130968645;
@@ -671,11 +743,32 @@ namespace SensorClientApp
 			// aapt resource value: 0x7f04002d
 			public const int LoginInfo = 2130968621;
 			
+			// aapt resource value: 0x7f04005b
+			public const int MaxAgresivityText = 2130968667;
+			
 			// aapt resource value: 0x7f04003f
 			public const int MaxAvgVelocityText = 2130968639;
 			
+			// aapt resource value: 0x7f04004d
+			public const int MaxCorrelationCoefficientText = 2130968653;
+			
+			// aapt resource value: 0x7f040058
+			public const int MaxDurationText = 2130968664;
+			
+			// aapt resource value: 0x7f04005a
+			public const int MinAgresivityText = 2130968666;
+			
 			// aapt resource value: 0x7f040040
 			public const int MinAvgVelocityText = 2130968640;
+			
+			// aapt resource value: 0x7f040057
+			public const int MinDurationText = 2130968663;
+			
+			// aapt resource value: 0x7f04004f
+			public const int MinStdDevDiffText = 2130968655;
+			
+			// aapt resource value: 0x7f040051
+			public const int MinVarianceDiffText = 2130968657;
 			
 			// aapt resource value: 0x7f04002b
 			public const int No = 2130968619;
@@ -685,6 +778,9 @@ namespace SensorClientApp
 			
 			// aapt resource value: 0x7f04002f
 			public const int Password = 2130968623;
+			
+			// aapt resource value: 0x7f040052
+			public const int PitchAngleText = 2130968658;
 			
 			// aapt resource value: 0x7f040024
 			public const int ProcessData = 2130968612;
@@ -712,6 +808,9 @@ namespace SensorClientApp
 			
 			// aapt resource value: 0x7f040037
 			public const int ResetCollectedDataIndexInfo = 2130968631;
+			
+			// aapt resource value: 0x7f040053
+			public const int RollAngleText = 2130968659;
 			
 			// aapt resource value: 0x7f04003a
 			public const int SamplesCollectedCount = 2130968634;
@@ -748,6 +847,9 @@ namespace SensorClientApp
 			
 			// aapt resource value: 0x7f04002e
 			public const int Username = 2130968622;
+			
+			// aapt resource value: 0x7f040054
+			public const int YawAngleText = 2130968660;
 			
 			// aapt resource value: 0x7f04002a
 			public const int Yes = 2130968618;

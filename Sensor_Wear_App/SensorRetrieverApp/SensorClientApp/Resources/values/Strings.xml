@@ -45,4 +45,24 @@
   <string name="ExportAll">Export All Raw</string>
   <string name="ExportShotsRaw">Export Shots</string>
   <string name="ExportWindowedShots">Export Window-Filtered Shots</string>
+  <string name="AvgCorrelationCoefficientText">Avg. Cross Correlation: {0}</string>
+  <string name="MaxCorrelationCoefficientText">Max. Cross Correlation: {0}</string>
+  <string name="AvgStdDevDiffText">Avg. Standard Deviation Diff: {0}</string>
+  <string name="MinStdDevDiffText">Min. Standard Deviation Diff: {0}</string>
+  <string name="AvgVarianceDiffText">Avg. Variance Diff: {0}</string>
+  <string name="MinVarianceDiffText">Min. Varinace Diff: {0}</string>
+  <string name="PitchAngleText">Pitch (alfa): {0}</string>
+  <string name="RollAngleText">Pitch (roll): {0}</string>
+  <string name="YawAngleText">Pitch (yaw): {0}</string>
+  <string name="ComputeAnglesText">Compute Acceleration Angles</string>
+  <string name="AvgDurationText">Average Durations (s): {0}</string>
+  <string name="MinDurationText">Min. Durations (s): {0}</string>
+  <string name="MaxDurationText">Max. Durations (s): {0}</string>
+  <string name="AvgAgresivityText">Average Agresivity Measure: {0}</string>
+  <string name="MinAgresivityText">Min. Agresivity Measure: {0}</string>
+  <string name="MaxAgresivityText">Max. Agresivity Measure: {0}</string>
+  <string name="ComputeDurationText">Compute Duration Metrics</string>
+
+
+
 </resources>

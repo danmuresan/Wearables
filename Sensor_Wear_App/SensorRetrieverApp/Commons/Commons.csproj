@@ -87,6 +87,7 @@
     <Compile Include="Models\AccelerationBatch.cs" />
     <Compile Include="Models\IDataModel.cs" />
     <Compile Include="Models\Rotation.cs" />
+    <Compile Include="Models\SimilarityMetrics.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
