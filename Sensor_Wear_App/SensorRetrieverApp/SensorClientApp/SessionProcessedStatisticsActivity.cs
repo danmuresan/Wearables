@@ -234,8 +234,13 @@ namespace SensorClientApp
                     var yAxisInterestPointIndices = FilterZeroCrossingsBasedOnLocalVariance(yAxisZeroCrossings, yAxisAcc);
                     var zAxisInterestPointIndices = FilterZeroCrossingsBasedOnLocalVariance(zAxisZeroCrossings, zAxisAcc);
 
-                    // compute angles at these interest points for all 3 axes 
+                    var anglesIndices = xAxisInterestPointIndices.Union(yAxisInterestPointIndices).Union(zAxisInterestPointIndices);
 
+                    // compute angles at these interest points for all 3 axes 
+                    foreach (var index in anglesIndices)
+                    {
+                        //var angles = ComputeAngles(index);
+                    }
                 }
 
 
@@ -283,7 +288,7 @@ namespace SensorClientApp
             {
                 if (localVariance > thresholdValue)
                 {
-                    zeroCrossingsOutput.Add(index);
+                    zeroCrossingsOutput.Add(zeroCrossings.ElementAt(index));
                 }
 
                 index++;
