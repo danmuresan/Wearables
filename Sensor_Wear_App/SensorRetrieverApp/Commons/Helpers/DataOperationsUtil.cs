@@ -95,6 +95,27 @@ namespace Commons.Helpers
             return variance / (n);
         }
 
+        public static AccelerationAngles GetAccelerationAngles(this Acceleration acc, bool asDegrees = false)
+        {
+            var pitch = Math.Atan(acc.X / (Math.Sqrt(Math.Pow(acc.Y, 2) + Math.Pow(acc.Z, 2))));
+            var roll = Math.Atan(acc.Y / (Math.Sqrt(Math.Pow(acc.X, 2) + Math.Pow(acc.Z, 2))));
+            var yaw = Math.Atan((Math.Sqrt(Math.Pow(acc.X, 2) + Math.Pow(acc.Y, 2))) / acc.Z);
+
+            if (!asDegrees)
+            {
+                // return radians vals
+                return new AccelerationAngles(pitch, roll, yaw);
+            }
+            else
+            {
+                var pitchDegrees = DataConversionHelper.RadiansToDegrees(pitch);
+                var rollDegrees = DataConversionHelper.RadiansToDegrees(roll);
+                var yawDegrees = DataConversionHelper.RadiansToDegrees(yaw);
+
+                return new AccelerationAngles(pitchDegrees, rollDegrees, yawDegrees);
+            }
+        }
+
         /// <summary>
         /// sqrt((x1 - x2)^2 + (y1 - y2)^2)
         /// </summary>

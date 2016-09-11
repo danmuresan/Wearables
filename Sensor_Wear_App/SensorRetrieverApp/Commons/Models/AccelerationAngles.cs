@@ -12,28 +12,28 @@ using Android.Widget;
 
 namespace Commons.Models
 {
-    public class Rotation
+    public class AccelerationAngles
     {
         /// <summary>
         /// Angular speed around x-axis
         /// </summary>
-        public double X_Roll { get; }
+        public double Roll { get; }
 
         /// <summary>
         /// Angular speed around y-axis
         /// </summary>
-        public double Y_Pitch { get; }
+        public double Pitch { get; }
 
         /// <summary>
         /// Angular speed around z-axis
         /// </summary>
-        public double Z_Yawn { get; }
+        public double Yaw { get; }
 
-        public Rotation(double x, double y, double z)
+        public AccelerationAngles(double roll, double pitch, double yaw)
         {
-            X_Roll = x;
-            Y_Pitch = y;
-            Z_Yawn = z;
+            Roll = roll;
+            Pitch = pitch;
+            Yaw = yaw;
         }
     }
 }

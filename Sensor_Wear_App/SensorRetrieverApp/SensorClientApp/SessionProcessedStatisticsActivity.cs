@@ -234,12 +234,16 @@ namespace SensorClientApp
                     var yAxisInterestPointIndices = FilterZeroCrossingsBasedOnLocalVariance(yAxisZeroCrossings, yAxisAcc);
                     var zAxisInterestPointIndices = FilterZeroCrossingsBasedOnLocalVariance(zAxisZeroCrossings, zAxisAcc);
 
-                    var anglesIndices = xAxisInterestPointIndices.Union(yAxisInterestPointIndices).Union(zAxisInterestPointIndices);
+                    var xAxisFinalIndices = SuppressClosePoints(xAxisInterestPointIndices);
+                    var yAxisFinalIndices = SuppressClosePoints(yAxisInterestPointIndices);
+                    var zAxisFinalIndices = SuppressClosePoints(zAxisInterestPointIndices);
+
+                    var anglesIndices = xAxisFinalIndices.Union(yAxisFinalIndices).Union(zAxisFinalIndices);
 
                     // compute angles at these interest points for all 3 axes 
                     foreach (var index in anglesIndices)
                     {
-                        //var angles = ComputeAngles(index);
+                        var angles = shot[index].GetAccelerationAngles(true);
                     }
                 }
 
@@ -295,6 +299,36 @@ namespace SensorClientApp
             }
 
             return zeroCrossingsOutput;
+        }
+
+        private IEnumerable<int> SuppressClosePoints(IEnumerable<int> input)
+        {
+            const int windowWidth = 5;
+
+            var inputArray = input.ToList();
+            for (int i = 0; i < inputArray.Count(); i++)
+            {
+                for (int j = inputArray[i] - windowWidth; j <= inputArray[i] + windowWidth; j++)
+                {
+                    // we aim to always keep current item
+                    if (j == inputArray[i])
+                    {
+                        continue;
+                    }
+
+                    // if we have close values to current, suppress them
+                    if (inputArray.Contains(j))
+                    {
+                        // get its index
+                        var index = inputArray.IndexOf(j);
+
+                        // suppress val
+                        inputArray[index] = -1;
+                    }
+                }
+            }
+
+            return inputArray.Where(x => x != -1);
         }
 
         private void InitializeProgressDialog()

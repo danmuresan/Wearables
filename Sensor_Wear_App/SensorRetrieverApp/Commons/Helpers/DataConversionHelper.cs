@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Commons.Models;
 using System.Linq;
+using System;
 
 namespace Commons.Helpers
 {
@@ -37,6 +38,11 @@ namespace Commons.Helpers
             csvAccs[2] = string.Join(",", zAccs);
 
             return csvAccs;
+        }
+
+        public static double RadiansToDegrees(double radValue)
+        {
+            return Math.Round(radValue * (180.0 / Math.PI), 2, MidpointRounding.AwayFromZero);
         }
     }
 }
