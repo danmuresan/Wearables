@@ -77,6 +77,7 @@
     <Compile Include="Filters\NullOutIrrelevanciesFilter.cs" />
     <Compile Include="Filters\PeaksFIlter.cs" />
     <Compile Include="Filters\RollingAverageFilter.cs" />
+    <Compile Include="Filters\SecondOrderDerivativeFilter.cs" />
     <Compile Include="Filters\WindowedLengthFilter.cs" />
     <Compile Include="Helpers\DataConversionHelper.cs" />
     <Compile Include="Helpers\DataFilteringHelper.cs" />

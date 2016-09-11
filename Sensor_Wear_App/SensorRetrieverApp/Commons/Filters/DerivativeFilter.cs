@@ -16,7 +16,7 @@ namespace Commons.Filters
         public IEnumerable<double> ApplyFilter(IEnumerable<double> inputData)
         {
             var dataAsArray = inputData.ToArray();
-            for (int i = 0; i < dataAsArray.Length - 1; i++)
+            for (int i = 0; i < dataAsArray.Length - 2; i++)
             {
                 dataAsArray[i] = dataAsArray[i + 1] - dataAsArray[i];
             }

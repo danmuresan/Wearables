@@ -8,6 +8,7 @@ using Commons.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Commons.Filters;
 
 namespace SensorClientApp
 {
@@ -191,12 +192,104 @@ namespace SensorClientApp
 
             InitializeProgressDialog();
             Toast.MakeText(this, "Feature not yet available...", ToastLength.Long).Show();
-            //await Task.Run(() => {
+            await Task.Run(() =>
+            {
+                var secondDerivativeFilter = FilterFactory.GetFilterByType(FilterType.SecondDerivativeFilter);
+                foreach (var shot in m_shotsAccelerationsList)
+                {
+                    var xAxisAcc = shot.Select(x => x.X).ToArray();
+                    var yAxisAcc = shot.Select(y => y.Y).ToArray();
+                    var zAxisAcc = shot.Select(z => z.Z).ToArray();
 
-            //    // Todo...
+                    // Find out second derivative (we need it for the rate of change)
+                    var xAxisSecondDeriv = secondDerivativeFilter.ApplyFilter(xAxisAcc).ToArray();
+                    var yAxisSecondDeriv = secondDerivativeFilter.ApplyFilter(yAxisAcc).ToArray();
+                    var zAxisSecondDeriv = secondDerivativeFilter.ApplyFilter(zAxisAcc).ToArray();
 
-            //});
+                    List<int> xAxisZeroCrossings = new List<int>();
+                    List<int> yAxisZeroCrossings = new List<int>();
+                    List<int> zAxisZeroCrossings = new List<int>();
+
+                    // look for 0 crossings
+                    for (int i = 0; i < xAxisSecondDeriv.Count(); i++)
+                    {
+                        if (xAxisSecondDeriv[i] == 0)
+                        {
+                            xAxisZeroCrossings.Add(i);
+                        }
+
+                        if (yAxisSecondDeriv[i] == 0)
+                        {
+                            yAxisZeroCrossings.Add(i);
+                        }
+
+                        if (zAxisSecondDeriv[i] == 0)
+                        {
+                            zAxisZeroCrossings.Add(i);
+                        }
+                    }
+
+                    // Find local variance (from original array) at all 0 crossings (positions)
+                    var xAxisInterestPointIndices = FilterZeroCrossingsBasedOnLocalVariance(xAxisZeroCrossings, xAxisAcc);
+                    var yAxisInterestPointIndices = FilterZeroCrossingsBasedOnLocalVariance(yAxisZeroCrossings, yAxisAcc);
+                    var zAxisInterestPointIndices = FilterZeroCrossingsBasedOnLocalVariance(zAxisZeroCrossings, zAxisAcc);
+
+                    // compute angles at these interest points for all 3 axes 
+
+                }
+
+
+                // Todo...
+
+            });
             HideProgressDialog();
+        }
+
+        private List<int> FilterZeroCrossingsBasedOnLocalVariance(IEnumerable<int> zeroCrossings, IEnumerable<double> accelerations, int movingWindow = 9)
+        {
+            // Find local variance (from original array) at all 0 crossings (positions)
+            List<double> localVarianceList = new List<double>();
+
+            foreach (var zeroCrossingPos in zeroCrossings)
+            {
+                // ignore margins to avoid complications (shortening of window, etc)
+                if (zeroCrossingPos <= movingWindow / 2)
+                {
+                    continue;
+                }
+
+                if (zeroCrossingPos >= accelerations.Count() - (movingWindow / 2))
+                {
+                    continue;
+                }
+
+                List<double> windowedAccs = new List<double>();
+                // center 0 crossing pos around a window
+                for (int i = zeroCrossingPos - (movingWindow / 2); i <= zeroCrossingPos + (movingWindow / 2); i++)
+                {
+                    windowedAccs.Add(accelerations.ElementAt(i));
+                }
+
+                var variance = windowedAccs.GetVariance();
+                localVarianceList.Add(variance);
+            }
+
+            // compute variance threshold based of median val
+            var thresholdValue = localVarianceList.GetAvgValueRaw();
+            List<int> zeroCrossingsOutput = new List<int>();
+            int index = 0;
+
+            foreach (var localVariance in localVarianceList)
+            {
+                if (localVariance > thresholdValue)
+                {
+                    zeroCrossingsOutput.Add(index);
+                }
+
+                index++;
+            }
+
+            return zeroCrossingsOutput;
         }
 
         private void InitializeProgressDialog()

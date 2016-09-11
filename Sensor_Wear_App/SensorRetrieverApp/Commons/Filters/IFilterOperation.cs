@@ -12,6 +12,7 @@ namespace Commons.Filters
     {
         RollingAverageLowPass,
         DerivativeFilter,
+        SecondDerivativeFilter,
         MaxPeaksFilter,
         MinPeaksFilter,
         NullOutIrrelevantFilter,
