@@ -42,7 +42,15 @@ namespace Commons.Helpers
 
         public static double RadiansToDegrees(double radValue)
         {
-            return Math.Round(radValue * (180.0 / Math.PI), 2, MidpointRounding.AwayFromZero);
+            var deg = Math.Round(radValue * (180.0 / Math.PI), 2, MidpointRounding.AwayFromZero);
+            var deg2 = deg % 360;
+
+            if (deg2 < 0)
+            {
+                return deg2 + 360;
+            }
+
+            return deg2;
         }
     }
 }
