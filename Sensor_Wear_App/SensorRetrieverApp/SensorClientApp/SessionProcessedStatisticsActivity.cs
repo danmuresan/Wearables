@@ -191,7 +191,6 @@ namespace SensorClientApp
             double yawGammaAngle = 0;
 
             InitializeProgressDialog();
-            Toast.MakeText(this, "Feature not yet available...", ToastLength.Long).Show();
             await Task.Run(() =>
             {
                 var secondDerivativeFilter = FilterFactory.GetFilterByType(FilterType.SecondDerivativeFilter);
@@ -245,8 +244,11 @@ namespace SensorClientApp
                     {
                         var angles = shot[index].GetAccelerationAngles(true);
                     }
-                }
 
+                    this.RunOnUiThread(() => {
+                        Toast.MakeText(this, anglesIndices.Count() + " found in shot no. " + m_shotsAccelerationsList.IndexOf(shot), ToastLength.Long).Show();
+                    });
+                }
 
                 // Todo...
 
